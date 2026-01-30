@@ -5,12 +5,6 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
-		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-		<script type="text/javascript">
-		   (function(){
-		      emailjs.init("pntx4qe9Z0rlZMJlQ");
-		   })();
-		</script>
 		<style>
 			/* ESTILO PERSONALIZADO PARA EL MENÚ TIPO BARRA NEGRA */
 			#nav {
@@ -236,6 +230,12 @@
 		<script src="assets/js/breakpoints.min.js"></script>
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+		<script type="text/javascript">
+		   (function(){
+		      emailjs.init("pntx4qe9Z0rlZMJlQ");
+		   })();
+		</script>
 		<script>
                 // Escuchar el evento de envío del formulario
                 document.getElementById('contact-form').addEventListener('submit', function(event) {
@@ -247,8 +247,8 @@
                     statusMsg.innerHTML = 'Enviando mensaje...';
 
                     // Reemplaza con tus IDs de EmailJS
-                    const serviceID = 'service_jtt047i';
-                    const templateID = 'template_nwt6mew';
+                    const serviceID = "service_jtt047i";
+                    const templateID = "template_nwt6mew";
 
                     emailjs.sendForm(serviceID, templateID, this)
                         .then(() => {
@@ -264,6 +264,7 @@
 
 	</body>
 </html>
+
 
 
 
