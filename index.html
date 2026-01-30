@@ -29,6 +29,32 @@
 				border-top: solid 1px #ffffff !important; /* Define una línea superior blanca sólida */
 				opacity: 1; /* Asegura visibilidad total */
 			}
+			/* --- ESTILOS DEL FORMULARIO: FONDO BLANCO, LETRA NEGRA --- */
+			
+			/* Esto hace que la caja sea BLANCA y la letra NEGRA */
+			#contact-form input[type="text"],
+			#contact-form input[type="email"],
+			#contact-form textarea {
+				background-color: #ffffff !important; /* Fondo Blanco */
+				color: #000000 !important;            /* Texto Negro puro */
+				border: 1px solid #cccccc !important; /* Borde gris suave */
+			}
+
+			/* Esto asegura que al hacer clic para escribir, siga siendo legible */
+			#contact-form input:focus,
+			#contact-form textarea:focus {
+				background-color: #ffffff !important; /* Mantiene fondo blanco */
+				color: #000000 !important;            /* Mantiene texto negro */
+				border-color: #000000 !important;     /* Borde negro al seleccionar */
+				outline: none;
+			}
+
+			/* Color del texto de sugerencia (ej. "Nombre Completo") */
+			#contact-form ::placeholder {
+				color: #666666 !important; /* Gris medio para que se note que es sugerencia */
+				opacity: 1;
+			}
+			
 		</style>
 	</head>
 	<body class="is-preload">
@@ -263,6 +289,7 @@
 
 	</body>
 </html>
+
 
 
 
