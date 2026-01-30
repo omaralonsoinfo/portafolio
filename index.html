@@ -5,6 +5,12 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+		<script type="text/javascript">
+		   (function(){
+		      emailjs.init("pntx4qe9Z0rlZMJlQ");
+		   })();
+		</script>
 		<style>
 			/* ESTILO PERSONALIZADO PARA EL MENÚ TIPO BARRA NEGRA */
 			#nav {
@@ -153,7 +159,7 @@
 		<article id="tech" class="wrapper style4">
 				<div class="container medium">
 					<header>
-						<h2>Información Técnica</h2>
+						<h2>Información Técnica y Contacto</h2>
 						<p>Detalles de construcción del portafolio y canal de comunicación.</p>
 					</header>
 					
@@ -161,7 +167,7 @@
 						<div class="col-12">
 							<section>
 								<ul class="alt" style="list-style: none; padding: 0;">
-									<li><strong style="color: #ffffff;">Tecnologías Utilizadas:</strong> HTML5, CSS3, JavaScript.</li>
+									<li><strong style="color: #ffffff;">Tecnologías Utilizadas:</strong> HTML5, CSS3, JavaScript (EmailJS).</li>
 									<li><strong style="color: #ffffff;">Framework/Plantilla:</strong> Miniport (HTML5 UP) adaptado.</li>
 									<li><strong style="color: #ffffff;">Control de Versiones:</strong> Git & GitHub.</li>
 									<li><strong style="color: #ffffff;">Plataforma de Publicación:</strong> GitHub Pages.</li>
@@ -174,15 +180,15 @@
 						<div class="col-12">
 							<hr />
 							<h3>Envíame un mensaje</h3>
-							<p style="font-size: 0.9em; margin-bottom: 2em;">Al enviar este formulario, recibirás una confirmación automática en tu correo.</p>
+							<p style="font-size: 0.9em; margin-bottom: 2em;">Te responderé a la brevedad. Recibirás una respuesta automática de tu mensaje.</p>
 							
-							<form method="post" action="https://formspree.io/f/mgoykgdn">
+							<form id="contact-form">
 								<div class="row">
 									<div class="col-6 col-12-small">
-										<input type="text" name="name" id="name" placeholder="Nombre Completo" required />
+										<input type="text" name="user_name" id="name" placeholder="Nombre Completo" required />
 									</div>
 									<div class="col-6 col-12-small">
-										<input type="email" name="email" id="email" placeholder="Correo Electrónico" required />
+										<input type="email" name="user_email" id="email" placeholder="Correo Electrónico" required />
 									</div>
 									<div class="col-12">
 										<input type="text" name="subject" id="subject" placeholder="Asunto" />
@@ -192,9 +198,12 @@
 									</div>
 									<div class="col-12">
 										<ul class="actions special">
-											<li><input type="submit" value="Enviar Mensaje" class="primary" /></li>
+											<li><button type="submit" class="button primary">Enviar Mensaje</button></li>
 											<li><input type="reset" value="Borrar" /></li>
 										</ul>
+									</div>
+									<div class="col-12">
+										<p id="form-status" style="display:none; font-weight:bold; margin-top:1em;"></p>
 									</div>
 								</div>
 							</form>
@@ -222,14 +231,40 @@
 			</article>
 
 		<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+		<script>
+                // Escuchar el evento de envío del formulario
+                document.getElementById('contact-form').addEventListener('submit', function(event) {
+                    event.preventDefault(); // Evita que la página se recargue
+
+                    const statusMsg = document.getElementById('form-status');
+                    statusMsg.style.display = 'block';
+                    statusMsg.style.color = '#ffffff';
+                    statusMsg.innerHTML = 'Enviando mensaje...';
+
+                    // Reemplaza con tus IDs de EmailJS
+                    const serviceID = 'TU_SERVICE_ID';
+                    const templateID = 'TU_TEMPLATE_ID';
+
+                    emailjs.sendForm(serviceID, templateID, this)
+                        .then(() => {
+                            statusMsg.style.color = '#4CAF50'; // Verde
+                            statusMsg.innerHTML = '¡Mensaje enviado con éxito! Revisa tu correo.';
+                            document.getElementById('contact-form').reset(); // Limpia el formulario
+                        }, (err) => {
+                            statusMsg.style.color = '#ff5555'; // Rojo
+                            statusMsg.innerHTML = 'Error al enviar: ' + JSON.stringify(err);
+                        });
+                });
+            </script>
 
 	</body>
 </html>
+
 
 
 
