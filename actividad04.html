@@ -1,0 +1,262 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>ACTIVIDAD 04 | Mecanismos de Defensa de Red</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <style>
+        #nav {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+            padding: 0.5em 0;
+        }
+
+        #nav ul li a {
+            color: #ffffff !important;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        #nav ul li a:hover {
+            background-color: #333333;
+        }
+
+        hr {
+            border-top: solid 1px #ccc !important;
+            opacity: 1;
+            margin: 2em 0;
+        }
+
+        .content-article {
+            background: #ffffff;
+            padding: 3em;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .content-article h2 {
+            color: #e63946;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5em;
+            margin-bottom: 1em;
+        }
+
+        .content-article h3 {
+            color: #333;
+            margin-top: 1.5em;
+            font-size: 1.3em;
+        }
+
+        .content-article h4 {
+            color: #555;
+            font-size: 1.1em;
+            margin-top: 1em;
+            font-weight: bold;
+        }
+
+        /* Estilo para bloques de código/comandos */
+        .code-block {
+            background-color: #f4f5f7;
+            border-left: 5px solid #2c3e50;
+            padding: 1em;
+            margin: 1em 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+            color: #333;
+            overflow-x: auto;
+        }
+
+        .pdf-btn {
+            background-color: #d32f2f;
+            color: white !important;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 2em;
+            font-weight: bold;
+        }
+
+        .pdf-btn:hover {
+            background-color: #b71c1c;
+        }
+
+        /* Portada interna style */
+        .cover-info {
+            text-align: center;
+            margin-bottom: 3em;
+            padding: 2em;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .cover-info h1 {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 0.5em;
+        }
+
+        .cover-info p {
+            margin: 0.2em 0;
+            color: #555;
+        }
+
+        /* Estilos para impresión (PDF) */
+        @media print {
+
+            #nav,
+            .pdf-btn,
+            #top header p:first-child,
+            footer,
+            .highlight-box {
+                display: none !important;
+            }
+
+            body {
+                background: white;
+                color: black;
+            }
+
+            .content-article {
+                box-shadow: none;
+                padding: 0;
+            }
+
+            a {
+                text-decoration: none;
+                color: black !important;
+            }
+
+            .code-block {
+                border: 1px solid #ccc;
+                border-left: 5px solid #2c3e50;
+            }
+        }
+    </style>
+</head>
+
+<body class="is-preload">
+
+    <nav id="nav">
+        <ul class="container">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="PF02.html">PF02</a></li>
+            <li><a href="PF03.html">PF03</a></li>
+            <li><a href="Final.html">Final</a></li>
+            <li><a href="actividades.html" style="background-color: #333;">Actividades</a></li>
+        </ul>
+    </nav>
+
+    <article id="top" class="wrapper style1">
+        <div class="container">
+            <header>
+                <p style="text-align: left;"><a href="actividades.html">← Volver al listado</a></p>
+                <h2>ACTIVIDAD 04: Mecanismos de Defensa de Red</h2>
+                <p>Implementación de reglas de Firewall con iptables.</p>
+            </header>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="content-article">
+
+                        <!-- Cover Content -->
+                        <div class="cover-info">
+                            <h1>MECANISMOS DE DEFENSA DE RED</h1>
+                            <p><strong>Materia:</strong> CNO V: Seguridad Informática</p>
+                            <p><strong>Alumno:</strong> Alonso Castillo Omar Karim (179033)</p>
+                            <p><strong>Profesor:</strong> Mtro. Servando López Contreras</p>
+                            <p><strong>Fecha:</strong> 04/02/2026</p>
+                        </div>
+
+                        <hr />
+
+                        <!-- Introduction/Instructions -->
+                        <p>Teniendo en cuenta la topología de red planteada, a continuación se detallan las reglas de
+                            <strong>iptables</strong> que deben aplicarse en el Firewall para llevar a cabo las acciones
+                            de filtrado y control solicitadas. Las reglas determinan, siempre que es posible, el
+                            protocolo, dirección IP origen/destino, puerto origen/destino y el estado de la conexión.
+                        </p>
+
+                        <!-- Rules Content -->
+                        <h3>1. Establecer una política restrictiva</h3>
+                        <p>Bloquear todo el tráfico entrante, saliente y de reenvío por defecto.</p>
+                        <div class="code-block">
+                            iptables -P INPUT DROP
+                            iptables -P OUTPUT DROP
+                            iptables -P FORWARD DROP
+                        </div>
+
+                        <h3>2. Permitir el tráfico de conexiones ya establecidas</h3>
+                        <p>Permitir paquetes asociados a conexiones que ya han sido iniciadas y aceptadas previamente.
+                        </p>
+                        <div class="code-block">
+                            iptables -A INPUT -p tcp -m state --state ESTABLISHED -j ACCEPT
+                        </div>
+
+                        <h3>3. Aceptar tráfico DNS (TCP) saliente de la red local</h3>
+                        <p>Permitir que las consultas DNS salgan de la red.</p>
+                        <div class="code-block">
+                            iptables -A OUTPUT -p tcp -j ACCEPT
+                        </div>
+
+                        <h3>4. Aceptar correo entrante proveniente de Internet en el servidor de correo</h3>
+                        <p>Permitir tráfico TCP entrante desde una IP específica (ejemplo 192...).</p>
+                        <div class="code-block">
+                            iptables -A INPUT -p tcp -s 192 -j ACCEPT
+                        </div>
+
+                        <h3>5. Permitir correo saliente a Internet desde el servidor de correo</h3>
+                        <p>Permitir que el servidor de correo (192.1.2.10) envíe correos (SMTP puerto 25) a cualquier
+                            destino.</p>
+                        <div class="code-block">
+                            iptables -A OUTPUT -p tcp -s 192.1.2.10 -d 0.0.0.0/0 --dport 25 -j ACCEPT
+                        </div>
+
+                        <h3>6. Aceptar conexiones HTTP desde Internet a nuestro servidor web</h3>
+                        <p>Permitir tráfico web (puerto 80) entrante hacia el servidor web (192.1.2.11).</p>
+                        <div class="code-block">
+                            iptables -A INPUT -p tcp -s 0.0.0.0/0 -d 192.1.2.11 --dport 80 -j ACCEPT
+                        </div>
+
+                        <h3>7. Permitir tráfico HTTP desde la red local a Internet</h3>
+                        <p>Permitir que la subred local (192.1.2.0/24) acceda a servidores web externos.</p>
+                        <div class="code-block">
+                            iptables -A INPUT -p tcp -s 192.1.2.0/24 -d 0.0.0.0/0 --dport 80 -j ACCEPT
+                        </div>
+
+                        <!-- Export Button -->
+                        <div style="text-align: center; margin-top: 3em;">
+                            <a href="#" class="pdf-btn" onclick="window.print(); return false;">
+                                <i class="icon solid fa-file-pdf"></i> Imprimir / Guardar como PDF
+                            </a>
+                            <p style="font-size: 0.8em; margin-top: 0.5em; color: #666;">Se abrirá el diálogo de
+                                impresión. Selecciona "Guardar como PDF".</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article class="wrapper style4">
+        <div class="container medium">
+            <footer>
+                <ul id="copyright">
+                    <li>&copy; Alonso Castillo Omar Karim. Todos los derechos reservados.</li>
+                </ul>
+            </footer>
+        </div>
+    </article>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
