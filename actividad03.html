@@ -1,0 +1,349 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>ACTIVIDAD 03 | Políticas de Filtrado iptables</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <style>
+        #nav {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+            padding: 0.5em 0;
+        }
+
+        #nav ul li a {
+            color: #ffffff !important;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        #nav ul li a:hover {
+            background-color: #333333;
+        }
+
+        hr {
+            border-top: solid 1px #ccc !important;
+            opacity: 1;
+            margin: 2em 0;
+        }
+
+        .content-article {
+            background: #ffffff;
+            padding: 3em;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .content-article h2 {
+            color: #e63946;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5em;
+            margin-bottom: 1em;
+        }
+
+        .content-article h3 {
+            color: #333;
+            margin-top: 1.5em;
+            font-size: 1.3em;
+        }
+
+        .content-article h4 {
+            color: #555;
+            font-size: 1.1em;
+            margin-top: 1em;
+            font-weight: bold;
+        }
+
+        /* Estilo para bloques de código/comandos */
+        .code-block {
+            background-color: #f4f5f7;
+            border-left: 5px solid #2c3e50;
+            padding: 1em;
+            margin: 1em 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+            color: #333;
+            overflow-x: auto;
+        }
+
+        /* Estilo tabla comparativa */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2em 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 0.75em;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        .pdf-btn {
+            background-color: #d32f2f;
+            color: white !important;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 2em;
+            font-weight: bold;
+        }
+
+        .pdf-btn:hover {
+            background-color: #b71c1c;
+        }
+
+        /* Portada interna style */
+        .cover-info {
+            text-align: center;
+            margin-bottom: 3em;
+            padding: 2em;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .cover-info h1 {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 0.5em;
+        }
+
+        .cover-info p {
+            margin: 0.2em 0;
+            color: #555;
+        }
+
+        /* Estilos para impresión (PDF) */
+        @media print {
+
+            #nav,
+            .pdf-btn,
+            #top header p:first-child,
+            footer,
+            .highlight-box {
+                display: none !important;
+            }
+
+            body {
+                background: white;
+                color: black;
+            }
+
+            .content-article {
+                box-shadow: none;
+                padding: 0;
+            }
+
+            a {
+                text-decoration: none;
+                color: black !important;
+            }
+
+            .code-block {
+                border: 1px solid #ccc;
+                border-left: 5px solid #2c3e50;
+            }
+
+            .comparison-table th {
+                background-color: #ddd !important;
+                color: black !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="is-preload">
+
+    <nav id="nav">
+        <ul class="container">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="PF02.html">PF02</a></li>
+            <li><a href="PF03.html">PF03</a></li>
+            <li><a href="Final.html">Final</a></li>
+            <li><a href="actividades.html" style="background-color: #333;">Actividades</a></li>
+        </ul>
+    </nav>
+
+    <article id="top" class="wrapper style1">
+        <div class="container">
+            <header>
+                <p style="text-align: left;"><a href="actividades.html">← Volver al listado</a></p>
+                <h2>ACTIVIDAD 03: Interpretación y traducción de políticas de filtrado en iptables</h2>
+                <p>Análisis de flujo de paquetes, tablas y reglas de firewall.</p>
+            </header>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="content-article">
+
+                        <!-- Cover Content -->
+                        <div class="cover-info">
+                            <h1>POLÍTICAS DE FILTRADO EN IPTABLES</h1>
+                            <p><strong>Materia:</strong> CNO V: Seguridad Informática</p>
+                            <p><strong>Alumno:</strong> Alonso Castillo Omar Karim (179033)</p>
+                            <p><strong>Profesor:</strong> Mtro. Servando López Contreras</p>
+                            <p><strong>Fecha:</strong> 04/02/2026</p>
+                        </div>
+
+                        <hr />
+
+                        <!-- 1. Flujo del Paquete -->
+                        <h3>1. Flujo del Paquete</h3>
+                        <p>Cuando un paquete llega al sistema, el flujo de procesamiento sigue un orden jerárquico
+                            específico:</p>
+                        <ul>
+                            <li>Primero pasa por una <strong>(TABLA)</strong>.</li>
+                            <li>Después por una <strong>(CADENA)</strong>.</li>
+                            <li>Finalmente se ejecuta una <strong>(REGLA)</strong>.</li>
+                        </ul>
+
+                        <!-- 2. Relación de Tablas -->
+                        <h3>2. Tablas y Propósitos</h3>
+                        <table class="comparison-table">
+                            <tr>
+                                <th>Tabla</th>
+                                <th>Propósito principal</th>
+                                <th>Ejemplo de uso</th>
+                            </tr>
+                            <tr>
+                                <td><strong>FILTER</strong></td>
+                                <td>Decidir si un paquete se acepta o rechaza.</td>
+                                <td>Firewall</td>
+                            </tr>
+                            <tr>
+                                <td><strong>NAT</strong></td>
+                                <td>Modificar direcciones IP o puertos (origen/destino).</td>
+                                <td>Enrutamiento</td>
+                            </tr>
+                            <tr>
+                                <td><strong>MANGLE</strong></td>
+                                <td>Modificar cabeceras de paquetes (TOS, TTL).</td>
+                                <td>QoS (Calidad de Servicio)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>RAW</strong></td>
+                                <td>Configurar excepciones al rastreo de conexiones.</td>
+                                <td>Exención de stateful</td>
+                            </tr>
+                            <tr>
+                                <td><strong>SECURITY</strong></td>
+                                <td>Establecer marcas de seguridad (SELinux).</td>
+                                <td>Control MAC</td>
+                            </tr>
+                        </table>
+
+                        <!-- 3. Anatomía de un comando -->
+                        <h3>3. Anatomía de un comando iptables</h3>
+                        <p>Estructura general para definir una regla:</p>
+                        <div class="code-block">
+                            iptables -A (CADENA) -p tcp -m (MATCH MODULE) --dports 80,443 -j (ACCION)
+                        </div>
+
+                        <!-- 4. Interpretación de comando -->
+                        <h3>4. Interpretación de comando</h3>
+                        <p>El comando anterior permite:</p>
+                        <p><strong>Tráfico del puerto HTTP y HTTPS.</strong></p>
+
+                        <!-- 5. Variables y opciones comunes -->
+                        <h3>5. Variables y opciones comunes</h3>
+                        <ul>
+                            <li><strong>a) Limitar intentos por minuto:</strong> <br><code>--limit 5/minute</code></li>
+                            <li><strong>b) Filtrar por IP de origen:</strong> <br><code>-s 192.168.25.1/24</code></li>
+                            <li><strong>c) Ver solo números, sin DNS (ni resolución de puertos):</strong>
+                                <br><code>-L -n</code></li>
+                            <li><strong>d) Ver reglas con contadores (paquetes y bytes):</strong> <br><code>-L -v</code>
+                            </li>
+                        </ul>
+
+                        <!-- 6. Análisis de Regla -->
+                        <h3>6. ¿Que hace esta regla?</h3>
+                        <div class="code-block">
+                            iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,80,443 -m state --state
+                            NEW,ESTABLISHED -j ACCEPT
+                        </div>
+                        <p>Permite el tráfico TCP entrante por la interfaz <strong>eth0</strong> a los puertos
+                            <strong>22, 80 y 443</strong>, siempre que sea parte de una conexión <strong>nueva o
+                                establecida</strong>.</p>
+
+                        <!-- 7. Regla HTTP Entrante -->
+                        <h3>7. Permitir tráfico HTTP entrante</h3>
+                        <div class="code-block">
+                            iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+                        </div>
+
+                        <!-- 8. Regla Tráfico Saliente -->
+                        <h3>8. Permitir todo el tráfico saliente</h3>
+                        <div class="code-block">
+                            iptables -A OUTPUT -j ACCEPT
+                        </div>
+
+                        <!-- 9. Regla SSH Específica -->
+                        <h3>9. Permitir SSH solo desde la IP 192.168.1.50</h3>
+                        <div class="code-block">
+                            iptables -A INPUT -p tcp -s 192.168.1.50 --dport 22 -j ACCEPT
+                        </div>
+
+                        <!-- 10. Regla Conexiones Establecidas -->
+                        <h3>10. Permitir tráfico TCP entrante a puertos 80 y 443 solo si es conexión establecida o
+                            relacionada</h3>
+                        <div class="code-block">
+                            iptables -A INPUT -p tcp -m multiport --dports 80,443 -m conntrack --ctstate
+                            ESTABLISHED,RELATED -j ACCEPT
+                        </div>
+
+                        <!-- 11. Regla Compleja (Log + Accept) -->
+                        <h3>11. Permitir tráfico TCP entrante por eth0 a 22, 80 y 443 con registro (LOG)</h3>
+                        <p><strong>Regla para registrar los intentos:</strong></p>
+                        <div class="code-block">
+                            iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,80,443 -m conntrack --ctstate
+                            NEW,ESTABLISHED -j LOG --log-prefix "Intento Acceso: "
+                        </div>
+                        <p><strong>Regla para permitir el tráfico:</strong></p>
+                        <div class="code-block">
+                            iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,80,443 -m conntrack --ctstate
+                            NEW,ESTABLISHED -j ACCEPT
+                        </div>
+
+                        <!-- Export Button -->
+                        <div style="text-align: center; margin-top: 3em;">
+                            <a href="#" class="pdf-btn" onclick="window.print(); return false;">
+                                <i class="icon solid fa-file-pdf"></i> Imprimir / Guardar como PDF
+                            </a>
+                            <p style="font-size: 0.8em; margin-top: 0.5em; color: #666;">Se abrirá el diálogo de
+                                impresión. Selecciona "Guardar como PDF".</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article class="wrapper style4">
+        <div class="container medium">
+            <footer>
+                <ul id="copyright">
+                    <li>&copy; Alonso Castillo Omar Karim. Todos los derechos reservados.</li>
+                </ul>
+            </footer>
+        </div>
+    </article>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
