@@ -1,0 +1,443 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>ACTIVIDAD 05 | Cartografiando el Pentesting</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <style>
+        #nav {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+            padding: 0.5em 0;
+        }
+
+        #nav ul li a {
+            color: #ffffff !important;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        #nav ul li a:hover {
+            background-color: #333333;
+        }
+
+        hr {
+            border-top: solid 1px #ccc !important;
+            opacity: 1;
+            margin: 2em 0;
+        }
+
+        .content-article {
+            background: #ffffff;
+            padding: 3em;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+            /* Allow horizontal scroll for large tables */
+        }
+
+        .content-article h2 {
+            color: #e63946;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5em;
+            margin-bottom: 1em;
+        }
+
+        .content-article h3 {
+            color: #333;
+            margin-top: 1.5em;
+            font-size: 1.3em;
+        }
+
+        .content-article h4 {
+            color: #555;
+            font-size: 1.1em;
+            margin-top: 1em;
+            font-weight: bold;
+        }
+
+        /* Estilo tabla comparativa */
+        .comparison-table {
+            width: 100%;
+            min-width: 1000px;
+            /* Force width to ensure readability */
+            border-collapse: collapse;
+            margin: 2em 0;
+            font-size: 0.9em;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 0.75em;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .comparison-table th {
+            background-color: #008080;
+            /* Teal color from the image */
+            color: white;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .pdf-btn {
+            background-color: #d32f2f;
+            color: white !important;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 2em;
+            font-weight: bold;
+        }
+
+        .pdf-btn:hover {
+            background-color: #b71c1c;
+        }
+
+        /* Portada interna style */
+        .cover-info {
+            text-align: center;
+            margin-bottom: 3em;
+            padding: 2em;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .cover-info h1 {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 0.5em;
+        }
+
+        .cover-info h2 {
+            font-size: 1.4em;
+            color: #3498db;
+            border-bottom: none;
+            margin-bottom: 0.5em;
+        }
+
+        .cover-info p {
+            margin: 0.2em 0;
+            color: #555;
+        }
+
+        /* Estilos para impresión (PDF) */
+        @media print {
+
+            #nav,
+            .pdf-btn,
+            #top header p:first-child,
+            footer,
+            .highlight-box {
+                display: none !important;
+            }
+
+            body {
+                background: white;
+                color: black;
+            }
+
+            .content-article {
+                box-shadow: none;
+                padding: 0;
+            }
+
+            a {
+                text-decoration: none;
+                color: black !important;
+            }
+
+            .comparison-table th {
+                background-color: #ddd !important;
+                color: black !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="is-preload">
+
+    <nav id="nav">
+        <ul class="container">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="PF02.html">PF02</a></li>
+            <li><a href="PF03.html">PF03</a></li>
+            <li><a href="Final.html">Final</a></li>
+            <li><a href="actividades.html" style="background-color: #333;">Actividades</a></li>
+        </ul>
+    </nav>
+
+    <article id="top" class="wrapper style1">
+        <div class="container">
+            <header>
+                <p style="text-align: left;"><a href="actividades.html">← Volver al listado</a></p>
+                <h2>ACTIVIDAD 05: Cartografiando el Pentesting</h2>
+                <p>Análisis Comparativo de Metodologías de Seguridad Informática.</p>
+            </header>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="content-article">
+
+                        <!-- Cover Content -->
+                        <div class="cover-info">
+                            <h2>ACTIVIDAD 05</h2>
+                            <h1>CARTOGRAFIANDO EL PENTESTING: ANÁLISIS COMPARATIVO DE METODOLOGÍAS DE SEGURIDAD
+                                INFORMÁTICA</h1>
+                            <p><strong>Alumno:</strong> Alonso Castillo Omar Karim (179033)</p>
+                            <br>
+                            <p><strong>Materia:</strong> CNO V – Ciberseguridad</p>
+                            <p><strong>Profesor:</strong> Mtro. Servando López Contreras</p>
+                            <br>
+                            <p>Universidad Politécnica de San Luis Potosí</p>
+                        </div>
+
+                        <hr />
+
+                        <!-- Table Content -->
+                        <h3>Análisis Comparativo</h3>
+                        <div style="overflow-x:auto;">
+                            <table class="comparison-table">
+                                <thead>
+                                    <tr>
+                                        <th>Metodología</th>
+                                        <th>Descripción</th>
+                                        <th>Fases de Implementación</th>
+                                        <th>Objetivo Principal</th>
+                                        <th>Escenarios de Uso</th>
+                                        <th>Orientación</th>
+                                        <th>Autor u Organismo</th>
+                                        <th>Certificaciones</th>
+                                        <th>Vigencia o Versión</th>
+                                        <th>URL Oficial</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- MITRE ATT&CK -->
+                                    <tr>
+                                        <td><strong>MITRE ATT&CK</strong></td>
+                                        <td>Base de conocimiento de tácticas y técnicas adversarias basadas en
+                                            observaciones del mundo real.</td>
+                                        <td>
+                                            <ol>
+                                                <li>Reconnaissance</li>
+                                                <li>Resource Development</li>
+                                                <li>Initial Access</li>
+                                                <li>Execution</li>
+                                                <li>Persistence</li>
+                                                <li>Privilege Escalation</li>
+                                                <li>Defense Evasion</li>
+                                                <li>Credential Access</li>
+                                                <li>Discovery</li>
+                                                <li>Lateral Movement</li>
+                                                <li>Collection</li>
+                                                <li>Command and Control</li>
+                                                <li>Exfiltration</li>
+                                                <li>Impact</li>
+                                            </ol>
+                                        </td>
+                                        <td>Clasificación y entendimiento del comportamiento del adversario.</td>
+                                        <td>Threat Intelligence, Detección de intrusos, Emulación de adversarios.</td>
+                                        <td>Ofensiva (Adversary Simulation) / Defensiva</td>
+                                        <td>MITRE Corporation</td>
+                                        <td>MITRE ATT&CK Defender (MAD)</td>
+                                        <td>v18 (Oct 2025)</td>
+                                        <td><a href="https://attack.mitre.org" target="_blank">attack.mitre.org</a></td>
+                                    </tr>
+
+                                    <!-- OWASP WSTG -->
+                                    <tr>
+                                        <td><strong>OWASP WSTG</strong></td>
+                                        <td>Guía principal para pruebas de seguridad en aplicaciones web y servicios
+                                            web.</td>
+                                        <td>
+                                            <ol>
+                                                <li>Information Gathering</li>
+                                                <li>Config. & Deployment Management Testing</li>
+                                                <li>Identity Management Testing</li>
+                                                <li>Authentication Testing</li>
+                                                <li>Authorization Testing</li>
+                                                <li>Session Management Testing</li>
+                                                <li>Input Validation Testing</li>
+                                                <li>Error Handling</li>
+                                                <li>Cryptography</li>
+                                                <li>Business Logic Testing</li>
+                                                <li>Client-side Testing</li>
+                                                <li>API Testing</li>
+                                            </ol>
+                                        </td>
+                                        <td>Evaluación técnica de seguridad en aplicaciones web.</td>
+                                        <td>Auditoría de aplicaciones Web, Desarrollo Seguro (SDLC).</td>
+                                        <td>Evaluación / Testing</td>
+                                        <td>OWASP Foundation</td>
+                                        <td>N/A (Estándar abierto)</td>
+                                        <td>v4.2 (Stable) / v5 (Dev)</td>
+                                        <td><a href="https://owasp.org/www-project-web-security-testing-guide/"
+                                                target="_blank">owasp.org/wstg</a></td>
+                                    </tr>
+
+                                    <!-- NIST SP 800-115 -->
+                                    <tr>
+                                        <td><strong>NIST SP 800-115</strong></td>
+                                        <td>Guía técnica para realizar evaluaciones de seguridad de la información.</td>
+                                        <td>
+                                            <ol>
+                                                <li>Planning</li>
+                                                <li>Discovery</li>
+                                                <li>Attack</li>
+                                                <li>Reporting</li>
+                                            </ol>
+                                        </td>
+                                        <td>Estandarización de evaluaciones técnicas para gestión de riesgos.</td>
+                                        <td>Gobierno federal (EE.UU.), Cumplimiento normativo, Empresas.</td>
+                                        <td>Evaluación / Auditoría</td>
+                                        <td>NIST (National Institute of Standards and Technology)</td>
+                                        <td>N/A (Referencia para otras certs)</td>
+                                        <td>Rev 1 (2008) - Vigente</td>
+                                        <td><a href="https://csrc.nist.gov" target="_blank">csrc.nist.gov</a></td>
+                                    </tr>
+
+                                    <!-- OSSTMM -->
+                                    <tr>
+                                        <td><strong>OSSTMM</strong></td>
+                                        <td>Manual de metodología científica para pruebas de seguridad operativa y
+                                            métricas.</td>
+                                        <td>
+                                            <ol>
+                                                <li>Induction Phase</li>
+                                                <li>Interaction Phase</li>
+                                                <li>Investigation Phase</li>
+                                                <li>Intervention Phase</li>
+                                            </ol>
+                                        </td>
+                                        <td>Medición científica de la seguridad operativa (métricas).</td>
+                                        <td>Auditoría de seguridad operativa, Medición de confianza.</td>
+                                        <td>Evaluación / Auditoría</td>
+                                        <td>ISECOM</td>
+                                        <td>OPST, OPSA, OPSE</td>
+                                        <td>v3.0 (Oficial) / v4 (Draft)</td>
+                                        <td><a href="https://www.isecom.org" target="_blank">isecom.org</a></td>
+                                    </tr>
+
+                                    <!-- PTES -->
+                                    <tr>
+                                        <td><strong>PTES</strong></td>
+                                        <td>Estándar ejecutiva para realizar pruebas de penetración completas y
+                                            estructuradas.</td>
+                                        <td>
+                                            <ol>
+                                                <li>Pre-engagement Interactions</li>
+                                                <li>Intelligence Gathering</li>
+                                                <li>Threat Modeling</li>
+                                                <li>Vulnerability Analysis</li>
+                                                <li>Exploitation</li>
+                                                <li>Post Exploitation</li>
+                                                <li>Reporting</li>
+                                            </ol>
+                                        </td>
+                                        <td>Estandarizar la ejecución y reporte de pentesting profesional.</td>
+                                        <td>Consultoría de Pentesting, Pruebas de penetración comerciales.</td>
+                                        <td>Ataque (Simulación)</td>
+                                        <td>PTES Team (Comunidad)</td>
+                                        <td>N/A</td>
+                                        <td>V1.0 (Estándar continuo)</td>
+                                        <td><a href="http://www.pentest-standard.org/"
+                                                target="_blank">pentest-standard.org</a></td>
+                                    </tr>
+
+                                    <!-- ISSAF -->
+                                    <tr>
+                                        <td><strong>ISSAF</strong></td>
+                                        <td>Framework estructurado (antiguo) que vincula fases de pentesting con
+                                            herramientas específicas.</td>
+                                        <td>
+                                            <ol>
+                                                <li>Planning and Preparation</li>
+                                                <li>Assessment
+                                                    <ul>
+                                                        <li style="font-size:0.8em">Steps: Info Gathering, Network
+                                                            Mapping, Vuln ID, Penetration, Gaining Access, Priv Esc,
+                                                            Maintaining Access, Covering Tracks</li>
+                                                    </ul>
+                                                </li>
+                                                <li>Reporting, Cleanup & Destroy Artifacts</li>
+                                            </ol>
+                                        </td>
+                                        <td>Guía detallada paso a paso vinculada a herramientas.</td>
+                                        <td>Formación académica, Referencia histórica de pentesting.</td>
+                                        <td>Evaluación / Ataque</td>
+                                        <td>OISSG (Open Information Systems Security Group)</td>
+                                        <td>N/A (Descontinuada)</td>
+                                        <td>Legacy / Descontinuado</td>
+                                        <td>N/A (Sitio inactivo)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Bibliography -->
+                        <h3>Bibliografía / Referencias</h3>
+                        <ul>
+                            <li><strong>MITRE Corporation.</strong> (2025). <em>MITRE ATT&CK®: Design and
+                                    Philosophy</em>. Recuperado de <a href="https://attack.mitre.org"
+                                    target="_blank">https://attack.mitre.org</a></li>
+                            <li><strong>OWASP Foundation.</strong> (2020). <em>Web Security Testing Guide (WSTG)
+                                    v4.2</em>. Recuperado de <a
+                                    href="https://owasp.org/www-project-web-security-testing-guide/"
+                                    target="_blank">https://owasp.org/www-project-web-security-testing-guide/</a></li>
+                            <li><strong>NIST.</strong> (2008). <em>Technical Guide to Information Security Testing and
+                                    Assessment (SP 800-115)</em>. National Institute of Standards and Technology.
+                                Recuperado de <a href="https://csrc.nist.gov/publications/detail/sp/800-115/final"
+                                    target="_blank">https://csrc.nist.gov/publications/detail/sp/800-115/final</a></li>
+                            <li><strong>ISECOM.</strong> (2010). <em>The Open Source Security Testing Methodology Manual
+                                    (OSSTMM) 3.0</em>. Recuperado de <a href="https://www.isecom.org/"
+                                    target="_blank">https://www.isecom.org/</a></li>
+                            <li><strong>The PTES Team.</strong> (2014). <em>The Penetration Testing Execution
+                                    Standard</em>. Recuperado de <a href="http://www.pentest-standard.org/"
+                                    target="_blank">http://www.pentest-standard.org/</a></li>
+                            <li><strong>OISSG.</strong> (Legacy). <em>Information Systems Security Assessment Framework
+                                    (ISSAF)</em>. (Nota: El proyecto oficial se encuentra descontinuado y su sitio web
+                                inactivo, se conserva como referencia académica).</li>
+                        </ul>
+
+                        <!-- Export Button -->
+                        <div style="text-align: center; margin-top: 3em;">
+                            <a href="#" class="pdf-btn" onclick="window.print(); return false;">
+                                <i class="icon solid fa-file-pdf"></i> Imprimir / Guardar como PDF
+                            </a>
+                            <p style="font-size: 0.8em; margin-top: 0.5em; color: #666;">Se abrirá el diálogo de
+                                impresión. Selecciona "Guardar como PDF".</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article class="wrapper style4">
+        <div class="container medium">
+            <footer>
+                <ul id="copyright">
+                    <li>&copy; Alonso Castillo Omar Karim. Todos los derechos reservados.</li>
+                </ul>
+            </footer>
+        </div>
+    </article>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
