@@ -1,0 +1,183 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Portafolio Digital | Actividades</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <style>
+        /* ESTILO PERSONALIZADO PARA EL MENÚ TIPO BARRA NEGRA */
+        #nav {
+            background-color: #000000 !important;
+            /* Fondo Negro */
+            color: #ffffff !important;
+            padding: 0.5em 0;
+        }
+
+        #nav ul li a {
+            color: #ffffff !important;
+            /* Letras Blancas */
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        #nav ul li a:hover {
+            background-color: #333333;
+            /* Gris oscuro al pasar el mouse */
+        }
+
+        @media screen and (max-width: 736px) {
+            .col-3 {
+                width: 50% !important;
+                margin-bottom: 2em;
+            }
+        }
+
+        hr {
+            border-top: solid 1px #ffffff !important;
+            opacity: 1;
+        }
+
+        /* Estilos específicos para el listado de actividades */
+        .activity-card {
+            background: #fdfdfd;
+            border: 1px solid #ddd;
+            padding: 2em;
+            margin-bottom: 2em;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .activity-card h3 {
+            margin-bottom: 0.5em;
+        }
+
+        .activity-pending {
+            opacity: 0.7;
+            border-left: 5px solid #ccc;
+        }
+
+        .activity-active {
+            border-left: 5px solid #43B3E0;
+        }
+
+        .pending-label {
+            font-size: 0.8em;
+            color: #e67e22;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body class="is-preload">
+
+    <nav id="nav">
+        <ul class="container">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="PF02.html">PF02</a></li>
+            <li><a href="PF03.html">PF03</a></li>
+            <li><a href="Final.html">Final</a></li>
+            <li><a href="actividades.html" style="background-color: #333;">Actividades</a></li>
+        </ul>
+    </nav>
+
+    <article id="top" class="wrapper style1">
+        <div class="container">
+            <header>
+                <h2>Actividades del Curso</h2>
+                <p>Índice de actividades prácticas y análisis realizados.</p>
+            </header>
+
+            <div class="row">
+                <div class="col-12">
+                    <!-- ACTIVIDAD 01 -->
+                    <section class="activity-card activity-active">
+                        <h3>
+                            <a href="actividad01.html">ACTIVIDAD 01 - Análisis en grupo de un ciberataque real y su
+                                impacto empresarial</a>
+                        </h3>
+                        <p>Desglose técnico y ejecutivo del ciberataque a PEMEX (DoppelPaymer). Incluye línea de tiempo,
+                            análisis de vulnerabilidades y lecciones aprendidas.</p>
+                        <a href="actividad01.html" class="button">Leer Artículo</a>
+                    </section>
+
+                    <!-- ACTIVIDAD 02 -->
+                    <section class="activity-card activity-pending">
+                        <h3>
+                            ACTIVIDAD 02 - Análisis de servicios de seguridad (X.800 y RFC 4949)
+                            <span class="pending-label">[PENDIENTE]</span>
+                        </h3>
+                        <p>Descripción pendiente...</p>
+                    </section>
+
+                    <!-- ACTIVIDAD 03 -->
+                    <section class="activity-card activity-pending">
+                        <h3>
+                            ACTIVIDAD 03 - Interpretación y traducción de políticas de filtrado en iptables
+                            <span class="pending-label">[PENDIENTE]</span>
+                        </h3>
+                        <p>Descripción pendiente...</p>
+                    </section>
+
+                    <!-- ACTIVIDAD 04 -->
+                    <section class="activity-card activity-pending">
+                        <h3>
+                            ACTIVIDAD 04 - Mecanismos de defensa en red
+                            <span class="pending-label">[PENDIENTE]</span>
+                        </h3>
+                        <p>Descripción pendiente...</p>
+                    </section>
+
+                    <!-- ACTIVIDAD 05 -->
+                    <section class="activity-card activity-pending">
+                        <h3>
+                            ACTIVIDAD 05 - Cartografiando el pentesting: análisis comparativo de metodologías de
+                            seguridad informática
+                            <span class="pending-label">[PENDIENTE]</span>
+                        </h3>
+                        <p>Descripción pendiente...</p>
+                    </section>
+
+                    <!-- ACTIVIDAD 06 -->
+                    <section class="activity-card activity-pending">
+                        <h3>
+                            ACTIVIDAD 06 - Implementación de IPSec VPN
+                            <span class="pending-label">[PENDIENTE]</span>
+                        </h3>
+                        <p>Descripción pendiente...</p>
+                    </section>
+                </div>
+            </div>
+
+        </div>
+    </article>
+
+    <article class="wrapper style4">
+        <div class="container medium">
+            <footer>
+                <ul id="copyright">
+                    <li>&copy; Alonso Castillo Omar Karim. Todos los derechos reservados.</li>
+                    <li>Diseño base: <a href="http://html5up.net">HTML5 UP</a></li>
+                </ul>
+            </footer>
+        </div>
+    </article>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
