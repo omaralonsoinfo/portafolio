@@ -1,305 +1,333 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<title>Portafolio Digital | Seguridad Informática</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<style>
-			/* ESTILO PERSONALIZADO PARA EL MENÚ TIPO BARRA NEGRA */
-			#nav {
-				background-color: #000000 !important; /* Fondo Negro */
-				color: #ffffff !important;
-				padding: 0.5em 0;
-			}
-			#nav ul li a {
-				color: #ffffff !important; /* Letras Blancas */
-				font-weight: bold;
-				border-radius: 4px;
-			}
-			#nav ul li a:hover {
-				background-color: #333333; /* Gris oscuro al pasar el mouse */
-			}
-			/* Ajuste para que el texto de 'Final' y otros no se rompa en celular */
-			@media screen and (max-width: 736px) {
-				.col-3 { width: 50% !important; margin-bottom: 2em; }
-			}
-			hr {
-				/*border: 0; /* Quita el estilo 3D por defecto */
-				border-top: solid 1px #ffffff !important; /* Define una línea superior blanca sólida */
-				opacity: 1; /* Asegura visibilidad total */
-			}
-			/* --- ESTILOS DEL FORMULARIO: FONDO BLANCO, LETRA NEGRA --- */
-			
-			/* Esto hace que la caja sea BLANCA y la letra NEGRA */
-			#contact-form input[type="text"],
-			#contact-form input[type="email"],
-			#contact-form textarea {
-				background-color: #ffffff !important; /* Fondo Blanco */
-				color: #000000 !important;            /* Texto Negro puro */
-				border: 1px solid #cccccc !important; /* Borde gris suave */
-			}
 
-			/* Esto asegura que al hacer clic para escribir, siga siendo legible */
-			#contact-form input:focus,
-			#contact-form textarea:focus {
-				background-color: #ffffff !important; /* Mantiene fondo blanco */
-				color: #000000 !important;            /* Mantiene texto negro */
-				border-color: #000000 !important;     /* Borde negro al seleccionar */
-				outline: none;
+<head>
+	<title>Portafolio Digital | Seguridad Informática</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<style>
+		/* ESTILO PERSONALIZADO PARA EL MENÚ TIPO BARRA NEGRA */
+		#nav {
+			background-color: #000000 !important;
+			/* Fondo Negro */
+			color: #ffffff !important;
+			padding: 0.5em 0;
+		}
+
+		#nav ul li a {
+			color: #ffffff !important;
+			/* Letras Blancas */
+			font-weight: bold;
+			border-radius: 4px;
+		}
+
+		#nav ul li a:hover {
+			background-color: #333333;
+			/* Gris oscuro al pasar el mouse */
+		}
+
+		/* Ajuste para que el texto de 'Final' y otros no se rompa en celular */
+		@media screen and (max-width: 736px) {
+			.col-3 {
+				width: 50% !important;
+				margin-bottom: 2em;
 			}
+		}
 
-			/* Color del texto de sugerencia (ej. "Nombre Completo") */
-			#contact-form ::placeholder {
-				color: #666666 !important; /* Gris medio para que se note que es sugerencia */
-				opacity: 1;
-			}
-			
-		</style>
-	</head>
-	<body class="is-preload">
+		hr {
+			/*border: 0; /* Quita el estilo 3D por defecto */
+			border-top: solid 1px #ffffff !important;
+			/* Define una línea superior blanca sólida */
+			opacity: 1;
+			/* Asegura visibilidad total */
+		}
 
-		<nav id="nav">
-				<ul class="container">
-					<li><a href="#top">Inicio</a></li>
-					<li><a href="#evidencias">PF02</a></li>
-					<li><a href="#evidencias">PF03</a></li>
-					<li><a href="#evidencias">Final</a></li>
-				</ul>
-			</nav>
+		/* --- ESTILOS DEL FORMULARIO: FONDO BLANCO, LETRA NEGRA --- */
 
-		<article id="top" class="wrapper style1">
-				<div class="container">
-					<div class="row">
-						<div class="col-4 col-5-large col-12-medium">
-							<span class="image fit"><img src="images/ProfileD.JPEG" alt="Foto de Perfil" /></span>
-						</div>
-						<div class="col-8 col-7-large col-12-medium">
-							<header>
-								<h1 style="line-height: 1.4em; margin-bottom: 0.5em;">
-									¡Hola! Soy <strong>Alonso Castillo Omar Karim</strong>.
-								</h1>
-							</header>
-							<p>Alias: <strong>omarwww7</strong></p>
-							<p>Bienvenido a mi portafolio oficial para la asignatura <strong>CNO V – Seguridad Informática</strong>.<br />
-							<strong>Institución:</strong> Universidad Politécnica de San Luis Potosí<br />
-							<strong>Semestre:</strong> 9+ | <strong>Periodo:</strong> Primavera 2026</p>
-							
-							<a href="#about" class="button large scrolly">Ver Propósito y Perfil</a>
-						</div>
-					</div>
+		/* Esto hace que la caja sea BLANCA y la letra NEGRA */
+		#contact-form input[type="text"],
+		#contact-form input[type="email"],
+		#contact-form textarea {
+			background-color: #ffffff !important;
+			/* Fondo Blanco */
+			color: #000000 !important;
+			/* Texto Negro puro */
+			border: 1px solid #cccccc !important;
+			/* Borde gris suave */
+		}
+
+		/* Esto asegura que al hacer clic para escribir, siga siendo legible */
+		#contact-form input:focus,
+		#contact-form textarea:focus {
+			background-color: #ffffff !important;
+			/* Mantiene fondo blanco */
+			color: #000000 !important;
+			/* Mantiene texto negro */
+			border-color: #000000 !important;
+			/* Borde negro al seleccionar */
+			outline: none;
+		}
+
+		/* Color del texto de sugerencia (ej. "Nombre Completo") */
+		#contact-form ::placeholder {
+			color: #666666 !important;
+			/* Gris medio para que se note que es sugerencia */
+			opacity: 1;
+		}
+	</style>
+</head>
+
+<body class="is-preload">
+
+	<nav id="nav">
+		<ul class="container">
+			<li><a href="index.html">Inicio</a></li>
+			<li><a href="PF02.html">PF02</a></li>
+			<li><a href="PF03.html">PF03</a></li>
+			<li><a href="Final.html">Final</a></li>
+		</ul>
+	</nav>
+
+	<article id="top" class="wrapper style1">
+		<div class="container">
+			<div class="row">
+				<div class="col-4 col-5-large col-12-medium">
+					<span class="image fit"><img src="images/ProfileD.JPEG" alt="Foto de Perfil" /></span>
 				</div>
-			</article>
-
-		<article id="about" class="wrapper style2">
-				<div class="container">
+				<div class="col-8 col-7-large col-12-medium">
 					<header>
-						<h2>Propósito del Portafolio</h2>
-						<p>Contenedor oficial de  evidencias de aprendizaje de la materia, documentando el progreso en el análisis de vulnerabilidades, pruebas de penetración y metodologías de seguridad informática.</p>
+						<h1 style="line-height: 1.4em; margin-bottom: 0.5em;">
+							¡Hola! Soy <strong>Alonso Castillo Omar Karim</strong>.
+						</h1>
 					</header>
-					<div class="row aln-center">
-						<div class="col-4 col-6-medium col-12-small">
-							<section class="box style1">
-								<span class="icon featured fa-user"></span>
-								<h3>Semblanza Académica</h3>
-								<p>Estudiante de ingeniería con experiencia en el ciclo de vida de desarrollo de software. He liderado la implementación técnica de proyectos de gestión de almacenes, desarrollo de videojuegos y arquitecturas web, integrando lógica de programación robusta.</p>
-							</section>
-						</div>
-						<div class="col-4 col-6-medium col-12-small">
-							<section class="box style1">
-								<span class="icon solid featured fa-shield-alt"></span>
-								<h3>Intereses en Seguridad</h3>
-								<p>Enfoque dirigido hacia la Ciberseguridad Ofensiva y Defensiva. Interés particular en el Hacking Ético, análisis de amenazas digitales, protocolos de protección de infraestructura y mitigación de riesgos en entornos corporativos.</p>
-							</section>
-						</div>
-						<div class="col-4 col-6-medium col-12-small">
-							<section class="box style1">
-								<span class="icon solid featured fa-laptop"></span>
-								<h3>Conocimientos Técnicos</h3>
-								<ul style="list-style-type: none; padding: 0;">
-									<li>Programación en C y Java</li>
-									<li>Diseño y Programación Web</li>
-									<li>Gestión de Bases de Datos</li>
-									<li>Manejo de CLI en Linux</li>
-									<li>Gestión de redes en entornos Corporativos</li>
-									<li>Soporte técnico</li>
-								</ul>
-							</section>
-						</div>
-					</div>
-					<footer>
-						<a href="#evidencias" class="button large scrolly">Ver Estructura de Evidencias</a>
-					</footer>
+					<p>Alias: <strong>omarwww7</strong></p>
+					<p>Bienvenido a mi portafolio oficial para la asignatura <strong>CNO V – Seguridad
+							Informática</strong>.<br />
+						<strong>Institución:</strong> Universidad Politécnica de San Luis Potosí<br />
+						<strong>Semestre:</strong> 9+ | <strong>Periodo:</strong> Primavera 2026
+					</p>
+
+					<a href="#about" class="button large scrolly">Ver Propósito y Perfil</a>
 				</div>
-			</article>
+			</div>
+		</div>
+	</article>
 
-		<article id="evidencias" class="wrapper style3">
-				<div class="container">
-					<header>
-						<h2>Evidencias Académicas</h2>
-						<p>Estructura base para las entregas progresivas del curso.</p>
-					</header>
-					<div class="row">
-						<div class="col-3 col-6-medium col-12-small">
-							<article class="box style2">
-								<a href="#" class="image featured"><img src="images/pic01.jpg" alt="Entrega 1" /></a>
-								<h3><a href="#">PF01: Portafolio</a></h3>
-								<p>Diseño e implementación de la estructura base, identidad técnica y despliegue del sitio web (Estado: Completado).</p>
-							</article>
-						</div>
-						<div class="col-3 col-6-medium col-12-small">
-							<article class="box style2">
-								<a href="#" class="image featured"><img src="images/pic02.jpg" alt="Pendiente" /></a>
-								<h3><a href="#">PF02: [Pendiente]</a></h3>
-								<p>Espacio reservado para la documentación y evidencias correspondientes al segundo parcial del curso.</p>
-							</article>
-						</div>
-						<div class="col-3 col-6-medium col-12-small">
-							<article class="box style2">
-								<a href="#" class="image featured"><img src="images/pic03.jpg" alt="Pendiente" /></a>
-								<h3><a href="#">PF03: [Pendiente]</a></h3>
-								<p>Espacio reservado para la documentación y evidencias correspondientes al tercer parcial del curso.</p>
-							</article>
-						</div>
-						<div class="col-3 col-6-medium col-12-small">
-							<article class="box style2">
-								<a href="#" class="image featured"><img src="images/pic04.jpg" alt="Proyecto Final" /></a>
-								<h3><a href="#">Final: [Pendiente]</a></h3>
-								<p>Espacio reservado para la integración final de competencias y proyecto de cierre de la asignatura.</p>
-							</article>
-						</div>
-					</div>
-					<footer>
-						<p>La documentación se actualizará conforme avance el semestre.</p>
-						<a href="#tech" class="button large scrolly">Ver Información Técnica</a>
-					</footer>
+	<article id="about" class="wrapper style2">
+		<div class="container">
+			<header>
+				<h2>Propósito del Portafolio</h2>
+				<p>Contenedor oficial de evidencias de aprendizaje de la materia, documentando el progreso en el
+					análisis de vulnerabilidades, pruebas de penetración y metodologías de seguridad informática.</p>
+			</header>
+			<div class="row aln-center">
+				<div class="col-4 col-6-medium col-12-small">
+					<section class="box style1">
+						<span class="icon featured fa-user"></span>
+						<h3>Semblanza Académica</h3>
+						<p>Estudiante de ingeniería con experiencia en el ciclo de vida de desarrollo de software. He
+							liderado la implementación técnica de proyectos de gestión de almacenes, desarrollo de
+							videojuegos y arquitecturas web, integrando lógica de programación robusta.</p>
+					</section>
 				</div>
-			</article>
-
-		<article id="tech" class="wrapper style4">
-				<div class="container medium">
-					<header>
-						<h2>Información Técnica y Contacto</h2>
-						<p>Detalles de construcción del portafolio y canal de comunicación.</p>
-					</header>
-					
-					<div class="row">
-						<div class="col-12">
-							<section>
-								<ul class="alt" style="list-style: none; padding: 0;">
-									<li><strong style="color: #ffffff;">Tecnologías Utilizadas:</strong> HTML5, CSS3, JavaScript (EmailJS).</li>
-									<li><strong style="color: #ffffff;">Framework/Plantilla:</strong> Miniport (HTML5 UP) adaptado.</li>
-									<li><strong style="color: #ffffff;">Control de Versiones:</strong> Git & GitHub.</li>
-									<li><strong style="color: #ffffff;">Plataforma de Publicación:</strong> GitHub Pages.</li>
-								</ul>
-							</section>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-12">
-						    <hr />
-						    <h3>Envíame un mensaje</h3>
-						    <p style="font-size: 0.9em; margin-bottom: 2em;">Te responderé a la brevedad. Recibirás una respuesta automática a tu mensaje.</p>
-						    
-						    <form id="contact-form">
-						        <div class="row">
-						            <div class="col-6 col-12-small">
-						                <input type="text" name="name" id="name" placeholder="Nombre Completo" required />
-						            </div>
-						            <div class="col-6 col-12-small">
-						                <input type="email" name="email" id="email" placeholder="Correo Electrónico" required />
-						            </div>
-						            <div class="col-12">
-						                <input type="text" name="subject" id="subject" placeholder="Asunto" />
-						            </div>
-						            <div class="col-12">
-						                <textarea name="message" id="message" placeholder="Mensaje" rows="6" required></textarea>
-						            </div>
-						            <div class="col-12">
-						                <ul class="actions special">
-						                    <li><button type="submit" class="button primary">Enviar Mensaje</button></li>
-						                    <li><input type="reset" value="Borrar" /></li>
-						                </ul>
-						            </div>
-						            <div class="col-12">
-						                <p id="form-status" style="display:none; font-weight:bold; margin-top:1em;"></p>
-						            </div>
-						        </div>
-						    </form>
-						</div>
-						
-						<div class="col-12">
-							<hr />
-							<h3>Contacto Directo</h3>
-							<ul class="social">
-								<li><a href="https://github.com/omaralonsoinfo" class="icon brands fa-github"><span class="label">Github</span></a></li>
-								<li><a href="https://www.linkedin.com/in/omaralonsotrabajo" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
-								<li><a href="mailto:tuemail@upslp.edu.mx" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-							</ul>
-							<p>Alias: <strong>omarwww7</strong></p>
-						</div>
-					</div>
-					
-					<footer>
-						<ul id="copyright">
-							<li>&copy; Alonso Castillo Omar Karim. Todos los derechos reservados.</li><li>Diseño base: <a href="http://html5up.net">HTML5 UP</a></li>
+				<div class="col-4 col-6-medium col-12-small">
+					<section class="box style1">
+						<span class="icon solid featured fa-shield-alt"></span>
+						<h3>Intereses en Seguridad</h3>
+						<p>Enfoque dirigido hacia la Ciberseguridad Ofensiva y Defensiva. Interés particular en el
+							Hacking Ético, análisis de amenazas digitales, protocolos de protección de infraestructura y
+							mitigación de riesgos en entornos corporativos.</p>
+					</section>
+				</div>
+				<div class="col-4 col-6-medium col-12-small">
+					<section class="box style1">
+						<span class="icon solid featured fa-laptop"></span>
+						<h3>Conocimientos Técnicos</h3>
+						<ul style="list-style-type: none; padding: 0;">
+							<li>Programación en C y Java</li>
+							<li>Diseño y Programación Web</li>
+							<li>Gestión de Bases de Datos</li>
+							<li>Manejo de CLI en Linux</li>
+							<li>Gestión de redes en entornos Corporativos</li>
+							<li>Soporte técnico</li>
 						</ul>
-					</footer>
+					</section>
 				</div>
-			</article>
+			</div>
+			<footer>
+				<a href="#evidencias" class="button large scrolly">Ver Estructura de Evidencias</a>
+			</footer>
+		</div>
+	</article>
 
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/jquery.scrolly.min.js"></script>
-		<script src="assets/js/browser.min.js"></script>
-		<script src="assets/js/breakpoints.min.js"></script>
-		<script src="assets/js/util.js"></script>
-		<script src="assets/js/main.js"></script>
-		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-		<script type="text/javascript">
-		   (function(){
-		      emailjs.init("pntx4qe9Z0rlZMJlQ");
-		   })();
-		</script>
-		<script>
-                // Escuchar el evento de envío del formulario
-                document.getElementById('contact-form').addEventListener('submit', function(event) {
-                    event.preventDefault(); // Evita que la página se recargue
+	<article id="evidencias" class="wrapper style3">
+		<div class="container">
+			<header>
+				<h2>Evidencias Académicas</h2>
+				<p>Estructura base para las entregas progresivas del curso.</p>
+			</header>
+			<div class="row">
+				<div class="col-3 col-6-medium col-12-small">
+					<article class="box style2">
+						<a href="#" class="image featured"><img src="images/pic01.jpg" alt="Entrega 1" /></a>
+						<h3><a href="#">PF01: Portafolio</a></h3>
+						<p>Diseño e implementación de la estructura base, identidad técnica y despliegue del sitio web
+							(Estado: Completado).</p>
+					</article>
+				</div>
+				<div class="col-3 col-6-medium col-12-small">
+					<article class="box style2">
+						<a href="PF02.html" class="image featured"><img src="images/pic02.jpg" alt="Parcial 2" /></a>
+						<h3><a href="PF02.html">PF02: Parcial 2</a></h3>
+						<p>Espacio reservado para la documentación y evidencias correspondientes al segundo parcial del
+							curso.</p>
+					</article>
+				</div>
+				<div class="col-3 col-6-medium col-12-small">
+					<article class="box style2">
+						<a href="PF03.html" class="image featured"><img src="images/pic03.jpg" alt="Parcial 3" /></a>
+						<h3><a href="PF03.html">PF03: Parcial 3</a></h3>
+						<p>Espacio reservado para la documentación y evidencias correspondientes al tercer parcial del
+							curso.</p>
+					</article>
+				</div>
+				<div class="col-3 col-6-medium col-12-small">
+					<article class="box style2">
+						<a href="Final.html" class="image featured"><img src="images/pic04.jpg"
+								alt="Proyecto Final" /></a>
+						<h3><a href="Final.html">Final: Proyecto Final</a></h3>
+						<p>Espacio reservado para la integración final de competencias y proyecto de cierre de la
+							asignatura.</p>
+					</article>
+				</div>
+			</div>
+			<footer>
+				<p>La documentación se actualizará conforme avance el semestre.</p>
+				<a href="#tech" class="button large scrolly">Ver Información Técnica</a>
+			</footer>
+		</div>
+	</article>
 
-                    const statusMsg = document.getElementById('form-status');
-                    statusMsg.style.display = 'block';
-                    statusMsg.style.color = '#ffffff';
-                    statusMsg.innerHTML = 'Enviando mensaje...';
+	<article id="tech" class="wrapper style4">
+		<div class="container medium">
+			<header>
+				<h2>Información Técnica y Contacto</h2>
+				<p>Detalles de construcción del portafolio y canal de comunicación.</p>
+			</header>
 
-                    // Reemplaza con tus IDs de EmailJS
-                    const serviceID = "service_jtt047i";
-                    const templateID = "template_nwt6mew";
+			<div class="row">
+				<div class="col-12">
+					<section>
+						<ul class="alt" style="list-style: none; padding: 0;">
+							<li><strong style="color: #ffffff;">Tecnologías Utilizadas:</strong> HTML5, CSS3, JavaScript
+								(EmailJS).</li>
+							<li><strong style="color: #ffffff;">Framework/Plantilla:</strong> Miniport (HTML5 UP)
+								adaptado.</li>
+							<li><strong style="color: #ffffff;">Control de Versiones:</strong> Git & GitHub.</li>
+							<li><strong style="color: #ffffff;">Plataforma de Publicación:</strong> GitHub Pages.</li>
+						</ul>
+					</section>
+				</div>
+			</div>
 
-                    emailjs.sendForm(serviceID, templateID, this)
-                        .then(() => {
-                            statusMsg.style.color = '#4CAF50'; // Verde
-                            statusMsg.innerHTML = '¡Mensaje enviado con éxito! Revisa tu correo.';
-                            document.getElementById('contact-form').reset(); // Limpia el formulario
-                        }, (err) => {
-                            statusMsg.style.color = '#ff5555'; // Rojo
-                            statusMsg.innerHTML = 'Error al enviar: ' + JSON.stringify(err);
-                        });
-                });
-            </script>
+			<div class="row">
+				<div class="col-12">
+					<hr />
+					<h3>Envíame un mensaje</h3>
+					<p style="font-size: 0.9em; margin-bottom: 2em;">Te responderé a la brevedad. Recibirás una
+						respuesta automática a tu mensaje.</p>
 
-	</body>
+					<form id="contact-form">
+						<div class="row">
+							<div class="col-6 col-12-small">
+								<input type="text" name="name" id="name" placeholder="Nombre Completo" required />
+							</div>
+							<div class="col-6 col-12-small">
+								<input type="email" name="email" id="email" placeholder="Correo Electrónico" required />
+							</div>
+							<div class="col-12">
+								<input type="text" name="subject" id="subject" placeholder="Asunto" />
+							</div>
+							<div class="col-12">
+								<textarea name="message" id="message" placeholder="Mensaje" rows="6"
+									required></textarea>
+							</div>
+							<div class="col-12">
+								<ul class="actions special">
+									<li><button type="submit" class="button primary">Enviar Mensaje</button></li>
+									<li><input type="reset" value="Borrar" /></li>
+								</ul>
+							</div>
+							<div class="col-12">
+								<p id="form-status" style="display:none; font-weight:bold; margin-top:1em;"></p>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<div class="col-12">
+					<hr />
+					<h3>Contacto Directo</h3>
+					<ul class="social">
+						<li><a href="https://github.com/omaralonsoinfo" class="icon brands fa-github"><span
+									class="label">Github</span></a></li>
+						<li><a href="https://www.linkedin.com/in/omaralonsotrabajo"
+								class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+						<li><a href="mailto:tuemail@upslp.edu.mx" class="icon solid fa-envelope"><span
+									class="label">Email</span></a></li>
+					</ul>
+					<p>Alias: <strong>omarwww7</strong></p>
+				</div>
+			</div>
+
+			<footer>
+				<ul id="copyright">
+					<li>&copy; Alonso Castillo Omar Karim. Todos los derechos reservados.</li>
+					<li>Diseño base: <a href="http://html5up.net">HTML5 UP</a></li>
+				</ul>
+			</footer>
+		</div>
+	</article>
+
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+	<script type="text/javascript">
+		(function () {
+			emailjs.init("pntx4qe9Z0rlZMJlQ");
+		})();
+	</script>
+	<script>
+		// Escuchar el evento de envío del formulario
+		document.getElementById('contact-form').addEventListener('submit', function (event) {
+			event.preventDefault(); // Evita que la página se recargue
+
+			const statusMsg = document.getElementById('form-status');
+			statusMsg.style.display = 'block';
+			statusMsg.style.color = '#ffffff';
+			statusMsg.innerHTML = 'Enviando mensaje...';
+
+			// Reemplaza con tus IDs de EmailJS
+			const serviceID = "service_jtt047i";
+			const templateID = "template_nwt6mew";
+
+			emailjs.sendForm(serviceID, templateID, this)
+				.then(() => {
+					statusMsg.style.color = '#4CAF50'; // Verde
+					statusMsg.innerHTML = '¡Mensaje enviado con éxito! Revisa tu correo.';
+					document.getElementById('contact-form').reset(); // Limpia el formulario
+				}, (err) => {
+					statusMsg.style.color = '#ff5555'; // Rojo
+					statusMsg.innerHTML = 'Error al enviar: ' + JSON.stringify(err);
+				});
+		});
+	</script>
+
+</body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
