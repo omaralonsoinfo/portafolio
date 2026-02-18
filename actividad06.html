@@ -1,0 +1,472 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>ACTIVIDAD 06 | Implementación IPSEC VPN</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <style>
+        #nav {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+            padding: 0.5em 0;
+        }
+
+        #nav ul li a {
+            color: #ffffff !important;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        #nav ul li a:hover {
+            background-color: #333333;
+        }
+
+        hr {
+            border-top: solid 1px #ccc !important;
+            opacity: 1;
+            margin: 2em 0;
+        }
+
+        .content-article {
+            background: #ffffff;
+            padding: 3em;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+        }
+
+        .content-article h2 {
+            color: #e63946;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5em;
+            margin-bottom: 1em;
+        }
+
+        .content-article h3 {
+            color: #333;
+            margin-top: 1.5em;
+            font-size: 1.3em;
+        }
+
+        .content-article h4 {
+            color: #555;
+            font-size: 1.1em;
+            margin-top: 1em;
+            font-weight: bold;
+        }
+
+        /* Terminal styles */
+        pre {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 1em;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .terminal-container {
+            text-align: left;
+            margin-bottom: 2em;
+        }
+
+        .terminal-header {
+            background-color: #333;
+            color: #fff;
+            padding: 5px 10px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            font-size: 0.9em;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .terminal-body {
+            background-color: #000;
+            color: #0f0;
+            padding: 15px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            white-space: pre-wrap;
+            text-align: left;
+        }
+
+        .pdf-btn {
+            background-color: #d32f2f;
+            color: white !important;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 2em;
+            font-weight: bold;
+        }
+
+        .pdf-btn:hover {
+            background-color: #b71c1c;
+        }
+
+        /* Portada interna style */
+        .cover-info {
+            text-align: center;
+            margin-bottom: 3em;
+            padding: 2em;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .cover-info h1 {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 0.5em;
+        }
+
+        .cover-info h2 {
+            font-size: 1.4em;
+            color: #3498db;
+            border-bottom: none;
+            margin-bottom: 0.5em;
+        }
+
+        .cover-info p {
+            margin: 0.2em 0;
+            color: #555;
+        }
+
+        /* Estilos para impresión (PDF) */
+        @media print {
+
+            #nav,
+            .pdf-btn,
+            #top header p:first-child,
+            footer,
+            .highlight-box {
+                display: none !important;
+            }
+
+            body {
+                background: white;
+                color: black;
+            }
+
+            .content-article {
+                box-shadow: none;
+                padding: 0;
+            }
+
+            a {
+                text-decoration: none;
+                color: black !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="is-preload">
+
+    <nav id="nav">
+        <ul class="container">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="PF02.html">PF02</a></li>
+            <li><a href="PF03.html">PF03</a></li>
+            <li><a href="Final.html">Final</a></li>
+            <li><a href="actividades.html" style="background-color: #333;">Actividades</a></li>
+        </ul>
+    </nav>
+
+    <article id="top" class="wrapper style1">
+        <div class="container">
+            <header>
+                <p style="text-align: left;"><a href="actividades.html">← Volver al listado</a></p>
+                <h2>ACTIVIDAD 06: IMPLEMENTACIÓN IPSEC VPN</h2>
+                <p>Implementación de VPN IPSec Sitio a Sitio.</p>
+            </header>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="content-article">
+
+                        <!-- Cover Content -->
+                        <div class="cover-info">
+                            <h2>ACTIVIDAD 06</h2>
+                            <h1>IMPLEMENTACIÓN IPSEC VPN</h1>
+                            <p><strong>Alumno:</strong> Alonso Castillo Omar Karim (179033)</p>
+                            <br>
+                            <p><strong>Materia:</strong> CNO V – Seguridad Informática</p>
+                            <p><strong>Profesor:</strong> Mtro. Servando López Contreras</p>
+                            <br>
+                            <p>Universidad Politécnica de San Luis Potosí</p>
+                        </div>
+
+                        <hr />
+
+                        <!-- Content -->
+                        <h3>Introducción</h3>
+                        <p>La protección de la información en entornos de red es un aspecto fundamental dentro del
+                            estudio de la
+                            seguridad informática. En particular, cuando los datos deben atravesar infraestructuras
+                            públicas
+                            como Internet, resulta indispensable implementar mecanismos que aseguren su confidencialidad
+                            e
+                            integridad. Una de las soluciones más utilizadas para este propósito son las Redes Privadas
+                            Virtuales (VPN), que
+                            permiten establecer canales seguros de comunicación entre diferentes sedes o usuarios.</p>
+                        <p>Dentro de las tecnologías disponibles, IPSec (Internet Protocol Security) se ha consolidado
+                            como un
+                            estándar ampliamente adoptado, ya que ofrece funciones de cifrado y autenticación
+                            directamente en la
+                            capa de red.</p>
+
+                        <h3>Objetivo</h3>
+                        <p>El propósito de esta práctica es comprender y aplicar los conceptos fundamentales de
+                            seguridad en
+                            redes mediante la implementación de una VPN IPsec sitio a sitio en el simulador Packet
+                            Tracer. A través de
+                            la configuración de routers Cisco, se busca establecer un túnel seguro que permita la
+                            comunicación
+                            entre dos redes locales a través de un proveedor de servicios simulado, garantizando la
+                            protección
+                            de la información mediante técnicas de cifrado y autenticación.</p>
+
+                        <h4>Objetivos Específicos:</h4>
+                        <ul>
+                            <li>Configurar el direccionamiento IP en los dispositivos de la topología (routers, switches
+                                y PCs).</li>
+                            <li>Establecer rutas estáticas que aseguren la conectividad extremo a extremo entre las
+                                redes.</li>
+                            <li>Implementar un túnel VPN IPsec con parámetros de seguridad robustos, incluyendo cifrado
+                                AES-256.</li>
+                            <li>Verificar el funcionamiento del túnel mediante pruebas de conectividad entre las LANs.
+                            </li>
+                            <li>Confirmar que el tráfico intercambiado entre las redes viaja de forma cifrada y
+                                protegido contra
+                                posibles interceptaciones.</li>
+                        </ul>
+
+                        <h3>1. Configuración Inicial</h3>
+                        <p>Configuración básica de los dispositivos para establecer la conectividad IP antes de la
+                            implementación del túnel VPN.</p>
+
+                        <h4>Router 1 (R1)</h4>
+                        <div class="terminal-container">
+                            <div class="terminal-header">Consola R1</div>
+                            <div class="terminal-body">Router&gt;EN
+                                Router#config t
+                                Enter configuration commands, one per line. End with CNTL/Z.
+                                Router(config)#hostname R1
+                                R1(config)#int g0/1
+                                R1(config-if)#ip add 192.168.1.1 255.255.255.0
+                                R1(config-if)#no shut
+
+                                R1(config-if)#
+                                %LINK-5-CHANGED: Interface GigabitEthernet0/1, changed state to up
+
+                                %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/1, changed state to up
+                                int g0/0
+                                R1(config-if)#ip add 209.165.100.1 255.255.255.0
+                                R1(config-if)#no shut
+
+                                R1(config-if)#
+                                %LINK-5-CHANGED: Interface GigabitEthernet0/0, changed state to up
+                                exit
+                                R1(config)#ip route 0.0.0.0 0.0.0.0 209.165.100.2
+                                R1(config)#</div>
+                        </div>
+
+                        <h4>Router 3 (R3)</h4>
+                        <div class="terminal-container">
+                            <div class="terminal-header">Consola R3</div>
+                            <div class="terminal-body">Router&gt;enable
+                                Router#config t
+                                Enter configuration commands, one per line. End with CNTL/Z.
+                                Router(config)#hostname R3
+                                R3(config)#int g0/1
+                                R3(config-if)#ip add 192.168.3.1 255.255.255.0
+                                R3(config-if)#no shut
+
+                                R3(config-if)#
+                                %LINK-5-CHANGED: Interface GigabitEthernet0/1, changed state to up
+
+                                %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/1, changed state to up
+                                int g0/0
+                                R3(config-if)#ip add 209.165.200.1 255.255.255.0
+                                R3(config-if)#no shut
+
+                                R3(config-if)#
+                                %LINK-5-CHANGED: Interface GigabitEthernet0/0, changed state to up
+                                exit
+                                R3(config)#ip route 0.0.0.0 0.0.0.0 209.165.200.2
+                                R3(config)#</div>
+                        </div>
+
+                        <h4>ISP Router</h4>
+                        <div class="terminal-container">
+                            <div class="terminal-header">Consola ISP</div>
+                            <div class="terminal-body">Router&gt;enable
+                                Router#config t
+                                Enter configuration commands, one per line. End with CNTL/Z.
+                                Router(config)#hostname ISP
+                                ISP(config)#int g0/1
+                                ISP(config-if)#ip add 209.165.200.2 255.255.255.0
+                                ISP(config-if)#no shut
+
+                                ISP(config-if)#
+                                %LINK-5-CHANGED: Interface GigabitEthernet0/1, changed state to up
+
+                                %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/1, changed state to up
+                                int g0/0
+                                ISP(config-if)#ip add 209.165.100.2 255.255.255.0
+                                ISP(config-if)#no shut
+
+                                ISP(config-if)#
+                                %LINK-5-CHANGED: Interface GigabitEthernet0/0, changed state to up
+                                %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0, changed state to up
+                                exit
+                                ISP(config)#</div>
+                        </div>
+
+                        <h3>2. Licencia de seguridad habilitada</h3>
+                        <p>En routers Cisco modernos (como los 1941), se necesita el conjunto de funciones de seguridad
+                            para
+                            usar IPSec. Se debe guardar la configuración (write) y reiniciar el router para que se
+                            active.</p>
+                        <p>Comando: <code>license boot module c1900 technology-package securityk9</code></p>
+
+                        <h4>Ejemplo con R1 (se aplicó en todos los routers)</h4>
+                        <div class="terminal-container">
+                            <div class="terminal-header">Consola R1 - Habilitar Licencia</div>
+                            <div class="terminal-body">R1&gt;en
+                                R1#config t
+                                Enter configuration commands, one per line. End with CNTL/Z.
+                                R1(config)#license boot module c1900 technology-package securityk9
+                                PLEASE READ THE FOLLOWING TERMS CAREFULLY...
+                                ACCEPT? [yes/no]: yes
+
+                                R1#write
+                                Building configuration...
+                                [OK]</div>
+                        </div>
+
+                        <h3>3. Implementación de ACLs</h3>
+                        <p>Se debe definir qué tráfico debe ser cifrado. En este caso, el tráfico que va de la red local
+                            de R1 (192.168.1.0/24) a la de R3 (192.168.3.0/24).</p>
+
+                        <h4>ACL en Router 1</h4>
+                        <div class="terminal-container">
+                            <div class="terminal-header">Consola R1 - ACL</div>
+                            <div class="terminal-body">R1(config)#access-list 100 permit ip 192.168.1.0 0.0.0.255
+                                192.168.3.0 0.0.0.255</div>
+                        </div>
+
+                        <h4>ACL en Router 3</h4>
+                        <div class="terminal-container">
+                            <div class="terminal-header">Consola R3 - ACL</div>
+                            <div class="terminal-body">R3(config)#access-list 100 permit ip 192.168.3.0 0.0.0.255
+                                192.168.1.0 0.0.0.255</div>
+                        </div>
+
+                        <h3>4. Phase 01: ISAKMP policy</h3>
+                        <p>Aquí se define cómo los routers se autenticarán y negociarán la seguridad inicial. El
+                            objetivo de
+                            esta etapa es crear un "canal seguro" inicial donde los routers puedan negociar cómo
+                            protegerán el
+                            tráfico final.</p>
+                        <ul>
+                            <li><strong>crypto isakmp policy 10:</strong> Crea una política de negociación. El número
+                                '10' es la prioridad.</li>
+                            <li><strong>encryption aes 256:</strong> Define el estándar de cifrado AES con una llave de
+                                256 bits.</li>
+                            <li><strong>authentication pre-share:</strong> Indica que los routers se identificarán
+                                mediante una contraseña secreta.</li>
+                            <li><strong>group 5:</strong> Establece el uso del algoritmo Diffie-Hellman (DH) Grupo 5.
+                            </li>
+                        </ul>
+
+                        <h4>Autenticación de Extremo a Extremo</h4>
+                        <p>Se define la "palabra de paso" (secretkey) y se vincula específicamente a la IP pública del
+                            peer remoto.</p>
+                        <p>Comando: <code>crypto isakmp key secretkey address [IP_PEER]</code></p>
+
+                        <div class="terminal-container">
+                            <div class="terminal-header">Consola R1 - Phase 1</div>
+                            <div class="terminal-body">R1(config)#crypto isakmp policy 10
+                                R1(config-isakmp)#encryption aes 256
+                                R1(config-isakmp)#authentication pre-share
+                                R1(config-isakmp)#group 5
+                                R1(config-isakmp)#exit
+                                R1(config)#crypto isakmp key secretkey address 209.165.200.1</div>
+                        </div>
+
+                        <div class="terminal-container">
+                            <div class="terminal-header">Consola R3 - Phase 1</div>
+                            <div class="terminal-body">R3(config)#crypto isakmp policy 10
+                                R3(config-isakmp)#encryption aes 256
+                                R3(config-isakmp)#authentication pre-share
+                                R3(config-isakmp)#group 5
+                                R3(config-isakmp)#exit
+                                R3(config)#crypto isakmp key secretkey address 209.165.100.1</div>
+                        </div>
+
+                        <h3>5. Phase 02: IPSec transform-set</h3>
+                        <p>Mientras que la Fase 1 establece el "túnel de gestión", la Fase 2 define cómo se protegerán
+                            los datos
+                            reales del usuario que atraviesan la red pública. Aquí se acuerdan los algoritmos de cifrado
+                            y hash
+                            específicos para el tráfico de datos.</p>
+                        <p>Comando global: <code>crypto ipsec transform-set [NOMBRE] esp-aes 256 esp-sha-hmac</code></p>
+                        <ul>
+                            <li><strong>esp-aes 256:</strong> Utiliza el protocolo Encapsulating Security Payload (ESP)
+                                para cifrar el paquete completo con AES-256.</li>
+                            <li><strong>esp-sha-hmac:</strong> Aplica un código de autenticación de mensajes (HMAC)
+                                basado en SHA para asegurar la integridad.</li>
+                        </ul>
+
+                        <div class="terminal-container">
+                            <div class="terminal-header">Consola R1 - Transform Set</div>
+                            <div class="terminal-body">R1(config)#crypto ipsec transform-set R1-R3 esp-aes 256
+                                esp-sha-hmac</div>
+                        </div>
+
+                        <div class="terminal-container">
+                            <div class="terminal-header">Consola R3 - Transform Set</div>
+                            <div class="terminal-body">R3(config)#crypto ipsec transform-set R3-R1 esp-aes 256
+                                esp-sha-hmac</div>
+                        </div>
+
+                        <!-- Export Button -->
+                        <div style="text-align: center; margin-top: 3em;">
+                            <a href="#" class="pdf-btn" onclick="window.print(); return false;">
+                                <i class="icon solid fa-file-pdf"></i> Imprimir / Guardar como PDF
+                            </a>
+                            <p style="font-size: 0.8em; margin-top: 0.5em; color: #666;">Se abrirá el diálogo de
+                                impresión. Selecciona "Guardar como PDF".</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article class="wrapper style4">
+        <div class="container medium">
+            <footer>
+                <ul id="copyright">
+                    <li>&copy; Alonso Castillo Omar Karim. Todos los derechos reservados.</li>
+                </ul>
+            </footer>
+        </div>
+    </article>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
