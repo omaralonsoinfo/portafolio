@@ -433,20 +433,108 @@
                         <div class="terminal-container">
                             <div class="terminal-header">Consola R3 - Transform Set</div>
                             <div class="terminal-body">R3(config)#crypto ipsec transform-set R3-R1 esp-aes 256
-                                esp-sha-hmac</div>
+                                esp-sha-hmac
+                            </div>
                         </div>
+                    </div>
 
-                        <!-- Export Button -->
-                        <div style="text-align: center; margin-top: 3em;">
-                            <a href="#" class="pdf-btn" onclick="window.print(); return false;">
-                                <i class="icon solid fa-file-pdf"></i> Imprimir / Guardar como PDF
-                            </a>
-                            <p style="font-size: 0.8em; margin-top: 0.5em; color: #666;">Se abrirá el diálogo de
-                                impresión. Selecciona "Guardar como PDF".</p>
-                        </div>
+                    <h3>Configuración IP</h3>
+                    <div style="text-align: center; margin-bottom: 2em;">
+                        <h4>PC0 Configuration</h4>
+                        <img src="images/act06_pc0_ip.png" alt="Configuración IP PC0"
+                            style="max-width: 100%; height: auto;" />
+                    </div>
+                    <div style="text-align: center; margin-bottom: 2em;">
+                        <h4>PC1 Configuration</h4>
+                        <img src="images/act06_pc1_ip.png" alt="Configuración IP PC1"
+                            style="max-width: 100%; height: auto;" />
+                    </div>
+
+                    <h3>Ping</h3>
+                    <div style="text-align: center; margin-bottom: 2em;">
+                        <img src="images/act06_ping.png" alt="Ping Terminal" style="max-width: 100%; height: auto;" />
+                    </div>
+
+                    <h3>6. Crear el mapa criptografico</h3>
+                    <p>El Crypto Map es el componente de software que amalgama todas las piezas anteriores:
+                        quién es el
+                        vecino, qué tráfico cifrar y qué métodos de seguridad usar. Es el "manual de
+                        instrucciones" que el
+                        router consulta antes de enviar un paquete.</p>
+                    <ul>
+                        <li><strong>crypto isakmp policy 10:</strong> Crea una política de negociación. El
+                            número '10' es la prioridad.</li>
+                        <li><strong>encryption aes 256:</strong> Define el estándar de cifrado AES con una llave
+                            de 256 bits.</li>
+                        <li><strong>authentication pre-share:</strong> Indica que los routers se identificarán
+                            mediante una contraseña secreta.</li>
+                        <li><strong>group 5:</strong> Establece el uso del algoritmo Diffie-Hellman (DH) Grupo
+                            5.</li>
+                    </ul>
+
+                    <h3>7. Aplicar el mapa criptografico</h3>
+                    <p>Tener el mapa creado no sirve de nada si no se le indica al router en qué puerto físico
+                        debe actuar.
+                        Este es el paso final donde la política de seguridad se vuelve operativa.</p>
+                    <ul>
+                        <li><strong>interface g0/0</strong>
+                            <ul>
+                                <li>Entra en la configuración de la interfaz física que está conectada hacia el
+                                    exterior
+                                    (Internet/WAN).</li>
+                            </ul>
+                        </li>
+                        <li><strong>crypto map IPSEC-MAP</strong>
+                            <ul>
+                                <li>Propósito: Activa el motor de cifrado en esta interfaz. A partir de este
+                                    momento, cada
+                                    paquete que intente salir por g0/0 será comparado con la ACL del mapa; si
+                                    coincide, se
+                                    cifra y se encapsula antes de salir al mundo exterior.</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h3>Conclusión</h3>
+                    <p>El aprendizaje principal de esta configuración radica en la comprensión de la modularidad
+                        de la
+                        seguridad. Dividir el proceso en Fase 1 (Control) y Fase 2 (Datos) enseña que una
+                        comunicación
+                        robusta no nace de un solo paso, sino de una negociación jerárquica. Primero se
+                        establece un entorno
+                        de confianza mutua y, solo después de asegurar esa "conversación", se permite que el
+                        tráfico privado
+                        del usuario toque la red pública.</p>
+                    <p>Por otro lado, este despliegue refuerza la importancia de la precisión técnica y la
+                        simetría. En el
+                        mundo de la criptografía aplicada, el más mínimo error en un algoritmo de hash o en un
+                        grupo
+                        Diffie-Hellman resulta en un fallo total de conectividad. Esto nos enseña que la
+                        seguridad
+                        informática es una disciplina de exactitud, donde el éxito no es solo que un paquete
+                        llegue a su
+                        destino, sino que lo haga de forma invisible e inalterable para cualquier observador
+                        externo.</p>
+                    <p>Finalmente, el uso de herramientas de diagnóstico como show crypto ipsec sa transforma
+                        nuestra visión
+                        de la red: pasamos de buscar una simple conexión a validar la integridad de los datos.
+                        El
+                        aprendizaje real se consolida al entender que somos capaces de crear un "túnel privado"
+                        dentro del
+                        caos de Internet, garantizando que la confidencialidad sea una constante y no una
+                        variable en la
+                        comunicación empresarial.</p>
+
+                    <div style="text-align: center; margin-top: 3em;">
+                        <a href="#" class="pdf-btn" onclick="window.print(); return false;">
+                            <i class="icon solid fa-file-pdf"></i> Imprimir / Guardar como PDF
+                        </a>
+                        <p style="font-size: 0.8em; margin-top: 0.5em; color: #666;">Se abrirá el diálogo de
+                            impresión. Selecciona "Guardar como PDF".</p>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </article>
 
