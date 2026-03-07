@@ -11,22 +11,62 @@
         /* ESTILO PERSONALIZADO PARA EL MENÚ TIPO BARRA NEGRA */
         #nav {
             background-color: #000000 !important;
+            /* Fondo Negro */
             color: #ffffff !important;
             padding: 0.5em 0;
-            position: relative;
         }
 
         #nav ul li a {
             color: #ffffff !important;
+            /* Letras Blancas */
             font-weight: bold;
             border-radius: 4px;
         }
 
         #nav ul li a:hover {
             background-color: #333333;
+            /* Gris oscuro al pasar el mouse */
         }
 
-        /* Roadmap CSS Details */
+        /* Dropdown CSS Custom */
+        .dropdown-hover {
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #000000;
+            min-width: 170px;
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            border-radius: 4px;
+        }
+
+        .dropdown-content li {
+            display: block;
+        }
+
+        .dropdown-content li a {
+            color: #ffffff !important;
+            padding: 10px 15px !important;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9em;
+        }
+
+        .dropdown-content li a:hover {
+            background-color: #333333 !important;
+        }
+
+        .dropdown-hover:hover .dropdown-content {
+            display: block;
+        }
         hr {
             border-top: solid 1px #ccc !important;
             opacity: 1;
@@ -203,7 +243,12 @@
             <li><a href="Final.html">Final</a></li>
             <li><a href="actividades.html">Actividades</a></li>
             <li><a href="proyectos.html">Proyectos</a></li>
-            <li><a href="halloffame.html">Hall of Fame</a></li>
+            <li class="dropdown-hover">
+                <a href="halloffame.html">Hall of Fame</a>
+                <ul class="dropdown-content">
+                    <li><a href="sqlinjection.html">SQL Injection</a></li>
+                </ul>
+            </li>
         </ul>
     </nav>
 
@@ -577,10 +622,7 @@
                             <div class="mitigation-box">
                                 <strong>Mitigación:</strong> Deserialización segura y tipado fuerte en objetos JSON.
                             </div>
-                            <div class="evidence-box">
-                                <i class="fas fa-image"></i>
-                                <span>[Evidencia Gráfica del Laboratorio - Pendiente Inserción]</span>
-                            </div>
+                            
                         </div>
 
                         <div class="lab-card">
@@ -599,10 +641,7 @@
                             <div class="mitigation-box">
                                 <strong>Mitigación:</strong> Implementar una "Lista Blanca" de caracteres permitidos.
                             </div>
-                            <div class="evidence-box">
-                                <i class="fas fa-image"></i>
-                                <span>[Evidencia Gráfica del Laboratorio - Pendiente Inserción]</span>
-                            </div>
+                            
                         </div>
 
                         <div class="lab-card">
@@ -621,10 +660,7 @@
                             <div class="mitigation-box">
                                 <strong>Mitigación:</strong> Separación estricta de privilegios y validación de permisos a nivel de fila.
                             </div>
-                            <div class="evidence-box">
-                                <i class="fas fa-image"></i>
-                                <span>[Evidencia Gráfica del Laboratorio - Pendiente Inserción]</span>
-                            </div>
+                            
                         </div>
 
                         <!-- Export Button -->

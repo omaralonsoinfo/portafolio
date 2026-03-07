@@ -27,6 +27,46 @@
             /* Gris oscuro al pasar el mouse */
         }
 
+        /* Dropdown CSS Custom */
+        .dropdown-hover {
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #000000;
+            min-width: 170px;
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            border-radius: 4px;
+        }
+
+        .dropdown-content li {
+            display: block;
+        }
+
+        .dropdown-content li a {
+            color: #ffffff !important;
+            padding: 10px 15px !important;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9em;
+        }
+
+        .dropdown-content li a:hover {
+            background-color: #333333 !important;
+        }
+
+        .dropdown-hover:hover .dropdown-content {
+            display: block;
+        }
+
         hr {
             border-top: solid 1px #ccc !important;
             opacity: 1;
@@ -160,7 +200,12 @@
             <li><a href="Final.html">Final</a></li>
             <li><a href="actividades.html">Actividades</a></li>
             <li><a href="proyectos.html">Proyectos</a></li>
-			<li><a href="halloffame.html">Hall of Fame</a></li>
+            <li class="dropdown-hover">
+                <a href="halloffame.html">Hall of Fame</a>
+                <ul class="dropdown-content">
+                    <li><a href="sqlinjection.html">SQL Injection</a></li>
+                </ul>
+            </li>
         </ul>
     </nav>
 

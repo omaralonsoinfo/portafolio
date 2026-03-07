@@ -8,24 +8,64 @@
 	<link rel="stylesheet" href="assets/css/main.css" />
 	<style>
 		/* ESTILO PERSONALIZADO PARA EL MENÚ TIPO BARRA NEGRA */
-		#nav {
-			background-color: #000000 !important;
-			/* Fondo Negro */
-			color: #ffffff !important;
-			padding: 0.5em 0;
-		}
+        #nav {
+            background-color: #000000 !important;
+            /* Fondo Negro */
+            color: #ffffff !important;
+            padding: 0.5em 0;
+        }
 
-		#nav ul li a {
-			color: #ffffff !important;
-			/* Letras Blancas */
-			font-weight: bold;
-			border-radius: 4px;
-		}
+        #nav ul li a {
+            color: #ffffff !important;
+            /* Letras Blancas */
+            font-weight: bold;
+            border-radius: 4px;
+        }
 
-		#nav ul li a:hover {
-			background-color: #333333;
-			/* Gris oscuro al pasar el mouse */
-		}
+        #nav ul li a:hover {
+            background-color: #333333;
+            /* Gris oscuro al pasar el mouse */
+        }
+
+        /* Dropdown CSS Custom */
+        .dropdown-hover {
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #000000;
+            min-width: 170px;
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            border-radius: 4px;
+        }
+
+        .dropdown-content li {
+            display: block;
+        }
+
+        .dropdown-content li a {
+            color: #ffffff !important;
+            padding: 10px 15px !important;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9em;
+        }
+
+        .dropdown-content li a:hover {
+            background-color: #333333 !important;
+        }
+
+        .dropdown-hover:hover .dropdown-content {
+            display: block;
+        }
 
 		@media screen and (max-width: 736px) {
 			.col-3 {
@@ -44,16 +84,21 @@
 <body class="is-preload">
 
 	<nav id="nav">
-		<ul class="container">
-			<li><a href="index.html">Inicio</a></li>
-			<li><a href="PF02.html">PF02</a></li>
-			<li><a href="PF03.html">PF03</a></li>
-			<li><a href="Final.html">Final</a></li>
-			<li><a href="actividades.html">Actividades</a></li>
-			<li><a href="proyectos.html">Proyectos</a></li>
-			<li><a href="halloffame.html">Hall of Fame</a></li>
-		</ul>
-	</nav>
+        <ul class="container">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="PF02.html">PF02</a></li>
+            <li><a href="PF03.html">PF03</a></li>
+            <li><a href="Final.html">Final</a></li>
+            <li><a href="actividades.html">Actividades</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+            <li class="dropdown-hover">
+                <a href="halloffame.html">Hall of Fame</a>
+                <ul class="dropdown-content">
+                    <li><a href="sqlinjection.html">SQL Injection</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
 
 	<article id="top" class="wrapper style1">
 		<div class="container">
