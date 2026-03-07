@@ -67,6 +67,7 @@
         .dropdown-hover:hover .dropdown-content {
             display: block;
         }
+
         hr {
             border-top: solid 1px #ccc !important;
             opacity: 1;
@@ -86,7 +87,8 @@
             padding: 2em;
             background: #f9f9f9;
             border-radius: 8px;
-            border-bottom: 4px solid #ce283b; /* Ajustado el color para SQLi / Hacking */
+            border-bottom: 4px solid #ce283b;
+            /* Ajustado el color para SQLi / Hacking */
         }
 
         .cover-info h1 {
@@ -100,7 +102,7 @@
             color: #555;
             font-size: 1.1em;
         }
-        
+
         /* Phase Styles */
         .phase-header {
             background-color: #34495e;
@@ -124,7 +126,7 @@
         }
 
         .lab-card:hover {
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transform: translateY(-2px);
         }
 
@@ -154,7 +156,7 @@
             display: inline-block;
             margin-left: 10px;
         }
-        
+
         .lab-badge.practitioner {
             background: #e67e22;
         }
@@ -186,7 +188,7 @@
             border-left: 4px solid #0984e3;
             letter-spacing: 0.5px;
         }
-        
+
         .evidence-box {
             border: 2px dashed #ccc;
             background: #fff;
@@ -196,7 +198,7 @@
             margin-top: 15px;
             color: #7f8c8d;
         }
-        
+
         .evidence-box i {
             display: block;
             font-size: 2em;
@@ -220,7 +222,7 @@
         .pdf-btn:hover {
             background-color: #1c5980;
         }
-        
+
         .mitigation-box {
             background: #ecf0f1;
             border-left: 4px solid #f1c40f;
@@ -229,7 +231,6 @@
             border-radius: 4px;
             font-style: italic;
         }
-
     </style>
 </head>
 
@@ -263,11 +264,12 @@
             <div class="row">
                 <div class="col-12">
                     <div class="content-article">
-                                                                        <!-- Cover Content -->
+                        <!-- Cover Content -->
                         <div class="cover-info">
                             <h1><i class="fas fa-database"></i> SQL Injection Labs Roadmap</h1>
                             <p><strong>Materia:</strong> CNO V: Seguridad Informática</p>
-                            <p><strong>Parcial:</strong> PARCIAL II: TÉCNICAS DE EXPLOTACIÓN DE VULNERABILIDADES Y SEGURIDAD EN ENTORNOS TECNOLÓGICOS</p>
+                            <p><strong>Parcial:</strong> PARCIAL II: TÉCNICAS DE EXPLOTACIÓN DE VULNERABILIDADES Y
+                                SEGURIDAD EN ENTORNOS TECNOLÓGICOS</p>
                             <p><strong>Profesor:</strong> Mtro. Servando López Contreras</p>
                             <br>
                             <p><strong>Equipo 4:</strong></p>
@@ -283,31 +285,42 @@
 
                         <hr />
                         <p style="font-size: 1.1em; text-align: justify; margin-bottom: 2em;">
-                            Bienvenidos al módulo <strong>Road to Hall of Fame</strong> enfocado en <strong>SQL Injection</strong>. Este apartado presenta una arquitectura de progreso a través de los diversos laboratorios prácticos superados durante el curso. A continuación se documenta el progreso estructurado de los 18 retos vulnerables y analizados, detallando la evidencia, cargas maliciosas utilizadas (payloads) y las mitigaciones teóricas requeridas.
+                            Bienvenidos al módulo <strong>Road to Hall of Fame</strong> enfocado en <strong>SQL
+                                Injection</strong>. Este apartado presenta una arquitectura de progreso a través de los
+                            diversos laboratorios prácticos superados durante el curso. A continuación se documenta el
+                            progreso estructurado de los 18 retos vulnerables y analizados, detallando la evidencia,
+                            cargas maliciosas utilizadas (payloads) y las mitigaciones teóricas requeridas.
                         </p>
 
                         <!-- PHASE 1 -->
-                        <h2 class="phase-header"><i class="fas fa-flag"></i> BLOQUE 1: SQLi Apprentice (Fundamentos)</h2>
+                        <h2 class="phase-header"><i class="fas fa-flag"></i> BLOQUE 1: SQLi Apprentice (Fundamentos)
+                        </h2>
 
                         <div class="lab-card">
                             <div class="lab-header">
-                                <h3>1. Lab: SQL injection vulnerability in WHERE clause allowing retrieval of hidden data</h3>
+                                <h3>1. Lab: SQL injection vulnerability in WHERE clause allowing retrieval of hidden
+                                    data</h3>
                                 <div class="lab-badge">Apprentice</div>
                                 <div class="lab-badge" style="background:#8e44ad;">In-band (Boolean-based)</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Visualizar productos no publicados de todas las categorías.</p>
-                                <p><strong>Explicación Técnica:</strong> La falta de validación en el parámetro category permite inyectar operadores lógicos para anular la restricción released = 1 en la consulta SQL.</p>
+                                <p><strong>Objetivo:</strong> Visualizar productos no publicados de todas las
+                                    categorías.</p>
+                                <p><strong>Explicación Técnica:</strong> La falta de validación en el parámetro category
+                                    permite inyectar operadores lógicos para anular la restricción released = 1 en la
+                                    consulta SQL.</p>
                                 <div class="payload-box">
                                     <strong>Payload:</strong><br />
                                     ' OR 1=1--
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Uso de consultas parametrizadas para evitar la interpretación de metacaracteres.
+                                    <strong>Mitigación:</strong> Uso de consultas parametrizadas para evitar la
+                                    interpretación de metacaracteres.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
-                                    <img src="images/lab1.png" style="max-width:100%; border-radius:4px;" alt="Evidencia Lab 1" />
+                                    <img src="images/lab1.png" style="max-width:100%; border-radius:4px;"
+                                        alt="Evidencia Lab 1" />
                                 </div>
                             </div>
                         </div>
@@ -319,67 +332,81 @@
                                 <div class="lab-badge" style="background:#8e44ad;">In-band (Auth Bypass)</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Acceder a la cuenta administrator sin conocer la contraseña.</p>
-                                <p><strong>Explicación Técnica:</strong> El formulario de autenticación es vulnerable; al cerrar la cadena del nombre de usuario y comentar el resto, se omite la verificación del password.</p>
+                                <p><strong>Objetivo:</strong> Acceder a la cuenta administrator sin conocer la
+                                    contraseña.</p>
+                                <p><strong>Explicación Técnica:</strong> El formulario de autenticación es vulnerable;
+                                    al cerrar la cadena del nombre de usuario y comentar el resto, se omite la
+                                    verificación del password.</p>
                                 <div class="payload-box">
                                     <strong>Payload:</strong><br />
                                     administrator'--
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Implementar una API de persistencia segura y deshabilitar el uso de SQL dinámico en el login.
+                                    <strong>Mitigación:</strong> Implementar una API de persistencia segura y
+                                    deshabilitar el uso de SQL dinámico en el login.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
-                                    <img src="images/lab2.PNG" style="max-width:100%; border-radius:4px;" alt="Evidencia Lab 2" />
+                                    <img src="images/lab2.PNG" style="max-width:100%; border-radius:4px;"
+                                        alt="Evidencia Lab 2" />
                                 </div>
                             </div>
                         </div>
 
-                                                <!-- PHASE 2 -->
-                        <h2 class="phase-header"><i class="fas fa-shield-alt"></i> Fase 2: Enumeración y Exfiltración (UNION-Based)</h2>
+                        <!-- PHASE 2 -->
+                        <h2 class="phase-header"><i class="fas fa-shield-alt"></i> Fase 2: Enumeración y Exfiltración
+                            (UNION-Based)</h2>
 
                         <div class="lab-card">
                             <div class="lab-header">
-                                <h3>3. Lab: SQL injection attack, querying the database type and version on OracleAppretince</h3>
+                                <h3>3. Lab: SQL injection attack, querying the database type and version on
+                                    OracleAppretince</h3>
                                 <div class="lab-badge" style="background:#d35400;">Practitioner</div>
                                 <div class="lab-badge" style="background:#8e44ad;">UNION-Based In-band</div>
                             </div>
                             <div class="lab-details">
                                 <p><strong>Objetivo:</strong> Obtener la versión de la base de datos Oracle.</p>
-                                <p><strong>Explicación Técnica:</strong> Falta de sanitización permite alterar la consulta para acceder a la vista del sistema v`$version.</p>
+                                <p><strong>Explicación Técnica:</strong> Falta de sanitización permite alterar la
+                                    consulta para acceder a la vista del sistema v`$version.</p>
                                 <div class="payload-box">
                                     <strong>Explicación del payload:</strong><br />
-                                    '+UNION+SELECT+BANNER,+NULL+FROM+v`$version-- (Une la consulta original con la versión de Oracle, rellenando con NULL la columna faltante).
+                                    '+UNION+SELECT+BANNER,+NULL+FROM+v`$version-- (Une la consulta original con la
+                                    versión de Oracle, rellenando con NULL la columna faltante).
                                 </div>
                                 <div class="mitigation-box">
                                     <strong>Mitigación:</strong> Consultas parametrizadas (Prepared Statements).
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
-                                    <img src="images/lab3.PNG" style="max-width:100%; border-radius:4px;" alt="Evidencia Lab 3" />
+                                    <img src="images/lab3.png" style="max-width:100%; border-radius:4px;"
+                                        alt="Evidencia Lab 3" />
                                 </div>
                             </div>
                         </div>
 
                         <div class="lab-card">
                             <div class="lab-header">
-                                <h3>4. Lab: SQL injection attack, querying the database type and version on MySQL and Microsoft</h3>
+                                <h3>4. Lab: SQL injection attack, querying the database type and version on MySQL and
+                                    Microsoft</h3>
                                 <div class="lab-badge" style="background:#d35400;">Practitioner</div>
                                 <div class="lab-badge" style="background:#8e44ad;">Union-Based</div>
                             </div>
                             <div class="lab-details">
                                 <p><strong>Objetivo:</strong> Mostrar la versión del sistema gestor (MySQL/MSSQL).</p>
-                                <p><strong>Explicación Técnica:</strong> Entrada no validada en la categoría permite inyectar variables de sistema combinadas con resultados legítimos.</p>
+                                <p><strong>Explicación Técnica:</strong> Entrada no validada en la categoría permite
+                                    inyectar variables de sistema combinadas con resultados legítimos.</p>
                                 <div class="payload-box">
                                     <strong>Explicación del payload:</strong><br />
-                                    ' UNION SELECT @@version, NULL# (Extrae la variable global @@version y comenta el resto de la sentencia).
+                                    ' UNION SELECT @@version, NULL# (Extrae la variable global @@version y comenta el
+                                    resto de la sentencia).
                                 </div>
                                 <div class="mitigation-box">
                                     <strong>Mitigación:</strong> Consultas preparadas y validación estricta de entradas.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
-                                    <img src="images/lab4.png" style="max-width:100%; border-radius:4px;" alt="Evidencia Lab 4" />
+                                    <img src="images/lab4.png" style="max-width:100%; border-radius:4px;"
+                                        alt="Evidencia Lab 4" />
                                 </div>
                             </div>
                         </div>
@@ -391,18 +418,23 @@
                                 <div class="lab-badge" style="background:#8e44ad;">Union-Based</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Enumerar tablas/columnas y obtener credenciales de administrador.</p>
-                                <p><strong>Explicación Técnica:</strong> Uso de la cláusula UNION para consultar el esquema de información (Information Schema) y volcar tablas ocultas.</p>
+                                <p><strong>Objetivo:</strong> Enumerar tablas/columnas y obtener credenciales de
+                                    administrador.</p>
+                                <p><strong>Explicación Técnica:</strong> Uso de la cláusula UNION para consultar el
+                                    esquema de información (Information Schema) y volcar tablas ocultas.</p>
                                 <div class="payload-box">
                                     <strong>Explicación del payload:</strong><br />
-                                    ' UNION SELECT username_x, password_y FROM users_z-- (Combina resultados visibles con datos extraídos de la tabla descubierta).
+                                    ' UNION SELECT username_x, password_y FROM users_z-- (Combina resultados visibles
+                                    con datos extraídos de la tabla descubierta).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Consultas parametrizadas y principio de menor privilegio.
+                                    <strong>Mitigación:</strong> Consultas parametrizadas y principio de menor
+                                    privilegio.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
-                                    <img src="images/lab5.PNG" style="max-width:100%; border-radius:4px;" alt="Evidencia Lab 5" />
+                                    <img src="images/lab5.PNG" style="max-width:100%; border-radius:4px;"
+                                        alt="Evidencia Lab 5" />
                                 </div>
                             </div>
                         </div>
@@ -415,40 +447,50 @@
                             </div>
                             <div class="lab-details">
                                 <p><strong>Objetivo:</strong> Mapear la base de datos Oracle y extraer credenciales.</p>
-                                <p><strong>Explicación Técnica:</strong> En Oracle se usan vistas del sistema (all_tables, all_tab_columns) en lugar de Information Schema para enumerar la estructura.</p>
+                                <p><strong>Explicación Técnica:</strong> En Oracle se usan vistas del sistema
+                                    (all_tables, all_tab_columns) en lugar de Information Schema para enumerar la
+                                    estructura.</p>
                                 <div class="payload-box">
                                     <strong>Explicación del payload:</strong><br />
-                                    ' UNION SELECT USERNAME_X, PASSWORD_X FROM USERS_X-- (Extrae las columnas descubiertas previamente).
+                                    ' UNION SELECT USERNAME_X, PASSWORD_X FROM USERS_X-- (Extrae las columnas
+                                    descubiertas previamente).
                                 </div>
                                 <div class="mitigation-box">
                                     <strong>Mitigación:</strong> Mínimo privilegio y uso de frameworks con ORM seguro.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
-                                    <img src="images/lab6.PNG" style="max-width:100%; border-radius:4px;" alt="Evidencia Lab 6" />
+                                    <img src="images/lab6.PNG" style="max-width:100%; border-radius:4px;"
+                                        alt="Evidencia Lab 6" />
                                 </div>
                             </div>
                         </div>
 
                         <div class="lab-card">
                             <div class="lab-header">
-                                <h3>7. Lab: SQL injection UNION attack, determining the number of columns returned by the query</h3>
+                                <h3>7. Lab: SQL injection UNION attack, determining the number of columns returned by
+                                    the query</h3>
                                 <div class="lab-badge" style="background:#d35400;">Practitioner</div>
                                 <div class="lab-badge" style="background:#8e44ad;">Union-Based</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Descubrir el número exacto de columnas de la consulta original.</p>
-                                <p><strong>Explicación Técnica:</strong> UNION exige coincidencia de columnas. Se miden inyectando valores nulos iterativamente hasta evitar un error 500.</p>
+                                <p><strong>Objetivo:</strong> Descubrir el número exacto de columnas de la consulta
+                                    original.</p>
+                                <p><strong>Explicación Técnica:</strong> UNION exige coincidencia de columnas. Se miden
+                                    inyectando valores nulos iterativamente hasta evitar un error 500.</p>
                                 <div class="payload-box">
                                     <strong>Explicación del payload:</strong><br />
-                                    '+UNION+SELECT+NULL,NULL,NULL-- (Inyecta valores nulos secuenciales para empatar la estructura original).
+                                    '+UNION+SELECT+NULL,NULL,NULL-- (Inyecta valores nulos secuenciales para empatar la
+                                    estructura original).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Consultas parametrizadas que traten la entrada estrictamente como texto.
+                                    <strong>Mitigación:</strong> Consultas parametrizadas que traten la entrada
+                                    estrictamente como texto.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
-                                    <img src="images/lab7.PNG" style="max-width:100%; border-radius:4px;" alt="Evidencia Lab 7" />
+                                    <img src="images/lab7.PNG" style="max-width:100%; border-radius:4px;"
+                                        alt="Evidencia Lab 7" />
                                 </div>
                             </div>
                         </div>
@@ -460,18 +502,22 @@
                                 <div class="lab-badge" style="background:#8e44ad;">Union-Based</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Identificar qué columnas admiten tipos de datos string (texto).</p>
-                                <p><strong>Explicación Técnica:</strong> Se prueban cadenas literales en cada posición de la inyección para identificar dónde no hay choque de tipos de datos.</p>
+                                <p><strong>Objetivo:</strong> Identificar qué columnas admiten tipos de datos string
+                                    (texto).</p>
+                                <p><strong>Explicación Técnica:</strong> Se prueban cadenas literales en cada posición
+                                    de la inyección para identificar dónde no hay choque de tipos de datos.</p>
                                 <div class="payload-box">
                                     <strong>Explicación del payload:</strong><br />
-                                    '+UNION+SELECT+NULL,+'abc',+NULL-- (Prueba compatibilidad de texto desplazando el valor en cada posición).
+                                    '+UNION+SELECT+NULL,+'abc',+NULL-- (Prueba compatibilidad de texto desplazando el
+                                    valor en cada posición).
                                 </div>
                                 <div class="mitigation-box">
                                     <strong>Mitigación:</strong> Validación mediante Listas Blancas (Whitelisting).
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
-                                    <img src="images/lab8.PNG" style="max-width:100%; border-radius:4px;" alt="Evidencia Lab 8" />
+                                    <img src="images/lab8.PNG" style="max-width:100%; border-radius:4px;"
+                                        alt="Evidencia Lab 8" />
                                 </div>
                             </div>
                         </div>
@@ -484,46 +530,56 @@
                             </div>
                             <div class="lab-details">
                                 <p><strong>Objetivo:</strong> Extraer de forma directa usuarios y contraseñas.</p>
-                                <p><strong>Explicación Técnica:</strong> Falla de segmentación que permite a la consulta pública de productos acceder a la tabla confidencial de cuentas.</p>
+                                <p><strong>Explicación Técnica:</strong> Falla de segmentación que permite a la consulta
+                                    pública de productos acceder a la tabla confidencial de cuentas.</p>
                                 <div class="payload-box">
                                     <strong>Explicación del payload:</strong><br />
-                                    '+UNION+SELECT+username,+password+FROM+users-- (Cruza a la tabla users y vuelca 2 columnas en pantalla).
+                                    '+UNION+SELECT+username,+password+FROM+users-- (Cruza a la tabla users y vuelca 2
+                                    columnas en pantalla).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Separación estricta de permisos de lectura a nivel de base de datos.
+                                    <strong>Mitigación:</strong> Separación estricta de permisos de lectura a nivel de
+                                    base de datos.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
-                                    <img src="images/lab9.PNG" style="max-width:100%; border-radius:4px;" alt="Evidencia Lab 9" />
+                                    <img src="images/lab9.PNG" style="max-width:100%; border-radius:4px;"
+                                        alt="Evidencia Lab 9" />
                                 </div>
                             </div>
                         </div>
 
                         <div class="lab-card">
                             <div class="lab-header">
-                                <h3>10. Lab: SQL injection UNION attack, retrieving multiple values in a single column</h3>
+                                <h3>10. Lab: SQL injection UNION attack, retrieving multiple values in a single column
+                                </h3>
                                 <div class="lab-badge" style="background:#d35400;">Practitioner</div>
                                 <div class="lab-badge" style="background:#8e44ad;">Union-Based</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Recuperar múltiples valores cuando solo hay una columna de texto disponible.</p>
-                                <p><strong>Explicación Técnica:</strong> Concatenación lógica a nivel de motor SQL para unir varios campos y burlar la limitación visual.</p>
+                                <p><strong>Objetivo:</strong> Recuperar múltiples valores cuando solo hay una columna de
+                                    texto disponible.</p>
+                                <p><strong>Explicación Técnica:</strong> Concatenación lógica a nivel de motor SQL para
+                                    unir varios campos y burlar la limitación visual.</p>
                                 <div class="payload-box">
                                     <strong>Explicación del payload:</strong><br />
-                                    union select null, username ||'*'||password from users -- (Une usuario y contraseña separándolos con un asterisco).
+                                    union select null, username ||'*'||password from users -- (Une usuario y contraseña
+                                    separándolos con un asterisco).
                                 </div>
                                 <div class="mitigation-box">
                                     <strong>Mitigación:</strong> Consultas preparadas.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
-                                    <img src="images/lab10.PNG" style="max-width:100%; border-radius:4px;" alt="Evidencia Lab 10" />
+                                    <img src="images/lab10.PNG" style="max-width:100%; border-radius:4px;"
+                                        alt="Evidencia Lab 10" />
                                 </div>
                             </div>
                         </div>
 
                         <!-- PHASE 3 -->
-                        <h2 class="phase-header"><i class="fas fa-eye-slash"></i> Fase 3: Inferencia de Datos (Blind SQLi)</h2>
+                        <h2 class="phase-header"><i class="fas fa-eye-slash"></i> Fase 3: Inferencia de Datos (Blind
+                            SQLi)</h2>
 
                         <div class="lab-card">
                             <div class="lab-header">
@@ -532,18 +588,24 @@
                                 <div class="lab-badge" style="background:#8e44ad;">Blind SQLi</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Extraer la clave infiriendo caracteres basados en mensajes condicionales.</p>
-                                <p><strong>Explicación Técnica:</strong> La vulnerabilidad en la cookie altera el comportamiento de la página (muestra "Welcome back!") solo si la condición es verdadera.</p>
+                                <p><strong>Objetivo:</strong> Extraer la clave infiriendo caracteres basados en mensajes
+                                    condicionales.</p>
+                                <p><strong>Explicación Técnica:</strong> La vulnerabilidad en la cookie altera el
+                                    comportamiento de la página (muestra "Welcome back!") solo si la condición es
+                                    verdadera.</p>
                                 <div class="payload-box">
                                     <strong>Explicación del payload:</strong><br />
-                                    ' and (select substring(password,1,1) from users...)='a' -- (Comprueba si la primera letra es 'a', iterando el proceso).
+                                    ' and (select substring(password,1,1) from users...)='a' -- (Comprueba si la primera
+                                    letra es 'a', iterando el proceso).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Evitar variar respuestas de la interfaz según el éxito de procesos internos.
+                                    <strong>Mitigación:</strong> Evitar variar respuestas de la interfaz según el éxito
+                                    de procesos internos.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
-                                    <img src="images/lab11.PNG" style="max-width:100%; border-radius:4px;" alt="Evidencia Lab 11" />
+                                    <img src="images/lab11.PNG" style="max-width:100%; border-radius:4px;"
+                                        alt="Evidencia Lab 11" />
                                 </div>
                             </div>
                         </div>
@@ -556,17 +618,21 @@
                             </div>
                             <div class="lab-details">
                                 <p><strong>Objetivo:</strong> Exfiltrar datos forzando errores 500 controlados.</p>
-                                <p><strong>Explicación Técnica:</strong> Manipulación de cookie en Oracle para generar un fallo matemático intencional condicionado a una verdad lógica.</p>
+                                <p><strong>Explicación Técnica:</strong> Manipulación de cookie en Oracle para generar
+                                    un fallo matemático intencional condicionado a una verdad lógica.</p>
                                 <div class="payload-box">
                                     <strong>Explicación del payload:</strong><br />
-                                    '|| (select case when (...) then to_char(1/0) else '' end...) ||' (Fuerza división por cero si la letra probada es correcta).
+                                    '|| (select case when (...) then to_char(1/0) else '' end...) ||' (Fuerza división
+                                    por cero si la letra probada es correcta).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Parametrización y supresión de errores detallados de base de datos.
+                                    <strong>Mitigación:</strong> Parametrización y supresión de errores detallados de
+                                    base de datos.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
-                                    <img src="images/lab12.PNG" style="max-width:100%; border-radius:4px;" alt="Evidencia Lab 12" />
+                                    <img src="images/lab12.PNG" style="max-width:100%; border-radius:4px;"
+                                        alt="Evidencia Lab 12" />
                                 </div>
                             </div>
                         </div>
@@ -578,18 +644,23 @@
                                 <div class="lab-badge" style="background:#8e44ad;">Error-based</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Imprimir la contraseña directamente en un mensaje de error del servidor.</p>
-                                <p><strong>Explicación Técnica:</strong> Explotación de funciones de conversión de tipos (CAST); al fallar, el motor de BD escupe el dato original en el error.</p>
+                                <p><strong>Objetivo:</strong> Imprimir la contraseña directamente en un mensaje de error
+                                    del servidor.</p>
+                                <p><strong>Explicación Técnica:</strong> Explotación de funciones de conversión de tipos
+                                    (CAST); al fallar, el motor de BD escupe el dato original en el error.</p>
                                 <div class="payload-box">
                                     <strong>Explicación del payload:</strong><br />
-                                    ' AND 1=CAST((SELECT password FROM users LIMIT 1) AS int)-- (Falla al convertir el string a entero, revelando el string).
+                                    ' AND 1=CAST((SELECT password FROM users LIMIT 1) AS int)-- (Falla al convertir el
+                                    string a entero, revelando el string).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Desactivar visualización de errores (Error reporting off) en producción.
+                                    <strong>Mitigación:</strong> Desactivar visualización de errores (Error reporting
+                                    off) en producción.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
-                                    <img src="images/lab13.PNG" style="max-width:100%; border-radius:4px;" alt="Evidencia Lab 13" />
+                                    <img src="images/lab13.PNG" style="max-width:100%; border-radius:4px;"
+                                        alt="Evidencia Lab 13" />
                                 </div>
                             </div>
                         </div>
@@ -601,18 +672,23 @@
                                 <div class="lab-badge" style="background:#8e44ad;">Time-based Blind</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Confirmar vulnerabilidad provocando un retraso exacto de 10 segundos.</p>
-                                <p><strong>Explicación Técnica:</strong> Inyección de funciones de pausa del sistema (como pg_sleep) cuando no hay respuesta visual de la vulnerabilidad.</p>
+                                <p><strong>Objetivo:</strong> Confirmar vulnerabilidad provocando un retraso exacto de
+                                    10 segundos.</p>
+                                <p><strong>Explicación Técnica:</strong> Inyección de funciones de pausa del sistema
+                                    (como pg_sleep) cuando no hay respuesta visual de la vulnerabilidad.</p>
                                 <div class="payload-box">
                                     <strong>Explicación del payload:</strong><br />
-                                    x'|| pg_sleep(10) -- (Instruye directamente al proceso de PostgreSQL a inhabilitarse por 10 segundos).
+                                    x'|| pg_sleep(10) -- (Instruye directamente al proceso de PostgreSQL a inhabilitarse
+                                    por 10 segundos).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Configuración de WAF para bloquear funciones de tiempo y sanitización estricta.
+                                    <strong>Mitigación:</strong> Configuración de WAF para bloquear funciones de tiempo
+                                    y sanitización estricta.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
-                                    <img src="images/lab14.PNG" style="max-width:100%; border-radius:4px;" alt="Evidencia Lab 14" />
+                                    <img src="images/lab14.PNG" style="max-width:100%; border-radius:4px;"
+                                        alt="Evidencia Lab 14" />
                                 </div>
                             </div>
                         </div>
@@ -625,23 +701,28 @@
                             </div>
                             <div class="lab-details">
                                 <p><strong>Objetivo:</strong> Extraer la contraseña midiendo latencias de red.</p>
-                                <p><strong>Explicación Técnica:</strong> Combinación de comandos de retardo y lógica binaria (CASE WHEN) para adivinar caracteres según la demora del servidor.</p>
+                                <p><strong>Explicación Técnica:</strong> Combinación de comandos de retardo y lógica
+                                    binaria (CASE WHEN) para adivinar caracteres según la demora del servidor.</p>
                                 <div class="payload-box">
                                     <strong>Explicación del payload:</strong><br />
-                                    SELECT CASE WHEN (condición) THEN pg_sleep(10) ELSE pg_sleep(0) END (Pausa 10s si el carácter adivinado es correcto).
+                                    SELECT CASE WHEN (condición) THEN pg_sleep(10) ELSE pg_sleep(0) END (Pausa 10s si el
+                                    carácter adivinado es correcto).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Parametrización absoluta e implementación de Rate Limiting.
+                                    <strong>Mitigación:</strong> Parametrización absoluta e implementación de Rate
+                                    Limiting.
                                 </div>
                                 <div class="evidence-box">
                                     <i class="fas fa-image"></i>
-                                    <img src="images/lab15.PNG" style="max-width:100%; border-radius:4px;" alt="Evidencia Lab 15" />
+                                    <img src="images/lab15.PNG" style="max-width:100%; border-radius:4px;"
+                                        alt="Evidencia Lab 15" />
                                 </div>
                             </div>
                         </div>
 
                         <!-- PHASE 4 -->
-                        <h2 class="phase-header"><i class="fas fa-vr-cardboard"></i> Fase 4: Exfiltración Externa y Evasión</h2>
+                        <h2 class="phase-header"><i class="fas fa-vr-cardboard"></i> Fase 4: Exfiltración Externa y
+                            Evasión</h2>
 
                         <div class="lab-card">
                             <div class="lab-header">
@@ -650,14 +731,19 @@
                                 <div class="lab-badge" style="background:#8e44ad;">Out-of-Band (OAST)</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Confirmar inyección ciega forzando una petición DNS externa.</p>
-                                <p><strong>Explicación Técnica:</strong> Uso de funcionalidades de conexión de red de la base de datos para resolver un dominio controlado por el atacante (Burp Collaborator).</p>
+                                <p><strong>Objetivo:</strong> Confirmar inyección ciega forzando una petición DNS
+                                    externa.</p>
+                                <p><strong>Explicación Técnica:</strong> Uso de funcionalidades de conexión de red de la
+                                    base de datos para resolver un dominio controlado por el atacante (Burp
+                                    Collaborator).</p>
                                 <div class="payload-box">
                                     <strong>Explicación del payload:</strong><br />
-                                    '||(SELECT ... FROM ... )-- (Subconsulta embebida que contiene el dominio externo para forzar el DNS Lookup).
+                                    '||(SELECT ... FROM ... )-- (Subconsulta embebida que contiene el dominio externo
+                                    para forzar el DNS Lookup).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Restringir conexiones salientes (Egress filtering) a nivel de servidor de BD.
+                                    <strong>Mitigación:</strong> Restringir conexiones salientes (Egress filtering) a
+                                    nivel de servidor de BD.
                                 </div>
                             </div>
                         </div>
@@ -669,14 +755,18 @@
                                 <div class="lab-badge" style="background:#8e44ad;">Out-of-Band (OAST)</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Extraer la contraseña enviándola a un servidor externo.</p>
-                                <p><strong>Explicación Técnica:</strong> El dato robado se inserta como prefijo (subdominio) en la solicitud DNS generada hacia la infraestructura del atacante.</p>
+                                <p><strong>Objetivo:</strong> Extraer la contraseña enviándola a un servidor externo.
+                                </p>
+                                <p><strong>Explicación Técnica:</strong> El dato robado se inserta como prefijo
+                                    (subdominio) en la solicitud DNS generada hacia la infraestructura del atacante.</p>
                                 <div class="payload-box">
                                     <strong>Explicación del payload:</strong><br />
-                                    '||(SELECT password...) || '.dominio-colaborador'-- (La base de datos resuelve el dominio enviando consigo la clave en la URL).
+                                    '||(SELECT password...) || '.dominio-colaborador'-- (La base de datos resuelve el
+                                    dominio enviando consigo la clave en la URL).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Reglas de firewall interno para bloquear toda resolución de nombres no esencial.
+                                    <strong>Mitigación:</strong> Reglas de firewall interno para bloquear toda
+                                    resolución de nombres no esencial.
                                 </div>
                             </div>
                         </div>
@@ -688,14 +778,19 @@
                                 <div class="lab-badge" style="background:#8e44ad;">WAF Bypass</div>
                             </div>
                             <div class="lab-details">
-                                <p><strong>Objetivo:</strong> Burlar el Firewall de Aplicaciones Web (WAF) para inyectar sentencias.</p>
-                                <p><strong>Explicación Técnica:</strong> El WAF bloquea sintaxis SQL en texto plano, pero ignora entidades codificadas en XML Hexagonal, las cuales el backend sí procesa.</p>
+                                <p><strong>Objetivo:</strong> Burlar el Firewall de Aplicaciones Web (WAF) para inyectar
+                                    sentencias.</p>
+                                <p><strong>Explicación Técnica:</strong> El WAF bloquea sintaxis SQL en texto plano,
+                                    pero ignora entidades codificadas en XML Hexagonal, las cuales el backend sí
+                                    procesa.</p>
                                 <div class="payload-box">
                                     <strong>Explicación del payload:</strong><br />
-                                    UNION SELECT username || ':' || password FROM users (Totalmente ofuscado usando Hackvertor en formato XML Hex).
+                                    UNION SELECT username || ':' || password FROM users (Totalmente ofuscado usando
+                                    Hackvertor en formato XML Hex).
                                 </div>
                                 <div class="mitigation-box">
-                                    <strong>Mitigación:</strong> Configurar el WAF con capacidad de decodificación profunda de múltiples capas (Deep Inspection).
+                                    <strong>Mitigación:</strong> Configurar el WAF con capacidad de decodificación
+                                    profunda de múltiples capas (Deep Inspection).
                                 </div>
                             </div>
                         </div>
