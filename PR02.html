@@ -8,20 +8,116 @@
     <link rel="stylesheet" href="assets/css/fontawesome-all.min.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
     <style>
+        /* ESTILO PERSONALIZADO PARA EL MENÚ TIPO BARRA NEGRA */
         #nav {
             background-color: #000000 !important;
+            /* Fondo Negro */
             color: #ffffff !important;
             padding: 0.5em 0;
         }
 
         #nav ul li a {
             color: #ffffff !important;
+            /* Letras Blancas */
             font-weight: bold;
             border-radius: 4px;
         }
 
         #nav ul li a:hover {
             background-color: #333333;
+            /* Gris oscuro al pasar el mouse */
+        }
+
+        hr {
+            border-top: solid 1px #ccc !important;
+            opacity: 1;
+            margin: 2em 0;
+        }
+
+        .content-article {
+            background: #ffffff;
+            padding: 3em;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .content-article h2 {
+            color: #e63946;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5em;
+            margin-bottom: 1em;
+        }
+
+        .content-article h3 {
+            color: #333;
+            margin-top: 1.5em;
+            font-size: 1.3em;
+        }
+
+        .content-article h4 {
+            color: #555;
+            font-size: 1.1em;
+            margin-top: 1em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2em 0;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ddd;
+            padding: 0.75em;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        table th {
+            background-color: #a496a4;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        table td {
+            background-color: #f1eff1;
+            color: #333333;
+        }
+
+        .pdf-btn {
+            background-color: #d32f2f;
+            color: white !important;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 2em;
+            font-weight: bold;
+        }
+
+        .pdf-btn:hover {
+            background-color: #b71c1c;
+        }
+
+        /* Portada interna style */
+        .cover-info {
+            text-align: center;
+            margin-bottom: 3em;
+            padding: 2em;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .cover-info h1 {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 0.5em;
+        }
+
+        .cover-info p {
+            margin: 0.2em 0;
+            color: #555;
         }
     </style>
 </head>
@@ -42,17 +138,334 @@
     <article id="top" class="wrapper style1">
         <div class="container">
             <header>
-                <h2>Proyecto 02 (PR02)</h2>
-                <p>Contenido Pendiente</p>
+                <p style="text-align: left;"><a href="proyectos.html">← Volver al listado</a></p>
+                <h2>PR02: Gestión del Riesgo Humano</h2>
+                <p>Análisis Comparativo de Plataformas de Simulación de Phishing</p>
             </header>
+
             <div class="row">
                 <div class="col-12">
-                    <section class="box style1">
-                        <span class="icon featured fas fa-hourglass-half"></span>
-                        <h3>Próximamente</h3>
-                        <p>El contenido de este proyecto se encuentra en desarrollo o pendiente de publicación.</p>
-                        <a href="proyectos.html" class="button">Volver a Proyectos</a>
-                    </section>
+                    <div class="content-article">
+                        <!-- Cover Content -->
+                        <div class="cover-info">
+                            <h1>PR02 - Análisis Comparativo: Plataformas de Simulación de Phishing</h1>
+                            <p><strong>Materia:</strong> CNO V: Seguridad Informática</p>
+                            <p><strong>Alumno:</strong> Alonso Castillo Omar Karim (179033)</p>
+                            <p><strong>Profesor:</strong> Mtro. Servando López Contreras</p>
+                            <p><strong>Fecha:</strong> 06/03/2026</p>
+                        </div>
+
+                        <hr />
+
+                        <!-- Introduction -->
+                        <h2>Introducción</h2>
+                        <p>La gestión del riesgo humano constituye una dimensión crítica en la arquitectura de seguridad
+                            de cualquier organización tecnológica. Ante la sofisticación de los ataques de ingeniería
+                            social, que logran eludir controles perimetrales complejos, la industria ha evolucionado
+                            desde los modelos tradicionales de concienciación teórica hacia sistemas dinámicos de
+                            medición y mitigación de vulnerabilidades cognitivas. Este documento presenta un análisis
+                            profundo y estructurado de ocho plataformas líderes en simulación de phishing, evaluando sus
+                            métricas de telemetría, arquitecturas pedagógicas, capacidades de integración técnica y la
+                            rigurosidad ética aplicada a la formación de los usuarios.</p>
+
+                        <!-- General & Specific Objectives -->
+                        <h2>Objetivo General</h2>
+                        <p>Realizar un análisis comparativo de plataformas profesionales del mercado, con el propósito
+                            de medir el nivel de reconocimiento de amenazas de ingeniería social en usuarios y
+                            fortalecer la postura de seguridad organizacional.</p>
+
+                        <h3>Objetivos Específicos</h3>
+                        <ul>
+                            <li>Analizar y comparar de manera individual 8 plataformas de simulación de phishing
+                                (Hoxhunt, Proofpoint, KnowBe4, Cofense, Phished, NINJIO, Mimecast e Infosec IQ).</li>
+                            <li>Identificar y contrastar sus capacidades técnicas, integraciones y limitaciones
+                                operativas.</li>
+                            <li>Evaluar las métricas de medición utilizadas, los enfoques de entrenamiento de los
+                                usuarios y los controles éticos aplicados en la gestión del riesgo humano.</li>
+                        </ul>
+
+                        <!-- Framework -->
+                        <h2>Marco Teórico y Fundamentación Técnica</h2>
+                        <p>Para evaluar la efectividad de estas plataformas, es indispensable comprender la evolución de
+                            las métricas clave y los enfoques técnicos que rigen la industria.</p>
+
+                        <h3>Tipos de Métricas</h3>
+                        <ul>
+                            <li><strong>Click Rate (Tasa de Clics):</strong> Mide la susceptibilidad. Es el porcentaje
+                                de usuarios que interactúan negativamente con una simulación. Aunque históricamente fue
+                                la métrica principal, hoy se considera insuficiente por sí sola, ya que un click rate
+                                bajo no implica necesariamente una defensa activa.</li>
+                            <li><strong>Reporting Rate (Tasa de Reporte):</strong> Mide la resiliencia. Es el porcentaje
+                                de usuarios que utilizan el botón de reporte (ej. Phish Alert Button) al detectar una
+                                amenaza. Una tasa alta de reporte convierte a los empleados en una red de sensores de
+                                amenazas reales.</li>
+                            <li><strong>Risk Score (Puntuación de Riesgo):</strong> Una métrica compuesta que cuantifica
+                                el nivel de riesgo de un usuario, departamento o la organización entera. Se calcula
+                                combinando el comportamiento en simulaciones, el cumplimiento de capacitaciones, el rol
+                                del usuario, y las integraciones con el ecosistema de seguridad (Identity and Access
+                                Management, Endpoints).</li>
+                        </ul>
+
+                        <h3>Minería de Datos Comportamentales y Modelado de Riesgo</h3>
+                        <p>En el contexto de la gestión del riesgo humano, el cálculo del nivel de vulnerabilidad (Risk
+                            Score) trasciende la simple tabulación de clics en campañas simuladas. Las plataformas
+                            modernas de concienciación implementan técnicas avanzadas de minería de datos sobre la
+                            telemetría generada por los usuarios. Esto implica la extracción de patrones ocultos en
+                            grandes volúmenes de datos transaccionales, evaluando variables críticas como la frecuencia
+                            de conexión, los tiempos de latencia entre la apertura de un correo y la ejecución de una
+                            acción (ya sea la interacción con el enlace malicioso o la activación del botón de reporte),
+                            y el contexto del dispositivo utilizado.</p>
+                        <p>Mediante la aplicación de algoritmos predictivos y, en las arquitecturas más avanzadas, el
+                            uso de redes neuronales para el procesamiento de estas series temporales, los sistemas
+                            logran clasificar a los usuarios y modelar el riesgo probabilístico de manera dinámica. Este
+                            enfoque analítico permite identificar qué perfiles o departamentos presentan mayor
+                            susceptibilidad ante vectores de ataque específicos, facilitando una mitigación proactiva y
+                            el despliegue de políticas de seguridad basadas en evidencia estadística sólida, en lugar de
+                            suposiciones estáticas.</p>
+
+                        <h3>Principios Psicológicos de la Ingeniería Social (Vectores de Influencia)</h3>
+                        <p>La ingeniería social no explota vulnerabilidades en el código o en la configuración de la
+                            infraestructura, sino sesgos cognitivos en el procesamiento de información del usuario
+                            final. Para que una plataforma de simulación sea técnicamente válida y formativa, debe
+                            replicar con precisión los vectores de influencia psicológica documentados en la literatura
+                            empírica. Los ciberdelincuentes diseñan sus cargas útiles (payloads) semánticas basándose en
+                            heurísticos fundamentales:</p>
+                        <ul>
+                            <li><strong>Urgencia y Escasez:</strong> Se emplean narrativas como la expiración inminente
+                                de credenciales o la cancelación de servicios para provocar un estado de alerta en el
+                                usuario, forzando una toma de decisiones rápida que interrumpe el análisis crítico del
+                                mensaje.</li>
+                            <li><strong>Autoridad:</strong> Consiste en la suplantación de entidades de alto nivel
+                                jerárquico (directivos, soporte de TI o instituciones gubernamentales) para inducir
+                                sumisión y obediencia automática frente a una instrucción.</li>
+                            <li><strong>Curiosidad o Recompensa:</strong> Se utilizan cebos relacionados con beneficios
+                                económicos, ajustes salariales o información corporativa confidencial, explotando el
+                                interés personal para motivar la apertura de archivos adjuntos.</li>
+                        </ul>
+                        <p>Comprender y medir la respuesta ante estos estímulos es crucial, ya que el objetivo del
+                            atacante es "hackear" la reacción emocional del usuario para lograr que este eluda
+                            voluntariamente los controles perimetrales de la organización.</p>
+
+                        <h3>Diversificación de Vectores de Ataque (Multicanalidad)</h3>
+                        <p>La evolución de la topología de redes corporativas y la ubicuidad de los dispositivos móviles
+                            han obligado a los actores de amenazas a diversificar sus métodos de intrusión más allá del
+                            correo electrónico corporativo. Un marco integral de concienciación en ciberseguridad debe
+                            contemplar la multicanalidad de los ataques modernos, los cuales frecuentemente están
+                            diseñados para evadir túneles de comunicación seguros (como conexiones VPN Site-to-Site o de
+                            acceso remoto) y puertas de enlace de correo electrónico, dirigiendo la amenaza directamente
+                            hacia los endpoints personales o canales no monitorizados. Entre los vectores emergentes de
+                            mayor impacto destacan:</p>
+                        <ul>
+                            <li><strong>Smishing (SMS Phishing):</strong> Ejecución de ataques mediante mensajes de
+                                texto cortos que incluyen enlaces fraudulentos. Este vector explota la inmediatez de la
+                                lectura y la confianza inherente que los usuarios suelen depositar en la mensajería
+                                móvil, donde los filtros de spam son considerablemente menos robustos.</li>
+                            <li><strong>Vishing (Voice Phishing):</strong> Fraudes telefónicos donde el atacante
+                                interactúa en tiempo real con la víctima. Impulsado actualmente por tecnologías de
+                                clonación de voz, busca extraer credenciales críticas, tokens de autenticación
+                                multifactor (MFA) o inducir transferencias no autorizadas.</li>
+                            <li><strong>Quishing (QR Phishing):</strong> Integración de códigos QR maliciosos en
+                                documentos físicos, presentaciones o correos electrónicos aparentes. Su objetivo técnico
+                                es forzar al usuario a escanear el código con su teléfono inteligente, trasladando
+                                efectivamente la sesión de ataque fuera del entorno corporativo securizado y hacia una
+                                red externa sobre la cual la organización carece de visibilidad y control.</li>
+                        </ul>
+
+                        <!-- Platform Analysis -->
+                        <h2>Análisis Individual de Plataformas</h2>
+
+                        <h3>Hoxhunt</h3>
+                        <p>Se distingue por un enfoque de gamificación impulsado por inteligencia artificial. Su
+                            arquitectura se aleja del modelo punitivo y utiliza algoritmos de aprendizaje automático
+                            para hiper-personalizar los señuelos según la curva de aprendizaje de cada usuario.
+                            Técnicamente, destaca por su integración a nivel API con plataformas como Microsoft 365,
+                            automatizando la distribución de ataques simulados contextuales.</p>
+
+                        <h3>Proofpoint (Security Awareness Training)</h3>
+                        <p>Fundamenta su valor en la inteligencia de amenazas orientada a las personas. Su principal
+                            ventaja técnica radica en la utilización de campañas basadas en ataques reales detectados
+                            por sus propias pasarelas de correo, clasificando a los individuos como objetivos altamente
+                            atacados (VAPs). Su integración con herramientas de respuesta a incidentes permite una
+                            mitigación automatizada eficaz.</p>
+
+                        <h3>KnowBe4</h3>
+                        <p>Lidera el mercado mediante el volumen masivo de contenido y el enfoque en el cumplimiento
+                            normativo. Su inmensa biblioteca de plantillas y módulos interactivos proporciona gran
+                            flexibilidad, mientras que su herramienta PhishER permite a los centros de operaciones de
+                            seguridad gestionar los reportes de los usuarios. Sin embargo, requiere una carga
+                            administrativa considerable para configurar campañas complejas manualmente.</p>
+
+                        <h3>Cofense (PhishMe)</h3>
+                        <p>Opera bajo la filosofía de la defensa colaborativa, integrando fuertemente la inteligencia de
+                            fuentes abiertas y cerradas. La plataforma está diseñada para convertir a los empleados en
+                            sensores activos, canalizando rápidamente los reportes hacia plataformas de orquestación y
+                            automatización (SOAR) para analizar y mitigar amenazas reales en cuestión de minutos.</p>
+
+                        <h3>Phished</h3>
+                        <p>Ofrece una solución de automatización total basada en algoritmos predictivos. Diseñada para
+                            minimizar la intervención humana, la plataforma crea perfiles psicológicos de los usuarios
+                            utilizando datos de fuentes abiertas (OSINT) y programa campañas de phishing adaptativas.
+                            Esto resulta ideal para equipos con recursos de administración limitados.</p>
+
+                        <h3>NINJIO</h3>
+                        <p>Aborda la concienciación mediante la retención de la atención a través del microaprendizaje y
+                            la narrativa emocional. Utiliza episodios animados basados en brechas de seguridad reales de
+                            empresas reconocidas, operando bajo la premisa de que la conexión emocional con una historia
+                            incrementa drásticamente la retención del conocimiento técnico a largo plazo.</p>
+
+                        <h3>Mimecast (Awareness Training)</h3>
+                        <p>Integra el humor en su metodología pedagógica a través de módulos de video cortos, lo que
+                            reduce la fricción y la ansiedad del usuario frente a los equipos de soporte. Su fortaleza
+                            técnica definitiva es la integración nativa con su propia pasarela segura de correo
+                            electrónico, centralizando la gestión del riesgo de la red y la formación en una única
+                            consola.</p>
+
+                        <h3>Infosec IQ</h3>
+                        <p>Destaca por su flexibilidad y estricto mapeo de cumplimiento para normativas como NIST e ISO.
+                            La plataforma proporciona entrenamientos interactivos personalizables y cuadros de mando
+                            altamente detallados, siendo la opción preferida para organizaciones que requieren
+                            auditorías rigurosas y segmentación del riesgo por departamento.</p>
+
+                        <!-- Table -->
+                        <h2>Tabla Comparativa Integral</h2>
+                        <div style="overflow-x:auto;">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Plataforma</th>
+                                        <th>Analítica y Métricas (Risk Score / Reporting)</th>
+                                        <th>Integración Técnica</th>
+                                        <th>Enfoque Ético y Cultural</th>
+                                        <th>Limitaciones Principales</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Hoxhunt</strong></td>
+                                        <td>Excelente tasa de reporte; <i>risk score</i> basado en IA evolutiva.</td>
+                                        <td>API M365/G-Workspace. Reducción de carga en SOC.</td>
+                                        <td>Muy alto. Fomenta refuerzo positivo y gamificación (estrellas/tablas de
+                                            líderes).</td>
+                                        <td>Puede resultar costoso para PyMEs. Requiere cambio cultural fuerte.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Proofpoint</strong></td>
+                                        <td><i>Risk score</i> complejo atado a vulnerabilidad y nivel de ataque (VAPs).
+                                        </td>
+                                        <td>Nativa con ecosistema Proofpoint (Clear, TRAP, TAP).</td>
+                                        <td>Moderado-Alto. Orientado al riesgo, evita señuelos engañosos traumáticos.
+                                        </td>
+                                        <td>Interfaz curva de aprendizaje pronunciada. Requiere ecosistema propio para
+                                            brillar.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>KnowBe4</strong></td>
+                                        <td>Métricas profundas. <i>Click rate, Phish-prone percentage, reporting
+                                                rate.</i></td>
+                                        <td>Active Directory, LMS (SCORM), SOAR vía PhishER.</td>
+                                        <td>Moderado. Depende de cómo el administrador configure las campañas.</td>
+                                        <td>Sobrecarga administrativa ("Fatiga de opciones"). Interfaz algo anticuada.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Cofense</strong></td>
+                                        <td>Analítica centrada en velocidad de reporte y mitigación de falsos positivos.
+                                        </td>
+                                        <td>Excelente con herramientas SIEM/SOAR y respuesta a incidentes.</td>
+                                        <td>Alto. Enfocado en el usuario como defensa, no como problema.</td>
+                                        <td>El contenido de entrenamiento (videos) no es tan robusto como el de sus
+                                            rivales.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Phished</strong></td>
+                                        <td>Métricas generadas automáticamente. Previsión de riesgo IA.</td>
+                                        <td>Integración con AD, Google Workspace y herramientas de RRHH.</td>
+                                        <td>Alto. Entrenamientos adaptativos y no invasivos.</td>
+                                        <td>Falta de granularidad para administradores que desean control total manual.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>NINJIO</strong></td>
+                                        <td>Mide engagement, visualizaciones y puntuación de riesgo actitudinal.</td>
+                                        <td>Integraciones estándar con LMS e Identity Providers (IdP).</td>
+                                        <td>Alto. Promueve la empatía a través de historias reales dramatizadas.</td>
+                                        <td>Limitado en la sofisticación técnica de los ataques simulados.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Mimecast</strong></td>
+                                        <td>Riesgo de empleado integrado al riesgo general del correo (Mimecast SAFE).
+                                        </td>
+                                        <td>Nativa 100% con su propio Secure Email Gateway.</td>
+                                        <td>Alto. El uso del humor reduce el estrés y la fricción con TI.</td>
+                                        <td>Limitado si la organización utiliza un proveedor de correo/gateway distinto.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Infosec IQ</strong></td>
+                                        <td>Métricas altamente orientadas al cumplimiento y auditoría técnica.</td>
+                                        <td>SSO, AD, y soporte para exportar datos a plataformas BI.</td>
+                                        <td>Moderado-Alto. Permite adaptar campañas a políticas de RRHH.</td>
+                                        <td>Automatización menos avanzada en comparación con plataformas "Zero-Touch" o
+                                            IA pura.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Critical Analysis -->
+                        <h2>Análisis Crítico y Conclusiones</h2>
+                        <p>El análisis de la oferta actual evidencia una polarización tecnológica en el mercado: por un
+                            lado, arquitecturas impulsadas por redes neuronales y automatización total, y por otro,
+                            soluciones fundamentadas en repositorios masivos de inteligencia de amenazas y cumplimiento
+                            normativo. Para infraestructuras empresariales con centros de operaciones maduros que buscan
+                            integrar la telemetría del usuario con la respuesta a incidentes y flujos de trabajo ITIL,
+                            Proofpoint y Cofense ofrecen las arquitecturas más sólidas. Por el contrario, si la
+                            prioridad es auditar el cumplimiento normativo mediante métricas tradicionales, KnowBe4 e
+                            Infosec IQ se posicionan como líderes por su capacidad de segmentación.</p>
+                        <p>No obstante, en entornos donde se busca mitigar el eslabón humano interviniendo directamente
+                            en el comportamiento sin generar fricción operativa, Hoxhunt y NINJIO sobresalen en el
+                            aspecto técnico. La conclusión técnica fundamental de este análisis es el declive de la tasa
+                            de clics como indicador de éxito aislado. Las organizaciones de tecnologías de la
+                            información deben priorizar plataformas que calculen el riesgo mediante algoritmos dinámicos
+                            y fomenten una alta tasa de reporte, equilibrando la sofisticación técnica de la simulación
+                            con un marco ético que consolide al usuario final como una extensión activa del perímetro de
+                            seguridad.</p>
+
+                        <!-- End References -->
+                        <h2>Referencias Bibliográficas</h2>
+                        <ul>
+                            <li>AXELOS. (2019). ITIL foundation: ITIL 4 edition. TSO (The Stationery Office).</li>
+                            <li>Cialdini, R. B. (2021). Influence, new and expanded: The psychology of persuasion.
+                                Harper Business.</li>
+                            <li>Cofense. (2023). The state of phishing intelligence: How active threat detection
+                                empowers end users.</li>
+                            <li>Hoxhunt. (2023). Behavioral cybersecurity: Moving beyond traditional security awareness
+                                training.</li>
+                            <li>Infosec. (2023). Security awareness and training: A guide to compliance and human risk
+                                management.</li>
+                            <li>KnowBe4. (2024). Comprehensive guide to security awareness training and simulated
+                                phishing.</li>
+                            <li>Mimecast. (2023). The state of email security report 2023.</li>
+                            <li>NINJIO. (2023). The science of storytelling and microlearning in cybersecurity
+                                awareness.</li>
+                            <li>Phished. (2023). AI-driven human risk management: Automating phishing simulations and
+                                behavioral analysis.</li>
+                            <li>Proofpoint. (2024). State of the phish report: User behavior and human risk management.
+                            </li>
+                            <li>Roer, K. (2022). The security culture playbook: An executive guide to reducing risk and
+                                developing your human defense layer. Wiley.</li>
+                            <li>Sarker, I. H., Kayes, A. S. M., Badsha, S., Alqahtani, H., Watters, P., & Ng, A. (2020).
+                                Cybersecurity data science: An overview from machine learning perspective. Journal of
+                                Big Data, 7(1), 1-29.</li>
+                        </ul>
+
+                        <!-- Export Button -->
+                        <div style="text-align: center; margin-top: 3em;">
+                            <a href="Actividades/179033-pr02-01.pdf" class="pdf-btn" download>
+                                <i class="icon solid fa-file-pdf"></i> Descargar PDF original
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
