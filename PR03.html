@@ -8,20 +8,64 @@
     <link rel="stylesheet" href="assets/css/fontawesome-all.min.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
     <style>
+        /* ESTILO PERSONALIZADO PARA EL MENÚ TIPO BARRA NEGRA */
         #nav {
             background-color: #000000 !important;
+            /* Fondo Negro */
             color: #ffffff !important;
             padding: 0.5em 0;
         }
 
         #nav ul li a {
             color: #ffffff !important;
+            /* Letras Blancas */
             font-weight: bold;
             border-radius: 4px;
         }
 
         #nav ul li a:hover {
             background-color: #333333;
+            /* Gris oscuro al pasar el mouse */
+        }
+
+        /* Dropdown CSS Custom */
+        .dropdown-hover {
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #000000;
+            min-width: 170px;
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            border-radius: 4px;
+        }
+
+        .dropdown-content li {
+            display: block;
+        }
+
+        .dropdown-content li a {
+            color: #ffffff !important;
+            padding: 10px 15px !important;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9em;
+        }
+
+        .dropdown-content li a:hover {
+            background-color: #333333 !important;
+        }
+
+        .dropdown-hover:hover .dropdown-content {
+            display: block;
         }
     </style>
 </head>
