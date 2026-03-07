@@ -8,20 +8,95 @@
     <link rel="stylesheet" href="assets/css/fontawesome-all.min.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
     <style>
+        /* ESTILO PERSONALIZADO PARA EL MENÚ TIPO BARRA NEGRA */
         #nav {
             background-color: #000000 !important;
+            /* Fondo Negro */
             color: #ffffff !important;
             padding: 0.5em 0;
         }
 
         #nav ul li a {
             color: #ffffff !important;
+            /* Letras Blancas */
             font-weight: bold;
             border-radius: 4px;
         }
 
         #nav ul li a:hover {
             background-color: #333333;
+            /* Gris oscuro al pasar el mouse */
+        }
+
+        hr {
+            border-top: solid 1px #ccc !important;
+            opacity: 1;
+            margin: 2em 0;
+        }
+
+        .content-article {
+            background: #ffffff;
+            padding: 3em;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .content-article h2 {
+            color: #e63946;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5em;
+            margin-bottom: 1em;
+        }
+
+        .content-article h3 {
+            color: #333;
+            margin-top: 1.5em;
+            font-size: 1.3em;
+        }
+
+        .content-article h4 {
+            color: #555;
+            font-size: 1.1em;
+            margin-top: 1em;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            margin: 2em 0;
+            background: #000;
+            border-radius: 8px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Portada interna style */
+        .cover-info {
+            text-align: center;
+            margin-bottom: 3em;
+            padding: 2em;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .cover-info h1 {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 0.5em;
+        }
+
+        .cover-info p {
+            margin: 0.2em 0;
+            color: #555;
         }
     </style>
 </head>
@@ -42,17 +117,60 @@
     <article id="top" class="wrapper style1">
         <div class="container">
             <header>
-                <h2>Proyecto 01 (PR01)</h2>
-                <p>Contenido Pendiente</p>
+                <p style="text-align: left;"><a href="proyectos.html">← Volver al listado</a></p>
+                <h2>PR01: De la teoría a la práctica</h2>
+                <p>Walkthrough en acción (guía y video)</p>
             </header>
+
             <div class="row">
                 <div class="col-12">
-                    <section class="box style1">
-                        <span class="icon featured fas fa-hourglass-half"></span>
-                        <h3>Próximamente</h3>
-                        <p>El contenido de este proyecto se encuentra en desarrollo o pendiente de publicación.</p>
-                        <a href="proyectos.html" class="button">Volver a Proyectos</a>
-                    </section>
+                    <div class="content-article">
+                        <!-- Cover Content -->
+                        <div class="cover-info">
+                            <h1>PR01 - De la teoría a la práctica: walkthrough en acción</h1>
+                            <p><strong>Materia:</strong> CNO V: Seguridad Informática</p>
+                            <p><strong>Alumno:</strong> Alonso Castillo Omar Karim (179033)</p>
+                            <p><strong>Profesor:</strong> Mtro. Servando López Contreras</p>
+                            <p><strong>Fecha:</strong> 20/02/2026</p>
+                        </div>
+
+                        <hr />
+
+                        <!-- Introduction -->
+                        <h2>Introducción</h2>
+                        <p>El presente documento expone los resultados de una evaluación teórica y práctica de seguridad informática realizada sobre un entorno virtualizado conocido como "Snakeoil". El propósito de este ejercicio es demostrar la capacidad de aplicar metodologías de pentesting en escenarios controlados, identificando fallos de configuración, explotando vulnerabilidades a nivel de aplicación web y ejecutando técnicas de post-explotación para obtener el control administrativo del sistema. A través de este análisis, se evidencia el dominio de herramientas de la industria y la comprensión de las arquitecturas de red subyacentes.</p>
+
+                        <!-- Summary -->
+                        <h2>Resumen</h2>
+                        <p>Se configuró un entorno de virtualización aislado para realizar una evaluación de seguridad sobre el servidor objetivo. Durante la auditoría, se identificaron múltiples vectores de ataque derivados de una mala implementación en la API REST de la aplicación web. El compromiso total del sistema se logró encadenando una serie de vulnerabilidades que incluyeron la evasión de autenticación, la inyección de comandos a nivel de sistema operativo y el descubrimiento de credenciales expuestas en el código fuente, obteniendo finalmente privilegios de superusuario.</p>
+
+                        <!-- Tech -->
+                        <h2>Tecnologías y Habilidades Demostradas</h2>
+                        <p>Para llevar a cabo esta intrusión controlada, se emplearon diversas técnicas fundamentales en la ciberseguridad. La fase inicial requirió conocimientos de reconocimiento de red y escaneo de puertos utilizando herramientas como Netdiscover y Nmap. Posteriormente, el análisis de la aplicación web y el descubrimiento de directorios ocultos se realizó mediante técnicas de fuzzing con Gobuster. El núcleo de la explotación demandó una sólida comprensión en la manipulación de APIs, utilizando Burp Suite como proxy de intercepción para alterar cabeceras HTTP, cambiar métodos de petición y estructurar datos en formato JSON. Finalmente, se demostraron habilidades de post-explotación al establecer conexiones inversas (Reverse Shells), estabilizar terminales con Python y ejecutar una escalada de privilegios en un entorno Linux.</p>
+
+                        <!-- Video -->
+                        <h2>Video Demostrativo</h2>
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/SUBxC_Lda88" title="Walkthrough en acción" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </div>
+
+                        <!-- Methodology -->
+                        <h2>Cadena de Explotación y Metodología</h2>
+                        <p>La auditoría inició con una fase de reconocimiento activo de la red local, donde se identificó la dirección IP del objetivo mediante peticiones ARP. Acto seguido, un escaneo exhaustivo de puertos TCP reveló la ejecución de servicios en los puertos 22 (SSH), 80 y 8080 (HTTP). Al enfocar el análisis en la superficie de ataque web, el escaneo de directorios sobre el puerto 8080 descubrió rutas críticas pertenecientes a una API no documentada.</p>
+
+                        <p>Para vulnerar el control de acceso, se interceptó el tráfico dirigido al directorio de registro utilizando un proxy manual. Al modificar el método de la petición a POST e inyectar un cuerpo de datos estructurado en JSON, el servidor procesó la solicitud de manera anómala, permitiendo registrar un usuario atacante y generando un token de acceso válido. Utilizando este token en un inicio de sesión forzado, se logró acceder a una ruta restringida y extraer la llave secreta de la API.</p>
+
+                        <p>Con la autorización necesaria asegurada, se procedió a explotar el vector más crítico: una vulnerabilidad de inyección de comandos. Al interactuar con el endpoint de ejecución e insertar delimitadores de consola en el parámetro de la URL, se forzó al servidor a descargar y ejecutar un script malicioso. Esto resultó en la obtención de una Reverse Shell interactiva. Finalmente, durante la fase de post-explotación, la revisión del código fuente de la aplicación web alojada localmente reveló contraseñas en texto plano, las cuales fueron reutilizadas exitosamente para escalar privilegios y asumir el control total como usuario administrador.</p>
+
+                        <!-- Recommendations -->
+                        <h2>Recomendaciones de Mitigación</h2>
+                        <p>Para asegurar este entorno, es imperativo implementar sanitización de entradas y listas blancas en todos los parámetros de la API, previniendo así las inyecciones de comandos a nivel de sistema operativo. Asimismo, los controles de autenticación deben ser reestructurados para rechazar peticiones no autorizadas en rutas críticas de registro. Por último, se debe erradicar la práctica de almacenar contraseñas en texto claro dentro del código fuente, sustituyéndola por una gestión segura mediante variables de entorno o bóvedas de secretos cifradas.</p>
+
+                        <!-- Conclusion -->
+                        <h2>Conclusión</h2>
+                        <p>La vulneración de la máquina "Snakeoil" demuestra cómo un error de validación aparentemente aislado en una aplicación web puede desencadenar el compromiso absoluto de toda una infraestructura. Este proyecto subraya la importancia de implementar la seguridad desde la fase de diseño y desarrollo de software (Secure by Design). Como futuro ingeniero, el dominio de estas técnicas ofensivas resulta invaluable, ya que proporciona la perspectiva técnica necesaria para auditar, proteger y fortificar sistemas de información empresariales ante amenazas reales.</p>
+
+                    </div>
                 </div>
             </div>
         </div>
