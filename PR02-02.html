@@ -271,15 +271,6 @@
             display: none;
         }
 
-        .highlight-box {
-            position: absolute;
-            border: 3px solid #ff9800;
-            border-radius: 4px;
-            background: rgba(255, 152, 0, 0.2);
-            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.6);
-            transition: all 0.3s ease;
-        }
-
         .explanation-card {
             position: absolute;
             background: white;
@@ -418,7 +409,6 @@
 
                                 <!-- Explanation Overlay -->
                                 <div class="explanation-layer" id="explanation-layer">
-                                    <div class="highlight-box" id="exp-highlight"></div>
                                     <div class="explanation-card" id="exp-card">
                                         <h4 id="exp-title">Señal</h4>
                                         <p id="exp-text">Texto explicativo</p>
@@ -873,7 +863,6 @@
         function renderExplanationStep() {
             const exp = currentExplanations[expIndex];
             const targetEl = document.querySelector(exp.selector);
-            const highlightBox = document.getElementById('exp-highlight');
             const card = document.getElementById('exp-card');
 
             document.getElementById('exp-text').textContent = exp.text;
@@ -898,11 +887,6 @@
                 // Boundaries fix if element is out of container
                 if (top < 0) top = 0;
                 if (left < 0) left = 0;
-
-                highlightBox.style.top = top + 'px';
-                highlightBox.style.left = left + 'px';
-                highlightBox.style.width = (rect.width + 10) + 'px';
-                highlightBox.style.height = (rect.height + 10) + 'px';
 
                 // Posicionar la tarjeta de texto debajo del elemento resaltado (o arriba si no cabe)
                 let cardTop = top + rect.height + 15;
