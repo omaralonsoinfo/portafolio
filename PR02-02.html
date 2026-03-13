@@ -286,7 +286,8 @@
             color: #333;
             padding: 1em;
             border-radius: 8px;
-            width: 250px;
+            width: 90%;
+            max-width: 300px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             pointer-events: auto;
             text-align: left;
@@ -297,16 +298,19 @@
         .explanation-card h4 {
             margin: 0 0 0.5em 0;
             color: #d32f2f;
+            font-size: 1.1em;
         }
 
         .explanation-card p {
             margin: 0 0 1em 0;
-            font-size: 0.9em;
+            font-size: 0.85em;
+            line-height: 1.4;
         }
 
         .explanation-controls {
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
 
         .btn-small {
@@ -882,28 +886,44 @@
             }
 
             if (targetEl) {
-                // Posicionar el cuadro resaltador
+                // Determine bounding rects
                 const rect = targetEl.getBoundingClientRect();
                 const containerRect = document.getElementById('email-client').getBoundingClientRect();
 
-                const top = rect.top - containerRect.top - 5;
-                const left = rect.left - containerRect.left - 5;
+                // Calculate element position relative to the container
+                // We add scroll offset inside the container if it existed, but client-sim is fixed largely.
+                let top = rect.top - containerRect.top - 5;
+                let left = rect.left - containerRect.left - 5;
+
+                // Boundaries fix if element is out of container
+                if (top < 0) top = 0;
+                if (left < 0) left = 0;
 
                 highlightBox.style.top = top + 'px';
                 highlightBox.style.left = left + 'px';
                 highlightBox.style.width = (rect.width + 10) + 'px';
                 highlightBox.style.height = (rect.height + 10) + 'px';
 
-                // Posicionar la tarjeta de texto debajo del elemento resaltado
-                card.style.top = (top + rect.height + 20) + 'px';
+                // Posicionar la tarjeta de texto debajo del elemento resaltado (o arriba si no cabe)
+                let cardTop = top + rect.height + 15;
 
-                // Keep card inside container
+                // Check if card goes out of container height
+                const estimatedCardHeight = 150; // estimate
+                if (cardTop + estimatedCardHeight > containerRect.height) {
+                    // Try to place it above the element
+                    cardTop = top - estimatedCardHeight - 15;
+                    if (cardTop < 0) cardTop = 10; // safety padding from top
+                }
+                card.style.top = cardTop + 'px';
+
+                // Keep card inside container horizontally
                 let cardLeft = left;
-                if (cardLeft + 250 > containerRect.width) {
-                    cardLeft = containerRect.width - 260; // adjust width
+                const cardWidth = card.offsetWidth || 250;
+
+                if (cardLeft + cardWidth > containerRect.width) {
+                    cardLeft = containerRect.width - cardWidth - 10; // safety padding right
                 }
                 card.style.left = Math.max(10, cardLeft) + 'px';
-
             }
         }
 
