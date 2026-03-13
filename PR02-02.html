@@ -65,24 +65,261 @@
             display: block;
         }
 
-        .content-article {
+        .quiz-container {
             background: #ffffff;
-            padding: 3em;
             border-radius: 8px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            position: relative;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quiz-screen {
+            display: none;
+            padding: 3em;
+            flex-grow: 1;
+        }
+
+        .quiz-screen.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h3.quiz-title {
+            color: #d32f2f;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5em;
+            margin-bottom: 1em;
             text-align: center;
         }
 
-        .content-article h3 {
-            color: #333;
-            margin-top: 1.5em;
-            font-size: 1.5em;
+        .btn-quiz {
+            background-color: #d32f2f;
+            color: white !important;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 1.1em;
         }
 
-        .content-article p {
+        .btn-quiz:hover {
+            background-color: #b71c1c;
+        }
+
+        .btn-secondary {
+            background-color: #555;
+        }
+
+        .btn-secondary:hover {
+            background-color: #333;
+        }
+
+        /* Form Styles */
+        .quiz-form {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .quiz-form label {
+            display: block;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .quiz-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 1.5em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Email/SMS Client Simulation */
+        .client-sim {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fdfdfd;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            margin-bottom: 2em;
+        }
+
+        .client-header {
+            background: #f1f3f4;
+            padding: 1em;
+            border-bottom: 1px solid #ddd;
+            position: relative;
+        }
+
+        .client-header p {
+            margin: 0.2em 0;
+            font-size: 0.9em;
             color: #555;
-            font-size: 1.1em;
-            margin-top: 1em;
+        }
+
+        .client-header strong {
+            color: #222;
+        }
+
+        .client-body {
+            padding: 2em;
+            color: #333;
+            min-height: 250px;
+            position: relative;
+        }
+
+        .phishing-link {
+            color: #1a0dab;
+            text-decoration: underline;
+            cursor: pointer;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Action Bar */
+        .action-bar {
+            display: flex;
+            justify-content: center;
+            gap: 1em;
+            padding: 1em;
+            background: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+
+        /* Status Bar / Tooltip Simulation */
+        #browser-status-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            background: #e0e0e0;
+            color: #333;
+            padding: 4px 8px;
+            font-size: 0.8em;
+            font-family: monospace;
+            border-top-right-radius: 4px;
+            display: none;
+            z-index: 10000;
+        }
+
+        /* Feedback Modal */
+        .feedback-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            z-index: 100;
+            padding: 2em;
+            text-align: center;
+        }
+
+        .feedback-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s;
+        }
+
+        .feedback-icon {
+            font-size: 4em;
+            margin-bottom: 0.5em;
+        }
+
+        .feedback-correct {
+            color: #4caf50;
+        }
+
+        .feedback-incorrect {
+            color: #f44336;
+        }
+
+        /* Explanation Mode */
+        .explanation-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 50;
+            display: none;
+        }
+
+        .highlight-box {
+            position: absolute;
+            border: 3px solid #ff9800;
+            border-radius: 4px;
+            background: rgba(255, 152, 0, 0.2);
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s ease;
+        }
+
+        .explanation-card {
+            position: absolute;
+            background: white;
+            color: #333;
+            padding: 1em;
+            border-radius: 8px;
+            width: 250px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            pointer-events: auto;
+            text-align: left;
+            z-index: 51;
+            transition: all 0.3s ease;
+        }
+
+        .explanation-card h4 {
+            margin: 0 0 0.5em 0;
+            color: #d32f2f;
+        }
+
+        .explanation-card p {
+            margin: 0 0 1em 0;
+            font-size: 0.9em;
+        }
+
+        .explanation-controls {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn-small {
+            padding: 5px 10px;
+            font-size: 0.8em;
+        }
+
+        /* Results Screen */
+        .score-display {
+            font-size: 4em;
+            font-weight: bold;
+            color: #d32f2f;
+            margin: 0.2em 0;
         }
     </style>
 </head>
@@ -116,16 +353,122 @@
 
             <div class="row">
                 <div class="col-12">
-                    <div class="content-article">
-                        <span class="icon solid fa-laptop-code" style="font-size: 5em; color: #ccc;"></span>
-                        <h3>Sección Pendiente</h3>
-                        <p>El contenedor para el Phishing Quiz ha sido creado y se encuentra pendiente de diseño e
-                            implementación.</p>
+                    <div class="quiz-container" id="main-quiz-container">
+
+                        <!-- Screen: Intro -->
+                        <div id="screen-intro" class="quiz-screen active">
+                            <h3 class="quiz-title">¿Es phishing o es legítimo?</h3>
+                            <p>Bienvenido al simulador interactivo de ciberseguridad. En este desafío, te presentaremos
+                                10 escenarios basados en correos electrónicos y mensajes de texto reales.</p>
+                            <p>Tu misión es analizar cada escenario, revisar los remitentes, el tono del mensaje y,
+                                sobre todo, <strong>pasar el cursor sobre los enlaces</strong> (sin hacer clic) para
+                                inspeccionar la URL de destino.</p>
+                            <div
+                                style="background: #fff3cd; color: #856404; padding: 1em; border-radius: 5px; margin: 2em 0; text-align: left;">
+                                <strong><i class="icon solid fa-shield-alt"></i> Consentimiento y Privacidad:</strong>
+                                <br>Esta es una simulación educativa. <u>No te pediremos contraseñas reales</u> y los
+                                datos que ingreses a continuación no se enviarán a ningún servidor, solo se usarán
+                                localmente en tu navegador para personalizar los escenarios.
+                            </div>
+                            <button class="btn-quiz" onclick="showScreen('screen-register')">Comenzar
+                                Simulación</button>
+                        </div>
+
+                        <!-- Screen: Register -->
+                        <div id="screen-register" class="quiz-screen">
+                            <h3 class="quiz-title">Personaliza tu experiencia</h3>
+                            <p>Ingresa un nombre y correo para que los escenarios sean dirigidos a ti. <br><em>(Puedes
+                                    usar datos ficticios si lo prefieres)</em>.</p>
+
+                            <div class="quiz-form">
+                                <label for="userName">Nombre o Apellido:</label>
+                                <input type="text" id="userName" placeholder="Ej. Juan Pérez" required>
+
+                                <label for="userEmail">Correo Electrónico:</label>
+                                <input type="email" id="userEmail" placeholder="ejemplo@empresa.com" required>
+
+                                <button class="btn-quiz" style="width: 100%;" onclick="startQuiz()">Iniciar
+                                    Escenarios</button>
+                            </div>
+                        </div>
+
+                        <!-- Screen: Quiz Scenario -->
+                        <div id="screen-quiz" class="quiz-screen" style="padding: 2em;">
+                            <div
+                                style="display: flex; justify-content: space-between; margin-bottom: 1em; color: #777;">
+                                <strong>Escenario <span id="current-scenario-num">1</span> de 10</strong>
+                            </div>
+
+                            <!-- The simulated client -->
+                            <div class="client-sim" id="email-client">
+                                <div class="client-header">
+                                    <p><strong>De:</strong> <span id="sim-sender"></span></p>
+                                    <p><strong>Para:</strong> <span id="sim-recipient"></span></p>
+                                    <p id="sim-subject-container"><strong>Asunto:</strong> <span
+                                            id="sim-subject"></span></p>
+                                    <p id="sim-date-container"><strong>Fecha:</strong> <span id="sim-date"></span></p>
+                                </div>
+                                <div class="client-body" id="sim-body">
+                                    <!-- Content injected via JS -->
+                                </div>
+
+                                <!-- Explanation Overlay -->
+                                <div class="explanation-layer" id="explanation-layer">
+                                    <div class="highlight-box" id="exp-highlight"></div>
+                                    <div class="explanation-card" id="exp-card">
+                                        <h4 id="exp-title">Señal</h4>
+                                        <p id="exp-text">Texto explicativo</p>
+                                        <div class="explanation-controls">
+                                            <span style="font-size: 0.8em; color: #777; margin-top: 5px;"
+                                                id="exp-counter">1 de 3</span>
+                                            <button class="btn-quiz btn-small" id="btn-next-exp"
+                                                onclick="nextExplanation()">Siguiente</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="action-bar" id="decision-buttons">
+                                <button class="btn-quiz" onclick="makeDecision('phishing')"><i
+                                        class="icon solid fa-fish"></i> Es Phishing</button>
+                                <button class="btn-quiz btn-secondary" onclick="makeDecision('legit')"><i
+                                        class="icon solid fa-check-circle"></i> Es Legítimo</button>
+                            </div>
+                        </div>
+
+                        <!-- Screen: Results -->
+                        <div id="screen-results" class="quiz-screen">
+                            <h3 class="quiz-title">Resultados del Quiz</h3>
+                            <p>Has completado la evaluación de riesgo humano.</p>
+                            <div class="score-display" id="final-score">0 / 10</div>
+                            <p id="final-message" style="margin-bottom: 2em; font-weight: bold;"></p>
+
+                            <button class="btn-quiz" onclick="location.reload()">Volver a intentarlo</button>
+                            <a href="PR02-03.html" class="btn-quiz btn-secondary" style="margin-left: 1em;">Ver Análisis
+                                Detallado</a>
+                        </div>
+
+                        <!-- Feedback Overlay inside Container -->
+                        <div class="feedback-overlay" id="feedback-overlay">
+                            <div id="fb-icon" class="feedback-icon"><i class="icon solid fa-check-circle"></i></div>
+                            <h2 id="fb-title">¡Correcto!</h2>
+                            <p id="fb-message" style="max-width: 600px; font-size: 1.2em; margin-bottom: 2em;">Razón
+                                principal</p>
+                            <div>
+                                <button class="btn-quiz btn-secondary" style="margin-right: 1em;"
+                                    onclick="triggerExplanation()">Mostrar explicación detallada</button>
+                                <button class="btn-quiz" id="btn-feedback-next" onclick="loadNextScenario()">Siguiente
+                                    Escenario</button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </article>
+
+    <div id="browser-status-bar"></div>
 
     <article class="wrapper style4">
         <div class="container medium">
@@ -145,6 +488,454 @@
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
 
+    <script>
+        // --- QUIZ DATA ---
+        const scenarios = [
+            {
+                type: 'phishing',
+                format: 'email',
+                sender_name: 'Google Drive',
+                sender_email: 'no-reply@drive--google.com',
+                subject: 'Documento urgente compartido contigo',
+                date: 'Hoy, 09:42 AM',
+                body_html: `
+                    <div style="font-family: Arial; padding: 20px;">
+                        <h2>Google Drive</h2>
+                        <p>Hola <strong>{{userName}}</strong>,</p>
+                        <p>Recursos Humanos ha compartido el documento "Ajuste_Salarial_Q3.pdf" contigo.</p>
+                        <p>Para visualizar este documento antes de que expire el enlace de seguridad en 24 horas, debes iniciar sesión.</p>
+                        <br>
+                        <a id="link-1" class="btn-quiz phishing-link" style="color: white; text-decoration:none;">Abrir Documento</a>
+                    </div>
+                `,
+                links: { 'link-1': 'https://drive--google.com/login/auth?user={{userEmail}}' },
+                feedback_short: '¡Es Phishing! Este correo utiliza el sesgo de curiosidad (Ajuste Salarial) y urgencia. El dominio real de Google es google.com, no drive--google.com.',
+                explanations: [
+                    { selector: '#sim-sender', text: 'Revisa el dominio. Un guion doble (--) es un intento de engaño. Google siempre usa @google.com.' },
+                    { selector: '#sim-body h2', text: 'Falsa Autoridad. Parecer ser una plataforma legítima de Google.' },
+                    { selector: '#link-1', text: 'El enlace dirige a drive--google.com. Siempre verifica la URL antes de hacer clic.' }
+                ]
+            },
+            {
+                type: 'legit',
+                format: 'email',
+                sender_name: 'Departamento de TI - Omar Corp',
+                sender_email: 'soporte-ti@omarcorp.com',
+                subject: 'Actualización programada de servidores',
+                date: 'Ayer, 16:00 PM',
+                body_html: `
+                    <div style="font-family: Arial;">
+                        <p>Estimado equipo,</p>
+                        <p>Les informamos que el próximo sábado a las 02:00 AM realizaremos mantenimiento a los servidores de correo para implementar nuevos protocolos de seguridad SSL.</p>
+                        <p>No se requiere ninguna acción de su parte. El servicio se restablecerá automáticamente.</p>
+                        <p>Si tienen dudas, pueden revisar la intranet: <br><a id="link-2" class="phishing-link">https://intranet.omarcorp.com/mantenimiento</a></p>
+                        <p>Saludos,<br>Equipo de TI</p>
+                    </div>
+                `,
+                links: { 'link-2': 'https://intranet.omarcorp.com/mantenimiento' },
+                feedback_short: '¡Es Legítimo! El correo no pide credenciales, no genera urgencia extrema y las URLs dirigen al dominio oficial.',
+                explanations: [
+                    { selector: '#sim-sender', text: 'El remitente pertenece al dominio legítimo de la empresa (@omarcorp.com).' },
+                    { selector: '#sim-body', text: 'Fíjate que NO te solicitan contraseñas ni acciones inmediatas. Simplemente es informativo.' },
+                    { selector: '#link-2', text: 'La URL lleva efectivamente al dominio de la intranet de la empresa.' }
+                ]
+            },
+            {
+                type: 'phishing',
+                format: 'email',
+                sender_name: 'Microsoft Security Alert',
+                sender_email: 'alerts@security-microsoft-update.com',
+                subject: 'Alerta: Inicio de sesión inusual bloqueado',
+                date: 'Hoy, 03:15 AM',
+                body_html: `
+                    <div style="background: #f4f4f4; padding: 20px; font-family: Segoe UI, sans-serif;">
+                        <h2 style="color: #e81123;">Microsoft account security</h2>
+                        <p>We detected an unusual sign-in attempt for <strong>{{userEmail}}</strong> from Russia.</p>
+                        <p>To secure your account and prevent suspension, please verify your identity immediately.</p>
+                        <a id="link-3" class="btn-quiz phishing-link" style="background:#0078d4; color:white; text-decoration:none;">Verify Account Now</a>
+                    </div>
+                `,
+                links: { 'link-3': 'http://192.168.1.45/login.php?email={{userEmail}}' },
+                feedback_short: '¡Es Phishing! Es un clásico ataque que induce pánico (alerta de seguridad desde Rusia).',
+                explanations: [
+                    { selector: '#sim-sender', text: 'El dominio security-microsoft-update.com es falso. Microsoft usa microsoft.com o accountprotection.microsoft.com.' },
+                    { selector: '#sim-body', text: 'Genera un estado de alarma extremo para forzar una acción rápida sin pensar.' },
+                    { selector: '#link-3', text: '¡Peligro! El botón redirige a una dirección IP directa (http://192.168.1.45/...) en lugar de un servidor con HTTPS.' }
+                ]
+            },
+            {
+                type: 'phishing',
+                format: 'email',
+                sender_name: 'Netflix Soporte',
+                sender_email: 'support@nefltx.com',
+                subject: 'Tu cuenta ha sido suspendida',
+                date: 'Hoy, 11:20 AM',
+                body_html: `
+                    <div style="background: black; color: white; padding: 30px; font-family: Helvetica;">
+                        <h1 style="color: #e50914;">NETFLIX</h1>
+                        <p>Hola <strong>{{userName}}</strong>,</p>
+                        <p>No pudimos procesar tu último pago. Tu suscripción ha sido suspendida temporalmente.</p>
+                        <p>Actualiza tu método de pago para seguir disfrutando del servicio.</p>
+                        <a id="link-4" class="btn-quiz phishing-link" style="background:#e50914; color:white; text-decoration:none; display:inline-block; padding: 10px 20px;">Actualizar Pago</a>
+                    </div>
+                `,
+                links: { 'link-4': 'https://netflix.update-billing-info.com/login' },
+                feedback_short: '¡Es Phishing! Se hacen pasar por un servicio popular pero el dominio está mal escrito (Typosquatting) en el remitente.',
+                explanations: [
+                    { selector: '#sim-sender', text: 'Typosquatting: El dominio es "@nefltx.com", las letras están invertidas para engañar la vista.' },
+                    { selector: '#sim-body', text: 'Explotan la urgencia económica, indicando que un servicio diario ha sido cortado.' },
+                    { selector: '#link-4', text: 'La URL no es netflix.com, sino que usan netflix como subdominio de "update-billing-info.com".' }
+                ]
+            },
+            {
+                type: 'legit',
+                format: 'sms',
+                sender_name: 'AMAZON',
+                sender_email: 'N/A',
+                subject: '',
+                date: 'Ayer, 08:30 AM',
+                body_html: `
+                    <div style="background: #e5e5ea; padding: 15px; border-radius: 15px; max-width: 300px; margin: 0 auto; color: black; font-family: Helvetica;">
+                        Hola {{userName}}, tu paquete llegará hoy antes de las 8PM. Código de rastreo: AMZ98420. Puedes seguirlo en tu app de Amazon. NO responder a este SMS.
+                    </div>
+                `,
+                links: {},
+                feedback_short: '¡Es SMS Legítimo! El mensaje es puramente informativo, no contiene enlaces sospechosos ni te exige acciones inmediatas que comprometan tus datos.',
+                explanations: [
+                    { selector: '#sim-body', text: 'El mensaje es únicamente informativo. Te indica revisar en la "App", no te fuerza a dar clic a un enlace externo.' }
+                ]
+            },
+            {
+                type: 'phishing',
+                format: 'sms',
+                sender_name: '+52 55 1234 5678',
+                sender_email: 'N/A',
+                subject: '',
+                date: 'Hoy, 14:15 PM',
+                body_html: `
+                    <div style="background: #e5e5ea; padding: 15px; border-radius: 15px; max-width: 300px; margin: 0 auto; color: black; font-family: Helvetica;">
+                        DHL Express: Tu paquete #12093 no pudo ser entregado por tasas aduaneras pendientes ($45.00 MXN). Paga ahora para liberar: <br><br>
+                        <a id="link-5" class="phishing-link">http://dhl-aduanas-mx.com/pay</a>
+                    </div>
+                `,
+                links: { 'link-5': 'http://dhl-aduanas-mx.com/pay' },
+                feedback_short: '¡Es Smishing (SMS Phishing)! Crean urgencia por un supuesto cargo pendiente de una paquetería.',
+                explanations: [
+                    { selector: '#sim-sender', text: 'El mensaje proviene de un número de celular común de 10 dígitos, no de un short-code corporativo al que usualmente envían los bancos/paqueterías.' },
+                    { selector: '#sim-body', text: 'Exhortan a un pago menor que psicológicamente las víctimas están dispuestas a pagar "para evitar problemas".' },
+                    { selector: '#link-5', text: 'El enlace utiliza HTTP sin cifrado (inseguro) y un dominio no oficial de DHL.' }
+                ]
+            },
+            {
+                type: 'phishing',
+                format: 'email',
+                sender_name: 'Dropbox',
+                sender_email: 'noreply@dropbox.com',
+                subject: 'Se ha iniciado sesión desde un dispositivo nuevo',
+                date: 'Ayer, 23:45 PM',
+                body_html: `
+                    <div style="font-family: Arial;">
+                        <img src="https://cfl.dropboxstatic.com/static/images/emails/glyph_blue_116x116-vflmE9B44.png" width="50">
+                        <p>Hi <strong>{{userName}}</strong>,</p>
+                        <p>A new web browser just signed in to your Dropbox account.</p>
+                        <p>If this wasn't you, please <a id="link-6" class="phishing-link">report this issue</a> to secure your account.</p>
+                    </div>
+                `,
+                links: { 'link-6': 'https://security.dropbox.com.account-verify.net/login' },
+                feedback_short: '¡Es Phishing! Es un ataque de dominio falsificado (Spear Phishing muy logrado). El correo remitente está "spoofeado" (falsificado).',
+                explanations: [
+                    { selector: '#sim-sender', text: 'Aunque diga noreply@dropbox.com, el remitente puede ser falsificado por el atacante (Email Spoofing).' },
+                    { selector: '#link-6', text: 'El engaño REAL está en la URL. El dominio principal es "account-verify.net", no dropbox.com. Los subdominios engañan al ojo humano.' }
+                ]
+            },
+            {
+                type: 'legit',
+                format: 'email',
+                sender_name: 'GitHub',
+                sender_email: 'noreply@github.com',
+                subject: '[GitHub] Please verify your device',
+                date: 'Hoy, 08:00 AM',
+                body_html: `
+                    <div style="font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif; text-align:center;">
+                        <h2>Device verification code</h2>
+                        <p>You're trying to sign in from an unrecognized device.</p>
+                        <p>Your verification code is: <strong style="font-size:24px;">789456</strong></p>
+                        <p>If you didn't attempt to sign in, change your password.</p>
+                    </div>
+                `,
+                links: {},
+                feedback_short: '¡Es Legítimo! Es un correo real de Verificación de Dos Pasos (2FA o MFA).',
+                explanations: [
+                    { selector: '#sim-body', text: 'Este es el comportamiento usual del doble factor de autenticación. Te entregan la clave (OTP) directamente, no te envían a un enlace externo para "iniciar sesión".' }
+                ]
+            },
+            {
+                type: 'phishing',
+                format: 'email',
+                sender_name: 'CEO - Director General',
+                sender_email: 'director.general@gmail.com',
+                subject: 'Solicitud urgente - Transacción confidencial',
+                date: 'Hoy, 10:30 AM',
+                body_html: `
+                    <div style="font-family: Arial;">
+                        <p>{{userName}}, necesito tu ayuda con urgencia.</p>
+                        <p>Estoy en una reunión y no puedo recibir llamadas. Necesito que adquieras 5 tarjetas de regalo de Apple por $1,000 MXN cada una para unos clientes importantes hoy mismo.</p>
+                        <p>Por favor confírmame si puedes hacerlo ahora y te envío los detalles.</p>
+                        <p>Esto es confidencial.</p>
+                        <p>- Director General</p>
+                    </div>
+                `,
+                links: {},
+                feedback_short: '¡Es Phishing! Se conoce como Ataque CEO (Whaling / BEC). Explota el sesgo de autoridad corporativa.',
+                explanations: [
+                    { selector: '#sim-sender', text: 'El Director General está usando un correo @gmail.com gratuito en lugar de su correo corporativo.' },
+                    { selector: '#sim-body', text: 'Sesgo de Autoridad e Inmediatez. Piden que rompas protocolos normales (comprar tarjetas de regalo) aprovechando la jerarquía.' }
+                ]
+            },
+            {
+                type: 'legit',
+                format: 'email',
+                sender_name: 'LinkedIn',
+                sender_email: 'messages-noreply@linkedin.com',
+                subject: 'Tienes 1 nuevo mensaje de reclutador',
+                date: 'Ayer, 09:12 AM',
+                body_html: `
+                    <div style="font-family: Arial; border: 1px solid #ccc; max-width: 400px;">
+                        <div style="background:#0a66c2; padding:10px; color:white;"><strong>LinkedIn</strong></div>
+                        <div style="padding: 20px;">
+                            <p><strong>{{userName}}</strong>, tienes un mensaje de un Reclutador de Tecnología.</p>
+                            <p>"Hola, vi tu perfil y creo que encajas perfecto en nuestra vacante..."</p>
+                            <a id="link-7" class="btn-quiz phishing-link" style="background:#0a66c2; color:white; text-decoration:none; display:inline-block; padding:8px 15px;">Ver mensaje en LinkedIn</a>
+                        </div>
+                    </div>
+                `,
+                links: { 'link-7': 'https://www.linkedin.com/messaging/' },
+                feedback_short: '¡Es Legítimo! El correo promocional y transaccional habitual de LinkedIn.',
+                explanations: [
+                    { selector: '#sim-sender', text: 'El correo proviene del subdominio legítimo que LinkedIn usa para mensajería automatizada.' },
+                    { selector: '#link-7', text: 'El enlace dirige limpiamente a https://www.linkedin.com/messaging/, un subdirectorio válido del dominio corporativo real.' }
+                ]
+            }
+        ];
+
+        // --- GLOBAL STATE ---
+        let currentScenarioIndex = 0;
+        let score = 0;
+        let userData = {
+            name: "Usuario",
+            email: "usuario@ejemplo.com"
+        };
+        let currentExplanations = [];
+        let expIndex = 0;
+
+        // --- UTILS ---
+        function showScreen(screenId) {
+            document.querySelectorAll('.quiz-screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g,
+                tag => ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    "'": '&#39;',
+                    '"': '&quot;'
+                }[tag])
+            );
+        }
+
+        // Tooltip Hover Logic
+        const statusBar = document.getElementById('browser-status-bar');
+
+        function attachHoverEvents() {
+            document.querySelectorAll('.phishing-link').forEach(link => {
+                link.addEventListener('mouseenter', function (e) {
+                    const id = this.id;
+                    const url = scenarios[currentScenarioIndex].links[id];
+                    if (url) {
+                        // Replace user variables in URL
+                        let finalUrl = url.replace('{{userEmail}}', userData.email);
+                        statusBar.textContent = finalUrl;
+                        statusBar.style.display = 'block';
+                    }
+                });
+                link.addEventListener('mouseleave', function () {
+                    statusBar.style.display = 'none';
+                });
+            });
+        }
+
+        function clearHoverEvents() {
+            statusBar.style.display = 'none';
+        }
+
+        // --- GAME LOGIC ---
+        function startQuiz() {
+            const nameInput = document.getElementById('userName').value.trim();
+            const emailInput = document.getElementById('userEmail').value.trim();
+
+            if (nameInput) userData.name = nameInput;
+            if (emailInput) userData.email = emailInput;
+
+            currentScenarioIndex = 0;
+            score = 0;
+            loadScenario();
+            showScreen('screen-quiz');
+        }
+
+        function loadScenario() {
+            if (currentScenarioIndex >= scenarios.length) {
+                showResults();
+                return;
+            }
+
+            // Close explanation if open
+            document.getElementById('explanation-layer').style.display = 'none';
+
+            const sc = scenarios[currentScenarioIndex];
+
+            document.getElementById('current-scenario-num').textContent = currentScenarioIndex + 1;
+
+            // Layout Adjustments based on format
+            if (sc.format === 'sms') {
+                document.getElementById('sim-subject-container').style.display = 'none';
+                document.getElementById('sim-date-container').style.display = 'none';
+                document.getElementById('email-client').style.maxWidth = "400px";
+                document.getElementById('email-client').style.margin = "0 auto 2em auto";
+                document.getElementById('sim-recipient').textContent = "Tu Celular";
+            } else {
+                document.getElementById('sim-subject-container').style.display = 'block';
+                document.getElementById('sim-date-container').style.display = 'block';
+                document.getElementById('email-client').style.maxWidth = "100%";
+                document.getElementById('sim-recipient').textContent = userData.email;
+                document.getElementById('sim-subject').textContent = sc.subject;
+                document.getElementById('sim-date').textContent = sc.date;
+            }
+
+            document.getElementById('sim-sender').textContent = sc.sender_name + " <" + sc.sender_email + ">";
+            if (sc.sender_email === 'N/A') document.getElementById('sim-sender').textContent = sc.sender_name;
+
+            // Inyectar variables en el cuerpo
+            let bodyRender = sc.body_html.replace(/{{userName}}/g, escapeHTML(userData.name));
+            bodyRender = bodyRender.replace(/{{userEmail}}/g, escapeHTML(userData.email));
+            document.getElementById('sim-body').innerHTML = bodyRender;
+
+            attachHoverEvents();
+        }
+
+        function makeDecision(decision) {
+            clearHoverEvents();
+            const sc = scenarios[currentScenarioIndex];
+            const isCorrect = decision === sc.type;
+
+            if (isCorrect) score++;
+
+            // Show Feedback Overlay
+            const overlay = document.getElementById('feedback-overlay');
+            const icon = document.getElementById('fb-icon');
+            const title = document.getElementById('fb-title');
+
+            if (isCorrect) {
+                icon.innerHTML = '<i class="icon solid fa-check-circle feedback-correct"></i>';
+                title.textContent = "¡Correcto!";
+            } else {
+                icon.innerHTML = '<i class="icon solid fa-times-circle feedback-incorrect"></i>';
+                title.textContent = "Incorrecto";
+            }
+
+            document.getElementById('fb-message').textContent = sc.feedback_short;
+            overlay.classList.add('active');
+        }
+
+        function triggerExplanation() {
+            document.getElementById('feedback-overlay').classList.remove('active');
+
+            const sc = scenarios[currentScenarioIndex];
+            currentExplanations = sc.explanations || [];
+
+            if (currentExplanations.length === 0) {
+                // If no explanations, just skip to next
+                loadNextScenario();
+                return;
+            }
+
+            expIndex = 0;
+            document.getElementById('explanation-layer').style.display = 'block';
+            renderExplanationStep();
+        }
+
+        function renderExplanationStep() {
+            const exp = currentExplanations[expIndex];
+            const targetEl = document.querySelector(exp.selector);
+            const highlightBox = document.getElementById('exp-highlight');
+            const card = document.getElementById('exp-card');
+
+            document.getElementById('exp-text').textContent = exp.text;
+            document.getElementById('exp-counter').textContent = (expIndex + 1) + " de " + currentExplanations.length;
+
+            if (expIndex === currentExplanations.length - 1) {
+                document.getElementById('btn-next-exp').textContent = "Siguiente Escenario";
+            } else {
+                document.getElementById('btn-next-exp').textContent = "Siguiente Explicación";
+            }
+
+            if (targetEl) {
+                // Posicionar el cuadro resaltador
+                const rect = targetEl.getBoundingClientRect();
+                const containerRect = document.getElementById('email-client').getBoundingClientRect();
+
+                const top = rect.top - containerRect.top - 5;
+                const left = rect.left - containerRect.left - 5;
+
+                highlightBox.style.top = top + 'px';
+                highlightBox.style.left = left + 'px';
+                highlightBox.style.width = (rect.width + 10) + 'px';
+                highlightBox.style.height = (rect.height + 10) + 'px';
+
+                // Posicionar la tarjeta de texto debajo del elemento resaltado
+                card.style.top = (top + rect.height + 20) + 'px';
+
+                // Keep card inside container
+                let cardLeft = left;
+                if (cardLeft + 250 > containerRect.width) {
+                    cardLeft = containerRect.width - 260; // adjust width
+                }
+                card.style.left = Math.max(10, cardLeft) + 'px';
+
+            }
+        }
+
+        function nextExplanation() {
+            expIndex++;
+            if (expIndex >= currentExplanations.length) {
+                loadNextScenario();
+            } else {
+                renderExplanationStep();
+            }
+        }
+
+        function loadNextScenario() {
+            document.getElementById('feedback-overlay').classList.remove('active');
+            document.getElementById('explanation-layer').style.display = 'none';
+            currentScenarioIndex++;
+            loadScenario();
+        }
+
+        function showResults() {
+            showScreen('screen-results');
+            document.getElementById('final-score').textContent = score + " / " + scenarios.length;
+
+            let msg = "";
+            if (score === 10) msg = "¡Impresionante! Tienes un ojo clínico para detectar amenazas.";
+            else if (score >= 7) msg = "Buen trabajo, pero los atacantes son astutos. Sigue alerta.";
+            else msg = "Corres un alto riesgo. Te recomendamos repasar los conceptos de PR02-01.";
+
+            document.getElementById('final-message').textContent = msg;
+        }
+
+    </script>
 </body>
 
 </html>
