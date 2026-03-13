@@ -786,6 +786,8 @@
         }
 
         // --- GAME LOGIC ---
+        let hasAnsweredCurrent = false;
+
         function startQuiz() {
             const nameInput = document.getElementById('userName').value.trim();
             const emailInput = document.getElementById('userEmail').value.trim();
@@ -804,6 +806,8 @@
                 showResults();
                 return;
             }
+
+            hasAnsweredCurrent = false; // Reset the flag for the new scenario
 
             // Close explanation if open
             document.getElementById('explanation-layer').style.display = 'none';
@@ -840,6 +844,9 @@
         }
 
         function makeDecision(decision) {
+            if (hasAnsweredCurrent) return; // Prevent multiple answers
+            hasAnsweredCurrent = true;
+
             clearHoverEvents();
             const sc = scenarios[currentScenarioIndex];
             const isCorrect = decision === sc.type;
