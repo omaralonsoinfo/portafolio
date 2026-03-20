@@ -359,8 +359,8 @@
 
         async function fetchLeaderboard() {
             try {
-                // Consultar colección ordenada por Mayor Puntaje para evitar Índice Compuesto de Firebase
-                const q = query(collection(db, "phishing_scores"), orderBy("score", "desc"), limit(50));
+                // Obtenemos todos los registros (sin limite estricto para no perder registros nuevos con telemetría de tiempos si los viejos ocupan el top)
+                const q = query(collection(db, "phishing_scores"));
                 const querySnapshot = await getDocs(q);
 
                 const tbody = document.getElementById('leaderboard-body');
@@ -422,38 +422,45 @@
 
                 // 4. Calcular arreglos finales y Dibujar la Gráfica Global
                 let avgGlobalTimes = [];
+                let hasTelemetry = false;
                 for (let i = 0; i < 10; i++) {
                     if (globalTimesCount[i] > 0) {
                         avgGlobalTimes.push(Math.round((globalTimesSum[i] / globalTimesCount[i]) * 10) / 10);
+                        hasTelemetry = true;
                     } else {
                         avgGlobalTimes.push(0);
                     }
                 }
 
-                const ctxGlobal = document.getElementById('globalTimeChart').getContext('2d');
-                new Chart(ctxGlobal, {
-                    type: 'line',
-                    data: {
-                        labels: ['Esc 1', 'Esc 2', 'Esc 3', 'Esc 4', 'Esc 5', 'Esc 6', 'Esc 7', 'Esc 8', 'Esc 9', 'Esc 10'],
-                        datasets: [{
-                            label: 'Promedio Global (s)',
-                            data: avgGlobalTimes,
-                            borderColor: '#d32f2f',
-                            backgroundColor: 'rgba(211, 47, 47, 0.1)',
-                            borderWidth: 2,
-                            fill: true,
-                            tension: 0.3,
-                            pointBackgroundColor: '#d32f2f',
-                            pointRadius: 4
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: { legend: { display: false } },
-                        scales: { y: { beginAtZero: true, title: { display: true, text: 'Segundos' } } }
-                    }
-                });
+                if (!hasTelemetry) {
+                    const ctxContainer = document.getElementById('globalTimeChart').parentElement;
+                    ctxContainer.innerHTML = "<p style='text-align:center; padding: 2em; color: #888;'><em>No hay suficientes datos recientes en la comunidad para generar promedios globales de tiempo.</em></p>";
+                } else {
+                    const ctxGlobal = document.getElementById('globalTimeChart').getContext('2d');
+                    new Chart(ctxGlobal, {
+                        type: 'line',
+                        data: {
+                            labels: ['Esc 1', 'Esc 2', 'Esc 3', 'Esc 4', 'Esc 5', 'Esc 6', 'Esc 7', 'Esc 8', 'Esc 9', 'Esc 10'],
+                            datasets: [{
+                                label: 'Promedio Global (s)',
+                                data: avgGlobalTimes,
+                                borderColor: '#d32f2f',
+                                backgroundColor: 'rgba(211, 47, 47, 0.1)',
+                                borderWidth: 2,
+                                fill: true,
+                                tension: 0.3,
+                                pointBackgroundColor: '#d32f2f',
+                                pointRadius: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: { legend: { display: false } },
+                            scales: { y: { beginAtZero: true, title: { display: true, text: 'Segundos' } } }
+                        }
+                    });
+                }
 
             } catch (e) {
                 console.error("Error consultando Firebase: ", e);
