@@ -219,6 +219,18 @@
                     </table>
                 </div>
 
+                <!-- Nueva gráfica global -->
+                <div class="score-card"
+                    style="margin-top: 3em; padding: 1.5em; background: #fff; border: 1px solid #ddd;">
+                    <h3 style="color: #555; text-align: left; margin-bottom: 0.5em; font-size: 1.2em;"><i
+                            class="icon solid fa-users"></i> Promedio Global: Tiempo por Escenario</h3>
+                    <p style="text-align: left; font-size: 0.9em; color: #777; margin-bottom: 1.5em;">Compara la
+                        dificultad que han tenido todos los usuarios al resolver cada escenario.</p>
+                    <div style="width: 100%; height: 250px;">
+                        <canvas id="globalTimeChart"></canvas>
+                    </div>
+                </div>
+
             </div>
         </div>
         </div>
@@ -347,31 +359,56 @@
 
         async function fetchLeaderboard() {
             try {
-                // Consultar colección ordenada por Mayor Puntaje sólamente para no forzar la creación de un Índice Compuesto
-                const q = query(collection(db, "phishing_scores"), orderBy("score", "desc"), limit(20));
+                // Consultar colección ordenada por Mayor Puntaje para evitar Índice Compuesto de Firebase
+                const q = query(collection(db, "phishing_scores"), orderBy("score", "desc"), limit(50));
                 const querySnapshot = await getDocs(q);
 
                 const tbody = document.getElementById('leaderboard-body');
                 tbody.innerHTML = ""; // Limpiar el "Cargando..."
-
-                let position = 1;
 
                 if (querySnapshot.empty) {
                     tbody.innerHTML = "<tr><td colspan='5' style='text-align:center;'>Aún no hay puntajes registrados en la base de datos de Firebase.</td></tr>";
                     return;
                 }
 
+                let allScores = [];
+                let globalTimesSum = new Array(10).fill(0);
+                let globalTimesCount = new Array(10).fill(0);
+
+                // 1. Extraer los datos y acumular la matemática del promedio global
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
-                    const tr = document.createElement('tr');
+                    allScores.push(data);
 
-                    // Formatear la marca de tiempo a un formato legible
+                    if (data.scenarioTimes && data.scenarioTimes.length > 0) {
+                        for (let i = 0; i < data.scenarioTimes.length; i++) {
+                            if (i < 10 && typeof data.scenarioTimes[i] === 'number') {
+                                globalTimesSum[i] += data.scenarioTimes[i];
+                                globalTimesCount[i]++;
+                            }
+                        }
+                    }
+                });
+
+                // 2. Ordenamiento Avanzado en el Cliente (Javascript Sort)
+                // Si empatan en puntos, desempatamos dándole victoria al que tenga MENOR tiempo total
+                allScores.sort((a, b) => {
+                    if (b.score !== a.score) return b.score - a.score;
+                    return (a.time || Infinity) - (b.time || Infinity);
+                });
+
+                // 3. Renderizar la Tabla Leaderboard con los Top 20 ya ordenados
+                let topScores = allScores.slice(0, 20);
+                let position = 1;
+
+                topScores.forEach((data) => {
                     let dateStr = "N/A";
                     if (data.timestamp) {
                         const dateObj = data.timestamp.toDate ? data.timestamp.toDate() : new Date(data.timestamp);
                         dateStr = dateObj.toLocaleDateString() + " " + dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                     }
 
+                    const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td><strong>#${position}</strong></td>
                         <td>${escapeHtml(data.name || 'Anónimo')}</td>
@@ -381,6 +418,41 @@
                     `;
                     tbody.appendChild(tr);
                     position++;
+                });
+
+                // 4. Calcular arreglos finales y Dibujar la Gráfica Global
+                let avgGlobalTimes = [];
+                for (let i = 0; i < 10; i++) {
+                    if (globalTimesCount[i] > 0) {
+                        avgGlobalTimes.push(Math.round((globalTimesSum[i] / globalTimesCount[i]) * 10) / 10);
+                    } else {
+                        avgGlobalTimes.push(0);
+                    }
+                }
+
+                const ctxGlobal = document.getElementById('globalTimeChart').getContext('2d');
+                new Chart(ctxGlobal, {
+                    type: 'line',
+                    data: {
+                        labels: ['Esc 1', 'Esc 2', 'Esc 3', 'Esc 4', 'Esc 5', 'Esc 6', 'Esc 7', 'Esc 8', 'Esc 9', 'Esc 10'],
+                        datasets: [{
+                            label: 'Promedio Global (s)',
+                            data: avgGlobalTimes,
+                            borderColor: '#d32f2f',
+                            backgroundColor: 'rgba(211, 47, 47, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.3,
+                            pointBackgroundColor: '#d32f2f',
+                            pointRadius: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: { y: { beginAtZero: true, title: { display: true, text: 'Segundos' } } }
+                    }
                 });
 
             } catch (e) {
