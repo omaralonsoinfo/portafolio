@@ -84,6 +84,52 @@
             font-size: 1.1em;
             margin-top: 1em;
         }
+
+        .score-card {
+            background: #f4f4f4;
+            padding: 2em;
+            border-radius: 8px;
+            margin-bottom: 2em;
+            text-align: center;
+        }
+
+        .score-card h3 {
+            color: #d32f2f;
+            margin-bottom: 0.5em;
+        }
+
+        .score-big {
+            font-size: 4em;
+            font-weight: bold;
+            color: #d32f2f;
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+            text-align: left;
+        }
+
+        .leaderboard-table th,
+        .leaderboard-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+        }
+
+        .leaderboard-table th {
+            background-color: #d32f2f;
+            color: white;
+            font-weight: bold;
+        }
+
+        .leaderboard-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .leaderboard-table tr:hover {
+            background-color: #f1f1f1;
+        }
     </style>
 </head>
 
@@ -116,14 +162,65 @@
 
             <div class="row">
                 <div class="col-12">
-                    <div class="content-article">
-                        <span class="icon solid fa-chart-line" style="font-size: 5em; color: #ccc;"></span>
-                        <h3>Sección Pendiente</h3>
-                        <p>El contenedor para el análisis de desempeño y la puntuación global del Phishing Quiz ha sido
-                            creado y se encuentra pendiente de diseño e implementación.</p>
+
+                    <!-- Sección de Tus Resultados -->
+                    <div id="local-results-section" style="display: none;">
+                        <h2 style="color: #d32f2f; border-bottom: 2px solid #eee; padding-bottom: 0.5em;">Tu Desempeño
+                            Reciente</h2>
+                        <div class="score-card"
+                            style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 3em;">
+                            <div style="text-align: left;">
+                                <h3 id="local-name" style="margin-bottom: 0.2em;">Nombre</h3>
+                                <div class="score-big" id="local-score" style="margin-bottom: 0.2em;">0 / 10</div>
+                                <p style="margin: 0; font-size: 1.1em;"><strong>Tiempo total:</strong> <span
+                                        id="local-time">0</span> segundos</p>
+                                <p id="local-risk" style="font-weight: bold; font-size: 1.2em; margin-top: 1em;"></p>
+                            </div>
+                            <div style="width: 250px; height: 250px;">
+                                <canvas id="scoreChart"></canvas>
+                            </div>
+
+                            <!-- Nueva sección de la gráfica de barras de tiempos -->
+                            <div class="score-card" style="margin-top: 2em; padding: 1.5em;">
+                                <h3 style="color: #555; text-align: left; margin-bottom: 1em; font-size: 1.2em;"><i
+                                        class="icon solid fa-stopwatch"></i> Tiempo de Respuesta por Escenario</h3>
+                                <div style="width: 100%; height: 250px;">
+                                    <canvas id="timeChart"></canvas>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
+
+                <!-- Leaderboard Global -->
+                <h2 style="color: #d32f2f; border-bottom: 2px solid #eee; padding-bottom: 0.5em; margin-top: 2em;">
+                    Top Cazadores de Phishing Global</h2>
+                <p>Estos son los mejores puntajes registrados por usuarios de todo el mundo en la base de datos de
+                    la nube.</p>
+
+                <div style="overflow-x:auto;">
+                    <table class="leaderboard-table" id="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>Posición</th>
+                                <th>Nombre</th>
+                                <th>Puntaje</th>
+                                <th>Tiempo (s)</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboard-body">
+                            <tr>
+                                <td colspan="5" style="text-align: center;">Cargando Ranking Global desde
+                                    Firebase... <i class="icon solid fa-spinner fa-spin"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
+        </div>
         </div>
     </article>
 
@@ -145,6 +242,167 @@
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
 
+    <!-- Importar Chart.js para analíticas visuales -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // Cargar datos locales del usuario actual desde su sesión local
+        document.addEventListener("DOMContentLoaded", function () {
+            const localDataStr = localStorage.getItem('pr02_results');
+            if (localDataStr) {
+                try {
+                    const data = JSON.parse(localDataStr);
+                    document.getElementById('local-results-section').style.display = 'block';
+                    document.getElementById('local-name').textContent = data.name || "Anónimo";
+                    document.getElementById('local-score').textContent = data.score + " / " + data.max;
+                    document.getElementById('local-time').textContent = data.time;
+
+                    let riskMsg = "";
+                    if (data.score === 10) riskMsg = "Perfil: Cazador Experto (Riesgo Bajo)";
+                    else if (data.score >= 7) riskMsg = "Perfil: Usuario Atento (Riesgo Medio)";
+                    else riskMsg = "Perfil: Vulnerable (Riesgo Alto) - ¡Se sugiere capacitarse!";
+
+                    document.getElementById('local-risk').textContent = riskMsg;
+
+                    // Colorear el texto de riesgo
+                    if (data.score < 7) document.getElementById('local-risk').style.color = "#d32f2f";
+                    else document.getElementById('local-risk').style.color = "#4caf50";
+
+                    // Renderizar la Gráfica de Desempeño con Chart.js
+                    const ctx = document.getElementById('scoreChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Aciertos', 'Errores'],
+                            datasets: [{
+                                data: [data.score, data.max - data.score],
+                                backgroundColor: ['#4caf50', '#d32f2f'],
+                                borderWidth: 0,
+                                hoverOffset: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: { font: { size: 14 } }
+                                }
+                            }
+                        }
+                    });
+
+                    // Renderizar la Gráfica de Tiempos con Chart.js
+                    if (data.scenarioTimes && data.scenarioTimes.length > 0) {
+                        const labels = data.scenarioTimes.map((_, i) => "Esc. " + (i + 1));
+                        const ctxTime = document.getElementById('timeChart').getContext('2d');
+                        new Chart(ctxTime, {
+                            type: 'bar',
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'Segundos',
+                                    data: data.scenarioTimes,
+                                    backgroundColor: '#3498db',
+                                    borderRadius: 4
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                plugins: {
+                                    legend: { display: false }
+                                },
+                                scales: {
+                                    y: { beginAtZero: true, title: { display: true, text: 'Segundos' } }
+                                }
+                            }
+                        });
+                    }
+
+                } catch (e) { console.error("Error parseando resultados de localStorage", e); }
+            }
+        });
+    </script>
+
+    <!-- Firebase Global Database Integration -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+        // Parámetros proporcionados por el usuario
+        const firebaseConfig = {
+            apiKey: "AIzaSyDiWsh9DRFIGVcpo-zETIESMdVyBWl4qQQ",
+            authDomain: "portafolio-ciberseguridad.firebaseapp.com",
+            projectId: "portafolio-ciberseguridad",
+            storageBucket: "portafolio-ciberseguridad.firebasestorage.app",
+            messagingSenderId: "497715689345",
+            appId: "1:497715689345:web:f475ba31d7e3216735da80",
+            measurementId: "G-L2TPCT9E8J"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function fetchLeaderboard() {
+            try {
+                // Consultar colección ordenada por Mayor Puntaje sólamente para no forzar la creación de un Índice Compuesto
+                const q = query(collection(db, "phishing_scores"), orderBy("score", "desc"), limit(20));
+                const querySnapshot = await getDocs(q);
+
+                const tbody = document.getElementById('leaderboard-body');
+                tbody.innerHTML = ""; // Limpiar el "Cargando..."
+
+                let position = 1;
+
+                if (querySnapshot.empty) {
+                    tbody.innerHTML = "<tr><td colspan='5' style='text-align:center;'>Aún no hay puntajes registrados en la base de datos de Firebase.</td></tr>";
+                    return;
+                }
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const tr = document.createElement('tr');
+
+                    // Formatear la marca de tiempo a un formato legible
+                    let dateStr = "N/A";
+                    if (data.timestamp) {
+                        const dateObj = data.timestamp.toDate ? data.timestamp.toDate() : new Date(data.timestamp);
+                        dateStr = dateObj.toLocaleDateString() + " " + dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    }
+
+                    tr.innerHTML = `
+                        <td><strong>#${position}</strong></td>
+                        <td>${escapeHtml(data.name || 'Anónimo')}</td>
+                        <td><strong>${data.score} / ${data.max || 10}</strong></td>
+                        <td>${data.time} s</td>
+                        <td><span style="font-size: 0.85em; color: #666;">${dateStr}</span></td>
+                    `;
+                    tbody.appendChild(tr);
+                    position++;
+                });
+
+            } catch (e) {
+                console.error("Error consultando Firebase: ", e);
+                // Mostrar mensaje amigable si fallan las reglas de seguridad de Firestore
+                document.getElementById('leaderboard-body').innerHTML = `<tr><td colspan='5' style="text-align:center; color:red;">Fallo al conectar con la Nube. Verifica que las reglas de Base de Datos (Reglas de Firestore) estén habilitadas en modo prueba.</td></tr>`;
+            }
+        }
+
+        // Función de escape básica para la tabla por seguridad
+        function escapeHtml(unsafe) {
+            return (unsafe || "").toString()
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // Arrancar la tabla al cargar la página
+        fetchLeaderboard();
+    </script>
 </body>
 
 </html>

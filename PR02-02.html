@@ -373,6 +373,15 @@
                         <!-- Screen: Intro -->
                         <div id="screen-intro" class="quiz-screen active">
                             <h3 class="quiz-title">¿Es phishing o es legítimo?</h3>
+
+                            <p
+                                style="border-left: 4px solid #d32f2f; padding-left: 1em; margin-bottom: 1.5em; color: #555;">
+                                <strong>Objetivo de Seguridad:</strong> El phishing y la ingeniería social componen el
+                                vector de ataque inicial número uno a nivel mundial. Desarrollar un "Ojo Crítico" e
+                                instinto para identificar direcciones engañosas es la primera y más efectiva línea de
+                                defensa humana que protege a las organizaciones de ser vulneradas.
+                            </p>
+
                             <p>Bienvenido al simulador interactivo de ciberseguridad. En este desafío, te presentaremos
                                 10 escenarios basados en correos electrónicos y mensajes de texto reales.</p>
                             <p>Tu misión es analizar cada escenario, revisar los remitentes, el tono del mensaje y,
@@ -787,6 +796,9 @@
 
         // --- GAME LOGIC ---
         let hasAnsweredCurrent = false;
+        let globalStartTime = 0;
+        let scenarioStartTime = 0;
+        let scenarioTimes = [];
 
         function startQuiz() {
             const nameInput = document.getElementById('userName').value.trim();
@@ -797,6 +809,8 @@
 
             currentScenarioIndex = 0;
             score = 0;
+            globalStartTime = Date.now();
+            scenarioTimes = [];
             loadScenario();
             showScreen('screen-quiz');
         }
@@ -808,6 +822,7 @@
             }
 
             hasAnsweredCurrent = false; // Reset the flag for the new scenario
+            scenarioStartTime = Date.now(); // Start tracking time for this specific scenario
 
             // Close explanation if open
             document.getElementById('explanation-layer').style.display = 'none';
@@ -846,6 +861,10 @@
         function makeDecision(decision) {
             if (hasAnsweredCurrent) return; // Prevent multiple answers
             hasAnsweredCurrent = true;
+
+            // Registrar el tiempo que le tomó
+            let timeTaken = Math.round((Date.now() - scenarioStartTime) / 1000);
+            scenarioTimes.push(timeTaken);
 
             clearHoverEvents();
             const sc = scenarios[currentScenarioIndex];
@@ -964,8 +983,63 @@
             else msg = "Corres un alto riesgo. Te recomendamos repasar los conceptos de PR02-01.";
 
             document.getElementById('final-message').textContent = msg;
+
+            // Calcular tiempo total en segundos
+            let totalTime = Math.round((Date.now() - globalStartTime) / 1000);
+
+            let resultData = {
+                name: userData.name,
+                email: userData.email,
+                score: score,
+                max: scenarios.length,
+                time: totalTime,
+                scenarioTimes: scenarioTimes
+            };
+
+            // 1) Guardar en localStorage para PR02-03 local (Tus Resultados)
+            localStorage.setItem('pr02_results', JSON.stringify(resultData));
+
+            // 2) Enviar a la base de datos Global en la Nube
+            if (window.saveScoreToFirebase) {
+                window.saveScoreToFirebase(resultData);
+            }
         }
 
+    </script>
+
+    <!-- Firebase Global Database Integration -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDiWsh9DRFIGVcpo-zETIESMdVyBWl4qQQ",
+            authDomain: "portafolio-ciberseguridad.firebaseapp.com",
+            projectId: "portafolio-ciberseguridad",
+            storageBucket: "portafolio-ciberseguridad.firebasestorage.app",
+            messagingSenderId: "497715689345",
+            appId: "1:497715689345:web:f475ba31d7e3216735da80",
+            measurementId: "G-L2TPCT9E8J"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Exponer función de guardado
+        window.saveScoreToFirebase = async function (data) {
+            try {
+                await addDoc(collection(db, "phishing_scores"), {
+                    name: data.name,
+                    score: data.score,
+                    max: data.max,
+                    time: data.time,
+                    timestamp: serverTimestamp()
+                });
+                console.log("Puntaje guardado exitosamente en la nube.");
+            } catch (e) {
+                console.error("Error al guardar el puntaje en Firebase: ", e);
+            }
+        };
     </script>
 </body>
 
