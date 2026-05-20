@@ -1,0 +1,630 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Portafolio Digital | Certificaciones</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <style>
+        /* ESTILO PERSONALIZADO PARA EL MENÚ TIPO BARRA NEGRA */
+        #nav {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+            padding: 0.5em 0;
+        }
+
+        #nav ul li a {
+            color: #ffffff !important;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        #nav ul li a:hover {
+            background-color: #333333;
+        }
+
+        /* Dropdown CSS Custom */
+        .dropdown-hover {
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #000000;
+            min-width: 170px;
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            border-radius: 4px;
+        }
+
+        .dropdown-content li {
+            display: block;
+        }
+
+        .dropdown-content li a {
+            color: #ffffff !important;
+            padding: 10px 15px !important;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9em;
+        }
+
+        .dropdown-content li a:hover {
+            background-color: #333333 !important;
+        }
+
+        .dropdown-hover:hover .dropdown-content {
+            display: block;
+        }
+
+        @media screen and (max-width: 736px) {
+            .col-3 {
+                width: 50% !important;
+                margin-bottom: 2em;
+            }
+        }
+
+        hr {
+            border-top: solid 1px #ffffff !important;
+            opacity: 1;
+        }
+
+        /* --- DISEÑO PREMIUM DE CERTIFICACIONES --- */
+
+        /* Estilo para los filtros */
+        .filter-container {
+            text-align: center;
+            margin-bottom: 3em;
+        }
+
+        .filter-btn {
+            background-color: #f1f5f9;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            padding: 0.5em 1.5em;
+            margin: 0.3em;
+            font-size: 0.9em;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .filter-btn:hover {
+            background-color: #e2e8f0;
+            color: #000000;
+            transform: translateY(-1px);
+        }
+
+        .filter-btn.active {
+            background-color: #000000;
+            color: #ffffff;
+            border-color: #000000;
+        }
+
+        /* Reflexión Crítica */
+        .reflexion-box {
+            background: #ffffff;
+            border-left: 5px solid #000000;
+            padding: 2.5em;
+            border-radius: 8px;
+            margin-bottom: 3em;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .reflexion-box h3 {
+            font-size: 1.6em;
+            margin-bottom: 1em;
+            color: #1a1a1a;
+            border-bottom: 2px dashed #eaeaea;
+            padding-bottom: 0.5em;
+        }
+
+        .impact-item {
+            margin-bottom: 1.5em;
+        }
+
+        .impact-item strong {
+            color: #000000;
+            display: block;
+            margin-bottom: 0.3em;
+            font-size: 1.1em;
+        }
+
+        .impact-item p {
+            text-align: justify;
+            line-height: 1.6;
+        }
+
+        /* Tarjeta de Certificación */
+        .cert-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 2.5em;
+            margin-bottom: 2.5em;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+            border-color: #43B3E0;
+        }
+
+        .cert-badge-wrapper {
+            flex-shrink: 0;
+            width: 140px;
+            height: 140px;
+            margin-right: 2.5em;
+            background: #f8fafc;
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #f1f5f9;
+        }
+
+        .cert-badge-wrapper img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .cert-info {
+            flex-grow: 1;
+        }
+
+        .cert-info h3 {
+            font-size: 1.4em;
+            color: #1a1a1a;
+            margin-bottom: 0.4em;
+            font-weight: 700;
+        }
+
+        .cert-status {
+            display: inline-flex;
+            align-items: center;
+            background-color: #e6f7ed;
+            color: #2e7d32;
+            font-size: 0.75em;
+            font-weight: 700;
+            padding: 0.3em 0.8em;
+            border-radius: 9999px;
+            margin-bottom: 1em;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .cert-status i {
+            margin-right: 4px;
+        }
+
+        .cert-text {
+            font-size: 0.95em;
+            line-height: 1.7;
+            color: #444444;
+            margin-bottom: 1.5em;
+            text-align: justify;
+        }
+
+        .cert-actions {
+            display: flex;
+            gap: 1em;
+        }
+
+        .cert-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            padding: 0.5em 1.2em !important;
+            font-size: 0.85em !important;
+            border-radius: 6px !important;
+            transition: all 0.2s;
+            text-decoration: none;
+            height: auto !important;
+            line-height: 1 !important;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        .cert-btn-primary {
+            background-color: #43B3E0 !important;
+            color: #ffffff !important;
+            border: none !important;
+            box-shadow: 0 2px 4px rgba(67, 179, 224, 0.2);
+        }
+
+        .cert-btn-primary:hover {
+            background-color: #229ac8 !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(34, 154, 200, 0.3);
+        }
+
+        .cert-btn-secondary {
+            background-color: #ffffff !important;
+            color: #475569 !important;
+            border: 1px solid #cbd5e1 !important;
+        }
+
+        .cert-btn-secondary:hover {
+            background-color: #f8fafc !important;
+            color: #000000 !important;
+            border-color: #94a3b8 !important;
+        }
+
+        /* Transiciones de filtrado */
+        .cert-card.fade-out {
+            opacity: 0;
+            transform: scale(0.95);
+            display: none !important;
+        }
+
+        .cert-card.fade-in {
+            opacity: 1;
+            transform: scale(1);
+            display: flex !important;
+            animation: fadeIn 0.4s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 768px) {
+            .cert-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 1.5em;
+            }
+
+            .cert-badge-wrapper {
+                margin-right: 0;
+                margin-bottom: 1.5em;
+                width: 120px;
+                height: 120px;
+            }
+
+            .cert-text {
+                text-align: justify;
+            }
+
+            .cert-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .cert-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body class="is-preload">
+
+    <!-- MENÚ DE NAVEGACIÓN -->
+    <nav id="nav">
+        <ul class="container">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="PF02.html">PF02</a></li>
+            <li><a href="PF03.html">PF03</a></li>
+            <li><a href="Final.html">Final</a></li>
+            <li><a href="actividades.html">Actividades</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+            <li><a href="certificaciones.html">Certificaciones</a></li>
+            <li class="dropdown-hover">
+                <a href="halloffame.html">Hall of Fame</a>
+                <ul class="dropdown-content">
+                    <li><a href="sqlinjection.html">SQL Injection</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- ENCABEZADO DE LA SECCIÓN -->
+    <article id="top" class="wrapper style1">
+        <div class="container">
+            <header>
+                <h2>Mis Certificaciones</h2>
+                <p>Evidencias de formación continua, desarrollo de habilidades técnicas y reflexiones sobre el aprendizaje en ciberseguridad.</p>
+            </header>
+        </div>
+    </article>
+
+    <!-- SECCIÓN DE REFLEXIÓN METACOGNITIVA -->
+    <article id="reflexion" class="wrapper style2">
+        <div class="container">
+            <div class="reflexion-box">
+                <h3><i class="fas fa-brain" style="margin-right: 10px;"></i> Reflexión Crítica sobre el Proceso de Certificación</h3>
+                
+                <div class="impact-item">
+                    <strong><i class="fas fa-user-shield" style="color: #43B3E0; margin-right: 8px;"></i> Impacto Personal:</strong>
+                    <p>El camino recorrido a través de esta ruta de aprendizaje en ciberseguridad ha sido una experiencia profundamente enriquecedora. A nivel personal, cursar estas certificaciones ha cultivado en mí una notable resiliencia y una estructuración del pensamiento crítico sumamente enfocada en la resolución de problemas lógicos bajo escenarios adversos. Enfrentar temas desconocidos, asimilar terminología compleja y entender los riesgos digitales cotidianos me ha inculcado una fuerte higiene digital y un sentido ético inquebrantable ante el poder que otorgan las herramientas defensivas y ofensivas. Este proceso no solo alimentó mi curiosidad intelectual, sino que transformó mi percepción sobre la seguridad, convirtiéndola en un estilo de vida basado en la prevención y la constante autoevaluación.</p>
+                </div>
+
+                <div class="impact-item">
+                    <strong><i class="fas fa-graduation-cap" style="color: #43B3E0; margin-right: 8px;"></i> Impacto Académico:</strong>
+                    <p>En el ámbito académico, esta formación especializada ha representado el complemento perfecto para mis estudios de ingeniería en la Universidad Politécnica de San Luis Potosí. Ha servido como un puente robusto que vincula de manera directa la teoría abstracta de las aulas con escenarios de infraestructura de la vida real. Conceptos complejos como el direccionamiento de subredes, la encapsulación del modelo OSI o el funcionamiento lógico de los sistemas de prevención de intrusiones pasaron de ser esquemas gráficos en libros a realidades tácticas configuradas por mí mediante CLI y herramientas de monitoreo. Esta trayectoria ha elevado mis estándares de calidad en investigación, análisis documental y síntesis técnica, permitiéndome consolidar una formación sumamente competitiva y actualizada bajo estándares de la industria tecnológica.</p>
+                </div>
+
+                <div class="impact-item">
+                    <strong><i class="fas fa-briefcase" style="color: #43B3E0; margin-right: 8px;"></i> Impacto Profesional:</strong>
+                    <p>Desde la perspectiva profesional, haber cursado y obtenido estas certificaciones me dota de un perfil técnico sumamente competitivo, preparado para incorporarse directamente en operaciones de un SOC (Security Operations Center) o en auditorías autorizadas de seguridad. Las competencias adquiridas me facultan para realizar el endurecimiento de sistemas operativos (hardening), diseñar reglas robustas de firewalls, implementar VPNs seguras y analizar el comportamiento malicioso en la red utilizando marcos avanzados como MITRE ATT&CK. Este conjunto de conocimientos técnicos y prácticos me posiciona como un activo sumamente valioso para cualquier corporación que busque proteger sus activos de información crítica, con la madurez necesaria para proponer mitigaciones efectivas ante las amenazas digitales modernas.</p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- LISTADO Y FILTRO DE CERTIFICACIONES -->
+    <article id="certificates" class="wrapper style3">
+        <div class="container">
+            
+            <!-- Barra de Filtros -->
+            <div class="filter-container">
+                <button class="filter-btn active" onclick="filterCerts('all')">Todas</button>
+                <button class="filter-btn" onclick="filterCerts('fundamentals')">Fundamentos</button>
+                <button class="filter-btn" onclick="filterCerts('networks')">Redes y Defensa</button>
+                <button class="filter-btn" onclick="filterCerts('advanced')">Avanzadas y Ofensivas</button>
+            </div>
+
+            <!-- Contenedor de Tarjetas -->
+            <div class="row">
+                <div class="col-12">
+                    
+                    <!-- 1. Introducción a la Ciberseguridad -->
+                    <div class="cert-card" data-category="fundamentals">
+                        <div class="cert-badge-wrapper">
+                            <img src="badges/1badge.png" alt="Badge Introducción a la ciberseguridad" />
+                        </div>
+                        <div class="cert-info">
+                            <span class="cert-status"><i class="fas fa-check-circle"></i> Completado</span>
+                            <h3>1. Introducción a la Ciberseguridad</h3>
+                            <p class="cert-text">
+                                Mi incursión formal en la ciberseguridad comenzó con este curso introductorio, el cual sirvió como un catalizador fundamental para mi crecimiento académico y personal. La experiencia en este proceso de formación fue sumamente esclarecedora, permitiéndome desmitificar la seguridad informática y comprenderla no solo como una disciplina técnica, sino como un pilar fundamental en la sociedad digital contemporánea. A lo largo de la instrucción, profundicé en los conceptos esenciales de la triada CIA (Confidencialidad, Integridad y Disponibilidad), los vectores de ataque más comunes y las tácticas de ingeniería social. El mayor reto al que me enfrenté fue asimilar la enorme amplitud de la terminología de seguridad y desarrollar un pensamiento crítico para identificar vulnerabilidades humanas y de políticas organizacionales. En el ámbito profesional, este aprendizaje se traduce en la capacidad de evaluar riesgos básicos e implementar medidas de higiene digital esenciales en cualquier entorno laboral. Desde una perspectiva muy personal, este curso encendió en mí una genuina pasión por la seguridad defensiva. Me enseñó a ver la tecnología desde la óptica de la resiliencia y la prevención, sentando las bases teóricas de mi perfil técnico y motivándome a continuar capacitándome. Es una formación sumamente recomendada para cualquier persona que desee comprender los cimientos del ecosistema de ciberseguridad actual, ya que proporciona una visión panorámica indispensable antes de adentrarse en especializaciones técnicas más complejas.
+                            </p>
+                            <div class="cert-actions">
+                                <a href="cert/1cert.pdf" target="_blank" class="cert-btn cert-btn-primary">
+                                    <i class="fas fa-file-pdf" style="margin-right: 8px;"></i> Ver Certificado PDF
+                                </a>
+                                <a href="badges/1badge.png" target="_blank" class="cert-btn cert-btn-secondary">
+                                    <i class="fas fa-award" style="margin-right: 8px;"></i> Ver Badge Digital
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Conceptos Básicos de Redes -->
+                    <div class="cert-card" data-category="networks">
+                        <div class="cert-badge-wrapper">
+                            <img src="badges/2badge.png" alt="Badge Conceptos básicos de redes" />
+                        </div>
+                        <div class="cert-info">
+                            <span class="cert-status"><i class="fas fa-check-circle"></i> Completado</span>
+                            <h3>2. Conceptos Básicos de Redes</h3>
+                            <p class="cert-text">
+                                Comprender el funcionamiento de las redes es la base absoluta sobre la cual se construye toda la ciberseguridad. Este curso abarcó la arquitectura y protocolos de red, incluyendo el modelo OSI de siete capas, el modelo TCP/IP, direccionamiento IPv4 e IPv6, y protocolos clave de resolución y transmisión de datos. La experiencia de formación fue exhaustiva y sumamente demandante desde el punto de vista conceptual. Uno de los mayores retos fue dominar la lógica del direccionamiento IP y la técnica de división de subredes (subnetting), lo cual requiere una notable precisión matemática y lógica para el diseño eficiente de topologías. Entre los aprendizajes clave destaca el flujo íntimo del encapsulado de datos y cómo interactúan las capas lógicas desde la aplicación hasta el medio físico. En el plano profesional, estos conocimientos son vitales para diagnosticar vulnerabilidades de infraestructura, analizar paquetes de tráfico sospechoso con analizadores como Wireshark y entender cómo se propaga una amenaza a través de una red corporativa. En lo personal, este curso me infundió una enorme confianza técnica; logré comprender que no se puede proteger adecuadamente una infraestructura si no se entiende a la perfección cómo se comunican sus componentes. Considero que este módulo fue el punto de inflexión en mi carrera académica, convirtiendo abstracciones teóricas en conocimientos lógicos aplicables en escenarios de la vida real. Es una certificación robusta que me permitió consolidar mis habilidades técnicas y sentar las bases indispensables para configurar defensas de red avanzadas.
+                            </p>
+                            <div class="cert-actions">
+                                <a href="cert/2cert.pdf" target="_blank" class="cert-btn cert-btn-primary">
+                                    <i class="fas fa-file-pdf" style="margin-right: 8px;"></i> Ver Certificado PDF
+                                </a>
+                                <a href="badges/2badge.png" target="_blank" class="cert-btn cert-btn-secondary">
+                                    <i class="fas fa-award" style="margin-right: 8px;"></i> Ver Badge Digital
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Dispositivos de Red y Configuración Inicial -->
+                    <div class="cert-card" data-category="networks">
+                        <div class="cert-badge-wrapper">
+                            <img src="badges/3badge.png" alt="Badge Dispositivos de red y configuración inicial" />
+                        </div>
+                        <div class="cert-info">
+                            <span class="cert-status"><i class="fas fa-check-circle"></i> Completado</span>
+                            <h3>3. Dispositivos de Red y Configuración Inicial</h3>
+                            <p class="cert-text">
+                                Este módulo práctico me permitió transicionar de la teoría de redes a la interacción directa con el hardware que las hace posibles. La formación se centró en la configuración inicial y seguridad de routers y switches utilizando la interfaz de línea de comandos (CLI) de Cisco (IOS). Los aprendizajes clave incluyeron la segmentación de redes mediante VLANs, la configuración del acceso remoto seguro mediante SSH, y la implementación de protocolos de seguridad en puertos (Port Security) para evitar accesos físicos no autorizados. El principal desafío en este proceso fue adaptarme a la sintaxis rigurosa de la CLI de Cisco y desarrollar la agilidad mental para estructurar configuraciones complejas sin cometer errores que pudieran dejar inoperante una red. Profesionalmente, esta certificación me capacita para desplegar equipos de comunicación con configuraciones robustas de seguridad desde el primer día, minimizando la superficie de ataque inicial en cualquier empresa. A nivel personal, este curso fue sumamente gratificante; la experiencia de escribir comandos y ver de inmediato su efecto físico bloqueando intentos de intrusión lógica o física reforzó mi entendimiento práctico del control de accesos. Me demostró que la seguridad es una disciplina de configuración meticulosa donde el más mínimo descuido puede abrir una brecha crítica. Esta experiencia práctica fortaleció notablemente mi capacidad de resolución de problemas bajo condiciones de configuración de red en tiempo real.
+                            </p>
+                            <div class="cert-actions">
+                                <a href="cert/3cert.pdf" target="_blank" class="cert-btn cert-btn-primary">
+                                    <i class="fas fa-file-pdf" style="margin-right: 8px;"></i> Ver Certificado PDF
+                                </a>
+                                <a href="badges/3badge.png" target="_blank" class="cert-btn cert-btn-secondary">
+                                    <i class="fas fa-award" style="margin-right: 8px;"></i> Ver Badge Digital
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Seguridad en Terminales -->
+                    <div class="cert-card" data-category="networks">
+                        <div class="cert-badge-wrapper">
+                            <img src="badges/4badge.png" alt="Badge Seguridad en terminales" />
+                        </div>
+                        <div class="cert-info">
+                            <span class="cert-status"><i class="fas fa-check-circle"></i> Completado</span>
+                            <h3>4. Seguridad en Terminales</h3>
+                            <p class="cert-text">
+                                La protección de los dispositivos individuales —computadoras de escritorio, laptops, servidores y dispositivos móviles— es a menudo la primera línea de defensa activa contra los ciberataques. Este curso abordó las metodologías para robustecer la seguridad en terminales mediante el uso de criptografía, control de acceso estricto, gestión de actualizaciones de software, firewalls locales y herramientas avanzadas de detección y respuesta en endpoints (EDR). La experiencia formativa me permitió analizar críticamente la seguridad desde el punto de vista del sistema operativo (Windows y Linux). El mayor reto fue encontrar el equilibrio adecuado entre un nivel óptimo de protección técnica y la productividad del usuario final, entendiendo que las políticas de seguridad demasiado restrictivas pueden entorpecer la operación diaria. Como aprendizaje clave, interioricé el principio de mínimo privilegio y el endurecimiento (hardening) de sistemas operativos. En mi vida profesional, esto me capacita para definir y desplegar configuraciones seguras en flotas de dispositivos corporativos, garantizando que el compromiso de un único dispositivo no demerite la integridad general de la infraestructura informática de una organización. Aprendí a valorar el papel crucial que juega el hardening del sistema operativo en la resiliencia global de cualquier entorno empresarial.
+                            </p>
+                            <div class="cert-actions">
+                                <a href="cert/4cert.pdf" target="_blank" class="cert-btn cert-btn-primary">
+                                    <i class="fas fa-file-pdf" style="margin-right: 8px;"></i> Ver Certificado PDF
+                                </a>
+                                <a href="badges/4badge.png" target="_blank" class="cert-btn cert-btn-secondary">
+                                    <i class="fas fa-award" style="margin-right: 8px;"></i> Ver Badge Digital
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. Defensa de la Red -->
+                    <div class="cert-card" data-category="networks">
+                        <div class="cert-badge-wrapper">
+                            <img src="badges/5badge.png" alt="Badge Defensa de la red" />
+                        </div>
+                        <div class="cert-info">
+                            <span class="cert-status"><i class="fas fa-check-circle"></i> Completado</span>
+                            <h3>5. Defensa de la Red</h3>
+                            <p class="cert-text">
+                                Enfocado en la protección integral de la infraestructura de red corporativa, este curso fue una inmersión profunda en las tecnologías y metodologías de defensa perimetral y detección de incidentes. Se estudiaron a fondo el funcionamiento de los firewalls de próxima generación, sistemas de detección y prevención de intrusos (IDS/IPS) como Snort, redes virtuales privadas (VPNs) seguras y el monitoreo mediante plataformas SIEM. El proceso de formación fue fascinante pero complejo. El mayor reto técnico fue comprender cómo optimizar y redactar firmas y reglas de firewall precisas para filtrar el tráfico malicioso sin causar congestiones o generar un volumen inmanejable de alertas falsas (falsos positivos). Como aprendizaje clave, asimilé la importancia del diseño de redes por zonas (segmentación con DMZ) y la visibilidad constante de los logs de seguridad. Profesionalmente, esta certificación me otorga las competencias necesarias para implementar políticas de seguridad a gran escala, monitorear de forma activa el tráfico en un entorno empresarial y mitigar ataques en tiempo real. A nivel personal, este fue uno de los cursos que más disfruté, ya que me permitió experimentar el rol del defensor (Blue Team) y apreciar la complejidad táctica de mantener un perímetro seguro frente a adversarios constantes. Es una certificación indispensable que unifica la teoría de redes con la defensa activa del perímetro organizacional.
+                            </p>
+                            <div class="cert-actions">
+                                <a href="cert/5cert.pdf" target="_blank" class="cert-btn cert-btn-primary">
+                                    <i class="fas fa-file-pdf" style="margin-right: 8px;"></i> Ver Certificado PDF
+                                </a>
+                                <a href="badges/5badge.png" target="_blank" class="cert-btn cert-btn-secondary">
+                                    <i class="fas fa-award" style="margin-right: 8px;"></i> Ver Badge Digital
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. Administración de Amenazas Cibernéticas -->
+                    <div class="cert-card" data-category="advanced">
+                        <div class="cert-badge-wrapper">
+                            <img src="badges/6badge.png" alt="Badge Administración de amenazas cibernéticas" />
+                        </div>
+                        <div class="cert-info">
+                            <span class="cert-status"><i class="fas fa-check-circle"></i> Completado</span>
+                            <h3>6. Administración de Amenazas Cibernéticas</h3>
+                            <p class="cert-text">
+                                Esta certificación me introdujo en el ámbito de la inteligencia de amenazas (Threat Intelligence) y la gestión proactiva de riesgos. A lo largo del curso se analizaron marcos de referencia reconocidos mundialmente como el modelo MITRE ATT&CK, metodologías de análisis de vulnerabilidades mediante la métrica CVSS, y los protocolos de respuesta y mitigación de incidentes. La experiencia de aprendizaje requirió una mentalidad altamente analítica y estratégica. El reto más significativo fue dominar el mapeo de tácticas, técnicas y procedimientos (TTPs) de grupos de APTs (Advanced Persistent Threats) y comprender cómo transformar datos de crudos de amenazas en inteligencia accionable para la organización. Entre los aprendizajes clave destaca el ciclo de vida del análisis de vulnerabilidades y la estructuración de informes técnicos para la remediación de parches. En el ejercicio profesional, estos conocimientos me permiten diseñar planes estratégicos de ciberseguridad adaptados a los riesgos específicos de una empresa y responder de forma estructurada ante una brecha de seguridad. En el plano personal, este curso amplió enormemente mi perspectiva; comprendí que la ciberseguridad no consiste únicamente en configurar software defensivo, sino en planificar la resiliencia del negocio, anticipándose activamente a los movimientos de los atacantes cibernéticos mediante inteligencia. Ha sido una de las capacitaciones más estratégicas que he tomado durante mi desarrollo profesional en esta rama.
+                            </p>
+                            <div class="cert-actions">
+                                <a href="cert/6cert.pdf" target="_blank" class="cert-btn cert-btn-primary">
+                                    <i class="fas fa-file-pdf" style="margin-right: 8px;"></i> Ver Certificado PDF
+                                </a>
+                                <a href="badges/6badge.png" target="_blank" class="cert-btn cert-btn-secondary">
+                                    <i class="fas fa-award" style="margin-right: 8px;"></i> Ver Badge Digital
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 7. Carrera Profesional de Analista Junior en Ciberseguridad -->
+                    <div class="cert-card" data-category="advanced">
+                        <div class="cert-badge-wrapper">
+                            <img src="badges/7badge.png" alt="Badge Carrera Profesional de Analista Junior en Ciberseguridad" />
+                        </div>
+                        <div class="cert-info">
+                            <span class="cert-status"><i class="fas fa-check-circle"></i> Completado</span>
+                            <h3>7. Carrera Profesional de Analista Junior en Ciberseguridad</h3>
+                            <p class="cert-text">
+                                Este programa de certificación representa la culminación integradora de los módulos previos, alineando las competencias individuales hacia las demandas operativas reales de un Centro de Operaciones de Seguridad (SOC). Durante la formación se profundizaron aspectos como el flujo de trabajo de un analista SOC de nivel 1, la gestión de alertas de incidentes, el análisis forense digital básico en memoria y sistemas de archivos, y el cumplimiento de normativas de seguridad globales. El proceso de formación fue riguroso y demandante, simulando la presión y la toma de decisiones rápidas que caracterizan el entorno de un SOC real. El principal reto consistió en coordinar de forma integral conocimientos de redes, sistemas operativos y amenazas para realizar un triaje veloz y efectivo de incidentes de seguridad sin perder de vista los protocolos establecidos. Como aprendizaje clave, dominé la estructura metodológica de contención y erradicación de amenazas. Profesionalmente, esta certificación me posiciona como un candidato idóneo para desempeñarme en equipos de respuesta rápida y monitoreo activo, aportando valor inmediato en la mitigación de brechas. En lo personal, este logro significó un paso gigante en mi consolidación académica, validando mi capacidad de análisis bajo estándares profesionales del sector de la seguridad informática. Me ha brindado la preparación idónea para asumir retos del mundo empresarial con total confianza y responsabilidad.
+                            </p>
+                            <div class="cert-actions">
+                                <a href="cert/7cert.pdf" target="_blank" class="cert-btn cert-btn-primary">
+                                    <i class="fas fa-file-pdf" style="margin-right: 8px;"></i> Ver Certificado PDF
+                                </a>
+                                <a href="badges/7badge.png" target="_blank" class="cert-btn cert-btn-secondary">
+                                    <i class="fas fa-award" style="margin-right: 8px;"></i> Ver Badge Digital
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 8. Hacker Ético -->
+                    <div class="cert-card" data-category="advanced">
+                        <div class="cert-badge-wrapper">
+                            <img src="badges/8badge.png" alt="Badge Hacker ético" />
+                        </div>
+                        <div class="cert-info">
+                            <span class="cert-status"><i class="fas fa-check-circle"></i> Completado</span>
+                            <h3>8. Hacker Ético</h3>
+                            <p class="cert-text">
+                                Adentrarme en el hacking ético fue una de las experiencias más desafiantes y satisfactorias de mi trayectoria académica. Este curso me permitió explorar la ciberseguridad desde la perspectiva ofensiva (Red Team), aprendiendo a identificar y explotar vulnerabilidades de manera autorizada para fortalecer las defensas de un sistema. A lo largo de la formación dominé las fases del pentesting: reconocimiento, escaneo de red con herramientas como Nmap, explotación de fallas del sistema con Metasploit, vulneración de aplicaciones web con Burp Suite, y escalación de privilegios. El mayor reto técnico fue comprender a bajo nivel cómo se estructuran los exploits y cómo burlar ciertos controles defensivos sin afectar la estabilidad de los servidores bajo prueba. El aprendizaje clave fue asimilar que la mejor defensa es una gran ofensa técnica; solo comprendiendo cómo opera un atacante se pueden diseñar mitigaciones realmente infalibles. En mi desarrollo profesional, esta capacitación me faculta para realizar auditorías de seguridad exhaustivas y reportar hallazgos de forma ética y estructurada para prevenir incidentes del mundo real. A nivel personal, este curso fue estimulante; alimentó mi curiosidad intelectual y me enseñó que el hacking es una disciplina de paciencia, perseverancia y una profunda ética profesional. Consolidó mi enfoque integral de la seguridad informática, capacitándome para evaluar defensas con una mirada verdaderamente crítica y analítica.
+                            </p>
+                            <div class="cert-actions">
+                                <a href="cert/8cert.pdf" target="_blank" class="cert-btn cert-btn-primary">
+                                    <i class="fas fa-file-pdf" style="margin-right: 8px;"></i> Ver Certificado PDF
+                                </a>
+                                <a href="badges/8badge.png" target="_blank" class="cert-btn cert-btn-secondary">
+                                    <i class="fas fa-award" style="margin-right: 8px;"></i> Ver Badge Digital
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </article>
+
+    <!-- PIE DE PÁGINA -->
+    <article class="wrapper style4">
+        <div class="container medium">
+            <footer>
+                <ul id="copyright">
+                    <li>&copy; Alonso Castillo Omar Karim. Todos los derechos reservados.</li>
+                    <li>Diseño base: <a href="http://html5up.net">HTML5 UP</a></li>
+                </ul>
+            </footer>
+        </div>
+    </article>
+
+    <!-- ARCHIVOS JS Y SCRIPT DE FILTRADO -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    
+    <script>
+        function filterCerts(category) {
+            // Actualizar clase activa en los botones
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Encontrar el botón clickeado por su atributo onclick o texto y marcarlo activo
+            event.currentTarget.classList.add('active');
+
+            // Obtener todas las tarjetas de certificación
+            const cards = document.querySelectorAll('.cert-card');
+
+            cards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+                
+                if (category === 'all' || cardCategory === category) {
+                    // Animación suave de aparición
+                    card.classList.remove('fade-out');
+                    card.classList.add('fade-in');
+                } else {
+                    // Animación suave de desaparición
+                    card.classList.remove('fade-in');
+                    card.classList.add('fade-out');
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>
