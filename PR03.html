@@ -1,31 +1,28 @@
-﻿<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html>
 
 <head>
-    <title>Portafolio Digital | PR03</title>
+    <title>PROYECTO 3 | ABB - Sistema de Gestión de Seguridad de la Información (SGSI)</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css" />
     <style>
         /* ESTILO PERSONALIZADO PARA EL MENÚ TIPO BARRA NEGRA */
         #nav {
             background-color: #000000 !important;
-            /* Fondo Negro */
             color: #ffffff !important;
             padding: 0.5em 0;
         }
 
         #nav ul li a {
             color: #ffffff !important;
-            /* Letras Blancas */
             font-weight: bold;
             border-radius: 4px;
         }
 
         #nav ul li a:hover {
             background-color: #333333;
-            /* Gris oscuro al pasar el mouse */
         }
 
         /* Dropdown CSS Custom */
@@ -67,6 +64,534 @@
         .dropdown-hover:hover .dropdown-content {
             display: block;
         }
+
+        hr {
+            border-top: solid 1px #ccc !important;
+            opacity: 1;
+            margin: 2em 0;
+        }
+
+        /* DASHBOARD LAYOUT */
+        .content-article {
+            background: #ffffff;
+            padding: 2.5em;
+            border-radius: 8px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
+            color: #333333;
+        }
+
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 2em;
+            margin-top: 1.5em;
+        }
+
+        @media screen and (max-width: 980px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* SIDEBAR TABS */
+        .dashboard-sidebar {
+            background: #1e1e1e;
+            border-radius: 6px;
+            padding: 1.5em 1em;
+            align-self: start;
+        }
+
+        .dashboard-sidebar h4 {
+            color: #ffffff;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5em;
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.5em;
+            text-align: center;
+        }
+
+        .sidebar-tabs {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-tabs li {
+            margin-bottom: 0.8em;
+            padding: 0;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #bbbbbb;
+            width: 100%;
+            text-align: left;
+            padding: 12px 15px;
+            font-size: 0.9em;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tab-btn i {
+            width: 20px;
+            font-size: 1.1em;
+            text-align: center;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: #ff0000; /* ABB Red */
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        /* MODULE CONTENT */
+        .module-pane {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .module-pane.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ABB BRANDED TITLES */
+        .module-pane h2 {
+            color: #e63946; /* ABB Primary */
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.4em;
+            margin-bottom: 1em;
+            font-size: 1.6em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .module-pane h3 {
+            color: #1d3557;
+            margin-top: 1.8em;
+            font-size: 1.3em;
+            border-left: 4px solid #e63946;
+            padding-left: 10px;
+        }
+
+        /* ASSETS & POLICY STYLING */
+        .asset-box-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2em;
+            margin: 1.5em 0;
+        }
+
+        @media screen and (max-width: 736px) {
+            .asset-box-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .asset-card {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 1.2em;
+            transition: all 0.2s;
+            border-left: 4px solid #1d3557;
+        }
+
+        .asset-card:hover {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transform: translateY(-2px);
+        }
+
+        .asset-card.external {
+            border-left-color: #f4a261;
+        }
+
+        .asset-card h4 {
+            margin: 0 0 0.5em 0;
+            color: #1d3557;
+            font-size: 1.1em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .asset-badge {
+            font-size: 0.7em;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .asset-badge.internal {
+            background: #e0f2f1;
+            color: #00695c;
+        }
+
+        .asset-badge.external {
+            background: #fff3e0;
+            color: #ef6c00;
+        }
+
+        .asset-details {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 0.5em;
+            background: #ffffff;
+            padding: 6px 10px;
+            border-radius: 4px;
+            border: 1px solid #e9ecef;
+        }
+
+        /* 5x5 RISK MATRIX GRID */
+        .matrix-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 1.5em;
+            margin: 2em 0;
+        }
+
+        @media screen and (max-width: 980px) {
+            .matrix-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: 80px repeat(5, 1fr);
+            gap: 5px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        .matrix-header-cell {
+            background: #1d3557;
+            color: #ffffff;
+            font-weight: bold;
+            text-align: center;
+            padding: 8px;
+            font-size: 0.75em;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .matrix-row-label {
+            background: #1d3557;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 0.7em;
+            padding: 8px;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 1.2em;
+        }
+
+        .matrix-cell {
+            padding: 12px 6px;
+            text-align: center;
+            font-size: 0.8em;
+            font-weight: bold;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            line-height: 1.2em;
+            border: 2px solid transparent;
+        }
+
+        .matrix-cell:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            z-index: 10;
+        }
+
+        .matrix-cell.selected {
+            border-color: #000000;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Matrix colors */
+        .m-low { background: #c8e6c9; color: #2e7d32; } /* Verde bajo */
+        .m-med { background: #ffe0b2; color: #ef6c00; } /* Naranja medio */
+        .m-high { background: #ffcdd2; color: #c62828; } /* Rojo alto */
+        .m-veryhigh { background: #f8bbd0; color: #c2185b; } /* Rosa muy alto */
+        .m-extreme { background: #d1c4e9; color: #4527a0; } /* Morado extremo */
+
+        .matrix-cell span.assets-list {
+            display: block;
+            font-size: 0.7em;
+            color: rgba(0,0,0,0.6);
+            margin-top: 4px;
+            font-weight: normal;
+        }
+
+        .matrix-monitor {
+            background: #252526;
+            border-radius: 6px;
+            padding: 1.5em;
+            color: #f1f1f1;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            align-self: start;
+        }
+
+        .matrix-monitor h4 {
+            color: #ff0000;
+            margin-top: 0;
+            border-bottom: 1px solid #3d3d3d;
+            padding-bottom: 0.5em;
+            font-size: 1.1em;
+            text-transform: uppercase;
+        }
+
+        .monitor-details {
+            font-size: 0.85em;
+            line-height: 1.4em;
+        }
+
+        .monitor-details p {
+            margin: 0.8em 0;
+        }
+
+        .monitor-assets-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 8px;
+        }
+
+        .m-asset-tag {
+            background: #3d3d3d;
+            color: #ffffff;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .m-asset-tag:hover {
+            background: #ff0000;
+        }
+
+        /* POLICY PANELS */
+        .policy-card {
+            background: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            margin-bottom: 1.2em;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            overflow: hidden;
+        }
+
+        .policy-header {
+            background: #f8f9fa;
+            padding: 12px 18px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            border-bottom: 1px solid #dee2e6;
+            transition: background 0.2s;
+        }
+
+        .policy-header:hover {
+            background: #f1f3f5;
+        }
+
+        .policy-body {
+            padding: 18px;
+            background: #ffffff;
+            font-size: 0.9em;
+            line-height: 1.4em;
+        }
+
+        .policy-item {
+            margin-bottom: 0.8em;
+        }
+
+        .policy-item strong {
+            color: #e63946;
+            display: inline-block;
+            width: 120px;
+        }
+
+        /* ORGANIGRAM & TABLES */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 1.5em 0;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+        }
+
+        .dashboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+
+        .dashboard-table th {
+            background: #1e1e1e;
+            color: #ffffff;
+            font-weight: bold;
+            padding: 10px 15px;
+            text-align: left;
+        }
+
+        .dashboard-table td {
+            padding: 10px 15px;
+            border-bottom: 1px solid #dee2e6;
+            vertical-align: middle;
+        }
+
+        .dashboard-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* PORTADA INTERNA MOCKUP */
+        .cover-info {
+            text-align: center;
+            margin-bottom: 2.5em;
+            padding: 2.5em;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            position: relative;
+        }
+
+        .cover-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: #ff0000;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .cover-info h1 {
+            font-size: 1.8em;
+            color: #1d3557;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+
+        .cover-info h2 {
+            font-size: 1.25em;
+            color: #e63946;
+            border-bottom: none;
+            margin-bottom: 0.5em;
+        }
+
+        .cover-info p {
+            margin: 0.3em 0;
+            color: #4a4a4a;
+            font-size: 1.05em;
+        }
+
+        /* MINUTA DE ACUERDOS & SIGNATURES */
+        .signature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2em;
+            margin-top: 2em;
+        }
+
+        .sig-block {
+            text-align: center;
+            border-top: 1px dashed #999;
+            padding-top: 0.5em;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        /* AUDIT CHECKLIST STYLE */
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .checklist-icon {
+            font-size: 1.2em;
+            margin-top: 1px;
+        }
+
+        .checklist-icon.yes { color: #2a9d8f; }
+        .checklist-icon.no { color: #e63946; }
+
+        .checklist-desc h5 {
+            margin: 0 0 3px 0;
+            color: #1d3557;
+            font-size: 0.95em;
+        }
+
+        .checklist-desc p {
+            margin: 0;
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        .pdf-btn {
+            background-color: #ff0000; /* ABB Red */
+            color: white !important;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 2em;
+            font-weight: bold;
+            transition: background-color 0.2s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .pdf-btn:hover {
+            background-color: #cc0000;
+            transform: translateY(-2px);
+        }
+
+        @media print {
+            #nav, .dashboard-sidebar, .pdf-btn, footer {
+                display: none !important;
+            }
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+            .module-pane {
+                display: block !important;
+                page-break-after: always;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+        }
     </style>
 </head>
 
@@ -94,17 +619,606 @@
     <article id="top" class="wrapper style1">
         <div class="container">
             <header>
-                <h2>Proyecto 03 (PR03)</h2>
-                <p>Contenido Pendiente</p>
+                <h2>PROYECTO 3: SISTEMA DE GESTIÓN DE SEGURIDAD DE LA INFORMACIÓN (SGSI)</h2>
+                <p>Implementación del estándar ISO 27001 para la organización IS Application Service Delivery de ABB.</p>
             </header>
+
             <div class="row">
                 <div class="col-12">
-                    <section class="box style1">
-                        <span class="icon featured fas fa-hourglass-half"></span>
-                        <h3>Próximamente</h3>
-                        <p>El contenido de este proyecto se encuentra en desarrollo o pendiente de publicación.</p>
-                        <a href="proyectos.html" class="button">Volver a Proyectos</a>
-                    </section>
+                    <div class="content-article">
+
+                        <!-- Portada Académica -->
+                        <div class="cover-info">
+                            <h2>PROYECTO DE INVESTIGACIÓN (PR03)</h2>
+                            <h1>DISEÑO E IMPLEMENTACIÓN DEL SGSI CON ISO 27001 EN LA ELECTRIFICACIÓN INDUSTRIAL</h1>
+                            <p><strong>Cuerpo de Consultoría Académica - Equipo 4</strong></p>
+                            <p>Universidad Politécnica de San Luis Potosí</p>
+                            <br>
+                            <p><strong>Materia:</strong> CNO V – Seguridad Informática</p>
+                            <p><strong>Profesor:</strong> Mtro. Servando López Contreras</p>
+                            <p><strong>Fecha de Emisión:</strong> 11 de Mayo de 2026</p>
+                        </div>
+
+                        <!-- DASHBOARD WORKSPACE -->
+                        <div class="dashboard-container">
+                            
+                            <!-- SIDEBAR CONTROL PANEL -->
+                            <div class="dashboard-sidebar">
+                                <h4>Módulos SGSI</h4>
+                                <ul class="sidebar-tabs">
+                                    <li><button class="tab-btn active" onclick="switchModule(0)"><i class="fas fa-info-circle"></i> 1. Contexto e ID</button></li>
+                                    <li><button class="tab-btn" onclick="switchModule(1)"><i class="fas fa-list-ol"></i> 2. Activos y Alcance</button></li>
+                                    <li><button class="tab-btn" onclick="switchModule(2)"><i class="fas fa-file-contract"></i> 3. Políticas ISO</button></li>
+                                    <li><button class="tab-btn" onclick="switchModule(3)"><i class="fas fa-th"></i> 4. Matriz de Riesgo</button></li>
+                                    <li><button class="tab-btn" onclick="switchModule(4)"><i class="fas fa-cog"></i> 5. Operación PDS</button></li>
+                                    <li><button class="tab-btn" onclick="switchModule(5)"><i class="fas fa-check-double"></i> 6. Auditoría y Mejora</button></li>
+                                </ul>
+                            </div>
+
+                            <!-- MAIN WORKSPACE -->
+                            <div class="dashboard-content">
+                                
+                                <!-- MODULE 1: CONTEXT & IDENTITY -->
+                                <div class="module-pane active" id="pane-0">
+                                    <h2><i class="fas fa-info-circle"></i> Módulo 1: Contexto de la Organización e Identidad</h2>
+                                    
+                                    <h3>1. Misión, Visión y Objetivos</h3>
+                                    <p>ABB es un líder tecnológico global en electrificación y automatización que hace posible un futuro más sostenible y eficiente en el uso de recursos. Sus bases operativas se estructuran en:</p>
+                                    <ul>
+                                        <li><strong>Misión:</strong> Impulsar la transformación de la sociedad y la industria para lograr un futuro más productivo y sostenible mediante la electrificación eficaz y limpia. <em>Eslogan principal: Engineered to Outrun</em>.</li>
+                                        <li><strong>Visión:</strong> Consolidarse como el socio de servicio confiable de ciclo de vida que asegura que los activos eléctricos industriales sean fiables, estén disponibles y plenamente preparados para el futuro frente a la obsolescencia técnica.</li>
+                                        <li><strong>Objetivos del SGSI:</strong> Diseñar e implementar un marco de gobernanza sólido basado en el estándar internacional **ISO/IEC 27001** para proteger la integridad operativa y mitigar vulnerabilidades específicas en la gestión de infraestructuras críticas industriales de la división de electrificación.</li>
+                                    </ul>
+
+                                    <h3>2. Centros de I+D y Soporte de Seguridad</h3>
+                                    <p>ABB cuenta con centros de investigación globales dedicados al análisis de la resiliencia operativa y la ciberseguridad industrial, colaborando de manera activa con organismos de estandarización internacionales (como NIST y ENISA) para definir las directrices tácticas necesarias para sostener las infraestructuras críticas del sector de energía.</p>
+
+                                    <h3>3. Organigrama Jerárquico del SGSI</h3>
+                                    <p>Para la correcta gobernanza del SGSI sin comprometer identidades personales de empleados reales, se ha mapeado la estructura organizacional funcional:</p>
+                                    <div class="table-responsive">
+                                        <table class="dashboard-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Departamento</th>
+                                                    <th>Rol Funcional / Puesto</th>
+                                                    <th>Responsabilidad en el SGSI (ISO 27001)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>Alta Dirección</strong></td>
+                                                    <td>Director Ejecutivo (CEO) / CISO Regional</td>
+                                                    <td>Aprobación de la directriz general, dotación presupuestal y establecimiento de la Política de Seguridad de la Información (PSI).</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Servicios de Electrificación</strong></td>
+                                                    <td>Gerente de Producto de Ciclo de Vida</td>
+                                                    <td>Gestión del inventario de activos heredados de GE (GE Legacy), soporte técnico y control de obsolescencia.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Ingeniería de Campo</strong></td>
+                                                    <td>Ingeniero de Soporte Técnico Senior</td>
+                                                    <td>Ejecución de actividades de mantenimiento, borrado seguro en plantas físicas y operaciones tácticas directas en los endpoints.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Manejo de Activos y Finanzas</strong></td>
+                                                    <td>Encargado de Gestión de Activos y Flujo Monetario</td>
+                                                    <td>Supervisión económica de las desincorporaciones, repuestos originales OEM y retorno de valor de activos.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Continental Cyber Security</strong></td>
+                                                    <td>Manager Continental de Ciberseguridad</td>
+                                                    <td>Definición estratégica del marco de ciberseguridad en Norteamérica, control de riesgos críticos e inteligencia de amenazas externa.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Aplicaciones no-ERP</strong></td>
+                                                    <td>Manager Continental para Aplicaciones no-ERP</td>
+                                                    <td>Coordinación del departamento de servicios lógicos, control de cumplimiento normativo y seguridad en el desarrollo de software.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Bases de Datos</strong></td>
+                                                    <td>Administrador de BD Microsoft SQL Server</td>
+                                                    <td>Aseguramiento de bases de datos, control de cifrado a nivel de almacenamiento y auditoría activa de logs de transacciones.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>Auditoría</strong></td>
+                                                    <td>Auditor Interno del SGSI</td>
+                                                    <td>Evaluación periódica del desempeño de los controles operativos, auditoría interna semestral y presentación de informes de mejora.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- MODULE 2: ASSETS & SCOPE -->
+                                <div class="module-pane" id="pane-1">
+                                    <h2><i class="fas fa-list-ol"></i> Módulo 2: Alcance Normativo e Inventario de Activos</h2>
+                                    
+                                    <h3>1. Delimitación del Alcance (Scope of Work)</h3>
+                                    <ul>
+                                        <li><strong>Área de Aplicación:</strong> Departamento de Servicios de Electrificación (enfocado en la división de soporte a activos heredados de GE Legacy).</li>
+                                        <li><strong>Proceso Elegido:</strong> Gestión de Vulnerabilidades Lógicas y Eliminación Certificada de Información Confidencial en Servidores de Control Industrial Retirados por Obsolescencia.</li>
+                                        <li><strong>Activo Objetivo del Caso:</strong> Servidor de Almacenamiento de Datos de Configuración (Main Controller Server) ubicado en la planta industrial de San Luis Potosí, México.</li>
+                                        <li><strong>Límite del Alcance:</strong> Abarca desde la apertura del ticket de obsolescencia del servidor, el respaldo cifrado de planos de ingeniería, el bloqueo de puertos lógicos, hasta la validación de destrucción total de datos. Excluye el desecho físico final del hardware.</li>
+                                    </ul>
+
+                                    <h3>2. Justificación de Referencias Normativas Especiales</h3>
+                                    <div class="asset-box-grid">
+                                        <div class="asset-card">
+                                            <h4><span>ISO/IEC 27001:2022 (Cláusula 8.10)</span></h4>
+                                            <p>Aplicada de forma obligatoria para justificar que la eliminación de información residual en el Main Controller Server retirado sea definitiva y no permita la recuperación de configuraciones de red o patentes.</p>
+                                        </div>
+                                        <div class="asset-card">
+                                            <h4><span>ISO/IEC 27002 (Control 8.11)</span></h4>
+                                            <p>Utilizada para exigir la aplicación estricta de técnicas de enmascaramiento de datos sensibles (PII) en los reportes técnicos generados durante el diagnóstico del servidor de almacenamiento.</p>
+                                        </div>
+                                        <div class="asset-card">
+                                            <h4><span>ISO/IEC 27017</span></h4>
+                                            <p>Justificada para asegurar que las copias de seguridad de las configuraciones críticas antes de la sanitización local sean transferidas y custodiadas en entornos de nube (Azure/AWS) altamente protegidos y certificados.</p>
+                                        </div>
+                                        <div class="asset-card">
+                                            <h4><span>ISO/IEC 27019</span></h4>
+                                            <p>Norma específica para el sector energético. Justifica la implementación de controles especiales de aislamiento lógico de red al desconectar equipos que interactúan con sistemas de control distribuido (DCS) operados por ABB.</p>
+                                        </div>
+                                    </div>
+
+                                    <h3>3. Inventario de los 20 Activos Críticos</h3>
+                                    <p>A continuación se presenta una parte de los 20 activos de información identificados (10 internos bajo control directo y 10 externos que interactúan con el SGSI de ABB):</p>
+                                    
+                                    <div class="asset-box-grid">
+                                        <!-- ACTIVO INTERNO 1 -->
+                                        <div class="asset-card">
+                                            <h4><span>[I1] Credenciales de Acceso</span> <span class="asset-badge internal">Interno</span></h4>
+                                            <p><strong>Descripción:</strong> Cuentas y credenciales administrativas de ingenieros de campo.</p>
+                                            <div class="asset-details">Requisito CIA: Confidencialidad: Alta | Integridad: Alta | Disponibilidad: Media</div>
+                                        </div>
+                                        <!-- ACTIVO INTERNO 2 -->
+                                        <div class="asset-card">
+                                            <h4><span>[I2] Código Fuente</span> <span class="asset-badge internal">Interno</span></h4>
+                                            <p><strong>Descripción:</strong> Código de las aplicaciones propietarias de control de energía industrial.</p>
+                                            <div class="asset-details">Requisito CIA: Confidencialidad: Alta | Integridad: Alta | Disponibilidad: Baja</div>
+                                        </div>
+                                        <!-- ACTIVO INTERNO 3 -->
+                                        <div class="asset-card">
+                                            <h4><span>[I3] Servidores de Almacenamiento</span> <span class="asset-badge internal">Interno</span></h4>
+                                            <p><strong>Descripción:</strong> Main Controller Server en la planta con planos de GE Legacy.</p>
+                                            <div class="asset-details">Requisito CIA: Confidencialidad: Alta | Integridad: Alta | Disponibilidad: Alta</div>
+                                        </div>
+                                        <!-- ACTIVO INTERNO 4 -->
+                                        <div class="asset-card">
+                                            <h4><span>[I4] Backups Locales</span> <span class="asset-badge internal">Interno</span></h4>
+                                            <p><strong>Descripción:</strong> Copias de seguridad almacenadas físicamente en la planta de SLP.</p>
+                                            <div class="asset-details">Requisito CIA: Confidencialidad: Alta | Integridad: Alta | Disponibilidad: Alta</div>
+                                        </div>
+                                        <!-- ACTIVO INTERNO 5 -->
+                                        <div class="asset-card">
+                                            <h4><span>[I5] Logs de Auditoría</span> <span class="asset-badge internal">Interno</span></h4>
+                                            <p><strong>Descripción:</strong> Registros lógicos de intentos de acceso y cambios en switches de red.</p>
+                                            <div class="asset-details">Requisito CIA: Confidencialidad: Media | Integridad: Alta | Disponibilidad: Media</div>
+                                        </div>
+
+                                        <!-- ACTIVO EXTERNO 1 -->
+                                        <div class="asset-card external">
+                                            <h4><span>[E1] Servicios Cloud (Azure)</span> <span class="asset-badge external">Externo</span></h4>
+                                            <p><strong>Descripción:</strong> Infraestructura en la nube externa proveedora del almacenamiento de backups.</p>
+                                            <div class="asset-details">Requisito CIA: Confidencialidad: Alta | Integridad: Alta | Disponibilidad: Alta</div>
+                                        </div>
+                                        <!-- ACTIVO EXTERNO 2 -->
+                                        <div class="asset-card external">
+                                            <h4><span>[E2] Soporte TIC Externo</span> <span class="asset-badge external">Externo</span></h4>
+                                            <p><strong>Descripción:</strong> Soporte de mantenimiento proporcionado por técnicos autorizados externos.</p>
+                                            <div class="asset-details">Requisito CIA: Confidencialidad: Alta | Integridad: Media | Disponibilidad: Alta</div>
+                                        </div>
+                                        <!-- ACTIVO EXTERNO 3 -->
+                                        <div class="asset-card external">
+                                            <h4><span>[E3] Leyes de Privacidad (GDPR)</span> <span class="asset-badge external">Externo</span></h4>
+                                            <p><strong>Descripción:</strong> Regulaciones de datos de clientes externos a cumplir legalmente.</p>
+                                            <div class="asset-details">Requisito CIA: Confidencialidad: Alta | Integridad: Alta | Disponibilidad: Media</div>
+                                        </div>
+                                        <!-- ACTIVO EXTERNO 4 -->
+                                        <div class="asset-card external">
+                                            <h4><span>[E4] Suministro Eléctrico Externo</span> <span class="asset-badge external">Externo</span></h4>
+                                            <p><strong>Descripción:</strong> Proveedor de energía de la red eléctrica externa de la planta.</p>
+                                            <div class="asset-details">Requisito CIA: Confidencialidad: Baja | Integridad: Baja | Disponibilidad: Alta</div>
+                                        </div>
+                                        <!-- ACTIVO EXTERNO 5 -->
+                                        <div class="asset-card external">
+                                            <h4><span>[E5] Inteligencia de Amenazas</span> <span class="asset-badge external">Externo</span></h4>
+                                            <p><strong>Descripción:</strong> Fuentes y feeds externos de vulnerabilidades y exploits de sistemas SCADA.</p>
+                                            <div class="asset-details">Requisito CIA: Confidencialidad: Media | Integridad: Alta | Disponibilidad: Media</div>
+                                        </div>
+                                    </div>
+                                    <p class="t-gray" style="font-size: 0.85em; font-style: italic;">*Nota: El inventario completo incluye los 20 activos evaluados rigurosamente en la Sección 5 y 6 del documento original.</p>
+                                </div>
+
+                                <!-- MODULE 3: POLICIES -->
+                                <div class="module-pane" id="pane-2">
+                                    <h2><i class="fas fa-file-contract"></i> Módulo 3: Políticas de Ciberseguridad (ISO 27002)</h2>
+                                    <p>ABB estructura sus políticas de seguridad siguiendo una estricta jerarquía técnica: <strong>Estándares</strong> (reglas obligatorias), <strong>Directrices</strong> (consejos recomendados), <strong>Procedimientos</strong> (instrucciones paso a paso) y <strong>Líneas Base</strong> (requisito mínimo de seguridad). A continuación se despliegan las políticas fundamentales:</p>
+
+                                    <h3>Políticas de Seguridad para Activos Internos</h3>
+                                    
+                                    <div class="policy-card">
+                                        <div class="policy-header" onclick="togglePolicy(this)">
+                                            <span>5.1.1. Control de Acceso (Activo: Credenciales de Acceso)</span>
+                                            <i class="fas fa-chevron-down"></i>
+                                        </div>
+                                        <div class="policy-body" style="display:none;">
+                                            <div class="policy-item"><strong>Estándar:</strong> Contraseñas de al menos 14 caracteres con MFA obligatorio para accesos administrativos.</div>
+                                            <div class="policy-item"><strong>Procedimiento:</strong> Revocación y bloqueo inmediato de la cuenta al confirmarse la baja o movimiento de personal.</div>
+                                            <div class="policy-item"><strong>Directriz:</strong> Se recomienda no almacenar contraseñas en navegadores locales ni compartirlas entre ingenieros.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="policy-card">
+                                        <div class="policy-header" onclick="togglePolicy(this)">
+                                            <span>5.1.3. Gestión de Almacenamiento (Activo: Servidores de Almacenamiento)</span>
+                                            <i class="fas fa-chevron-down"></i>
+                                        </div>
+                                        <div class="policy-body" style="display:none;">
+                                            <div class="policy-item"><strong>Estándar:</strong> Todo servidor en proceso de baja debe ser sanitizado antes de su salida lógica de la planta de SLP.</div>
+                                            <div class="policy-item"><strong>Procedimiento:</strong> Borrado lógico irreversible de los datos mediante sobreescritura NIST SP 800-88.</div>
+                                            <div class="policy-item"><strong>Línea Base:</strong> Emisión de un Certificado de Sanitización firmado con huella SHA-256 del almacenamiento borrado.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="policy-card">
+                                        <div class="policy-header" onclick="togglePolicy(this)">
+                                            <span>5.1.5. Monitoreo de Seguridad (Activo: Logs de auditoría)</span>
+                                            <i class="fas fa-chevron-down"></i>
+                                        </div>
+                                        <div class="policy-body" style="display:none;">
+                                            <div class="policy-item"><strong>Línea Base:</strong> Habilitación obligatoria del log de seguridad para registrar intentos de sesión fallidos en switches de red.</div>
+                                            <div class="policy-item"><strong>Procedimiento:</strong> Envío en tiempo real de logs hacia la plataforma Microsoft Entra IAM en la nube.</div>
+                                            <div class="policy-item"><strong>Estándar:</strong> Retención de logs de auditoría por un período mínimo de 12 meses.</div>
+                                        </div>
+                                    </div>
+
+                                    <h3>Políticas de Seguridad para Activos Externos</h3>
+
+                                    <div class="policy-card">
+                                        <div class="policy-header" onclick="togglePolicy(this)">
+                                            <span>5.2.1. Seguridad en la Nube (Activo: Servicios Cloud Azure)</span>
+                                            <i class="fas fa-chevron-down"></i>
+                                        </div>
+                                        <div class="policy-body" style="display:none;">
+                                            <div class="policy-item"><strong>Estándar:</strong> Exigir el cumplimiento normativo con ISO/IEC 27017 en la infraestructura del proveedor externo.</div>
+                                            <div class="policy-item"><strong>Directriz:</strong> Encriptar los archivos de configuración con llaves administradas internamente por ABB (BYOK) antes de subirlos a la nube.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="policy-card">
+                                        <div class="policy-header" onclick="togglePolicy(this)">
+                                            <span>5.2.2. Gestión de Proveedores (Activo: Soporte TIC Externo)</span>
+                                            <i class="fas fa-chevron-down"></i>
+                                        </div>
+                                        <div class="policy-body" style="display:none;">
+                                            <div class="policy-item"><strong>Estándar:</strong> Todo contrato con terceros debe incluir cláusulas estrictas de no divulgación (NDA) y acuerdos de nivel de servicio (SLA).</div>
+                                            <div class="policy-item"><strong>Procedimiento:</strong> Auditoría semestral del cumplimiento de seguridad del soporte TIC externo asignado.</div>
+                                        </div>
+                                    </div>
+                                    <p class="t-gray" style="font-size: 0.85em; font-style: italic;">*Nota: Las 20 políticas completas y estructuradas se encuentran descritas técnicamente en el documento PDF original.</p>
+                                </div>
+
+                                <!-- MODULE 4: RISK MATRIX -->
+                                <div class="module-pane" id="pane-3">
+                                    <h2><i class="fas fa-th"></i> Módulo 4: Matriz de Riesgo 5x5 de la Información</h2>
+                                    <p>Para determinar la severidad de las amenazas sobre los activos, ABB evalúa la relación matemática <strong>Riesgo = Impacto × Probabilidad</strong>.</p>
+                                    <p><strong style="color: #e63946;">Instrucciones del Dashboard:</strong> Haz clic en cualquier celda de la matriz de riesgo 5x5 a continuación para auditar las amenazas y los activos identificados en ese nivel específico en el monitor de seguridad derecho.</p>
+
+                                    <!-- INTERACTIVE MATRIX WORKSPACE -->
+                                    <div class="matrix-wrapper">
+                                        
+                                        <!-- 5X5 CSS GRID -->
+                                        <div class="matrix-grid">
+                                            <!-- Row Header -->
+                                            <div class="matrix-header-cell">PROB. \ IMP.</div>
+                                            <div class="matrix-header-cell">01 - Insig</div>
+                                            <div class="matrix-header-cell">02 - Menor</div>
+                                            <div class="matrix-header-cell">03 - Signif</div>
+                                            <div class="matrix-header-cell">04 - Mayor</div>
+                                            <div class="matrix-header-cell">05 - Severo</div>
+
+                                            <!-- Row 5 (Casi Seguro) -->
+                                            <div class="matrix-row-label">05 - Casi Seguro</div>
+                                            <div class="matrix-cell m-med" onclick="showRiskDetails(5, 1, 'Medio (5)', 'Ninguno', 'Sin riesgos significativos en este cuadrante.')">05</div>
+                                            <div class="matrix-cell m-high" onclick="showRiskDetails(5, 2, 'Alto (10)', 'Ninguno', 'Sin riesgos significativos en este cuadrante.')">10</div>
+                                            <div class="matrix-cell m-veryhigh" onclick="showRiskDetails(5, 3, 'Muy Alto (15)', 'Ninguno', 'Sin riesgos significativos en este cuadrante.')">15</div>
+                                            <div class="matrix-cell m-extreme" onclick="showRiskDetails(5, 4, 'Extremo (20)', 'Ninguno', 'Sin riesgos significativos en este cuadrante.')">20</div>
+                                            <div class="matrix-cell m-extreme" onclick="showRiskDetails(5, 5, 'Extremo (25)', 'E9', 'Uso de código de bibliotecas de código abierto sin validar vulnerabilidades.')">25 <span class="assets-list">[E9]</span></div>
+
+                                            <!-- Row 4 (Probable) -->
+                                            <div class="matrix-row-label">04 - Probable</div>
+                                            <div class="matrix-cell m-low" onclick="showRiskDetails(4, 1, 'Bajo (4)', 'Ninguno', 'Sin riesgos significativos en este cuadrante.')">04</div>
+                                            <div class="matrix-cell m-med" onclick="showRiskDetails(4, 2, 'Medio (8)', 'Ninguno', 'Sin riesgos significativos en este cuadrante.')">08</div>
+                                            <div class="matrix-cell m-high" onclick="showRiskDetails(4, 3, 'Alto (12)', 'I5', 'Logs de auditoría locales de switches borrados o alterados sin respaldo.')">12 <span class="assets-list">[I5]</span></div>
+                                            <div class="matrix-cell m-veryhigh" onclick="showRiskDetails(4, 4, 'Muy Alto (16)', 'Ninguno', 'Sin riesgos en este cuadrante.')">16</div>
+                                            <div class="matrix-cell m-extreme" onclick="showRiskDetails(4, 5, 'Extremo (20)', 'I9', 'Cuentas huérfanas de personal y falta de ética técnica en bajas.')">20 <span class="assets-list">[I9]</span></div>
+
+                                            <!-- Row 3 (Moderado) -->
+                                            <div class="matrix-row-label">03 - Moderado</div>
+                                            <div class="matrix-cell m-low" onclick="showRiskDetails(3, 1, 'Bajo (3)', 'Ninguno', 'Sin riesgos.')">03</div>
+                                            <div class="matrix-cell m-med" onclick="showRiskDetails(3, 2, 'Medio (6)', 'Ninguno', 'Sin riesgos.')">06</div>
+                                            <div class="matrix-cell m-med" onclick="showRiskDetails(3, 3, 'Medio (9)', 'I10, E5', 'Infiltración o falla de endpoints (Workstations) e Inteligencia de amenazas desactualizada.')">09 <span class="assets-list">[I10, E5]</span></div>
+                                            <div class="matrix-cell m-high" onclick="showRiskDetails(3, 4, 'Alto (12)', 'I8, E2, E8', 'Inyección o robo en switches, vulnerabilidades en soporte externo, e intercambio inseguro de planos.')">12 <span class="assets-list">[I8...]</span></div>
+                                            <div class="matrix-cell m-veryhigh" onclick="showRiskDetails(3, 5, 'Muy Alto (15)', 'I1, I3, E7', 'Robo de credenciales de acceso [I1], Falla/borrado incompleto de planos en Main Server [I3], y caída prolongada de energía eléctrica externa [E7].')">15 <span class="assets-list">[I1, I3...]</span></div>
+
+                                            <!-- Row 2 (Poco Probable) -->
+                                            <div class="matrix-row-label">02 - Poco Probable</div>
+                                            <div class="matrix-cell m-low" onclick="showRiskDetails(2, 1, 'Bajo (2)', 'Ninguno', 'Sin riesgos.')">02</div>
+                                            <div class="matrix-cell m-low" onclick="showRiskDetails(2, 2, 'Bajo (4)', 'Ninguno', 'Sin riesgos.')">04</div>
+                                            <div class="matrix-cell m-med" onclick="showRiskDetails(2, 3, 'Medio (6)', 'Ninguno', 'Sin riesgos.')">06</div>
+                                            <div class="matrix-cell m-med" onclick="showRiskDetails(2, 4, 'Medio (8)', 'I7, E4', 'Pérdida de manuales físicos [I7] y fallas momentáneas de energía externa [E4].')">08 <span class="assets-list">[I7, E4]</span></div>
+                                            <div class="matrix-cell m-high" onclick="showRiskDetails(2, 5, 'Alto (10)', 'I2, E1', 'Vulnerabilidades lógicas en código fuente [I2], y brechas lógicas en servidores Cloud Azure [E1].')">10 <span class="assets-list">[I2, E1]</span></div>
+
+                                            <!-- Row 1 (Raro) -->
+                                            <div class="matrix-row-label">01 - Raro</div>
+                                            <div class="matrix-cell m-low" onclick="showRiskDetails(1, 1, 'Bajo (1)', 'Ninguno', 'Sin riesgos.')">01</div>
+                                            <div class="matrix-cell m-low" onclick="showRiskDetails(1, 2, 'Bajo (2)', 'Ninguno', 'Sin riesgos.')">02</div>
+                                            <div class="matrix-cell m-low" onclick="showRiskDetails(1, 3, 'Bajo (3)', 'E10', 'Revocación por incumplimiento de la certificación ISO 27001 [E10].')">03 <span class="assets-list">[E10]</span></div>
+                                            <div class="matrix-cell m-low" onclick="showRiskDetails(1, 4, 'Bajo (4)', 'I4, I6, E6', 'Falla irrecuperable de backups locales [I4], filtración en base de datos PII [I6], y multas por licencias externas [E6].')">04 <span class="assets-list">[I4...]</span></div>
+                                            <div class="matrix-cell m-med" onclick="showRiskDetails(1, 5, 'Medio (5)', 'E3', 'Sanciones regulatorias millonarias por violar leyes externas como GDPR [E3].')">05 <span class="assets-list">[E3]</span></div>
+                                        </div>
+
+                                        <!-- MONITOR PANEL -->
+                                        <div class="matrix-monitor">
+                                            <h4>Monitoreo de Amenaza</h4>
+                                            <div class="monitor-details" id="monitor-content">
+                                                <p style="font-style: italic;">Haz clic en cualquier celda para cargar las amenazas y los activos de información críticos de ese nivel en tiempo real.</p>
+                                                <div style="text-align: center; margin-top: 1.5em; opacity: 0.3;">
+                                                    <i class="fas fa-shield-alt fa-3x"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <h3>Resumen Estadístico del Análisis de Riesgo</h3>
+                                    <div class="table-responsive">
+                                        <table class="dashboard-table" style="text-align: center;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nivel de Riesgo (Score)</th>
+                                                    <th>Número de Activos</th>
+                                                    <th>Acción de Control del SGSI</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr style="background: rgba(46, 125, 50, 0.1);">
+                                                    <td><strong>BAJO (03-04)</strong></td>
+                                                    <td>04 Activos</td>
+                                                    <td>Monitorear y aceptar riesgo bajo directiva del administrador.</td>
+                                                </tr>
+                                                <tr style="background: rgba(239, 108, 0, 0.1);">
+                                                    <td><strong>MEDIO (05-09)</strong></td>
+                                                    <td>05 Activos</td>
+                                                    <td>Definir controles operativos y revisar parches semestralmente.</td>
+                                                </tr>
+                                                <tr style="background: rgba(198, 40, 40, 0.1);">
+                                                    <td><strong>ALTO (10-12)</strong></td>
+                                                    <td>06 Activos</td>
+                                                    <td>Mitigar de forma urgente mediante procedimientos normativos ISO 27001.</td>
+                                                </tr>
+                                                <tr style="background: rgba(194, 24, 91, 0.1);">
+                                                    <td><strong>MUY ALTO (15-16)</strong></td>
+                                                    <td>03 Activos</td>
+                                                    <td>Implementar controles de redundancia en la nube y MFA inmediato.</td>
+                                                </tr>
+                                                <tr style="background: rgba(69, 39, 160, 0.1);">
+                                                    <td><strong>EXTREMO (20-25)</strong></td>
+                                                    <td>02 Activos</td>
+                                                    <td>Acción correctiva inmediata. Control de dependencias de código abierto y bloqueos de cuentas en baja.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- MODULE 5: OPERATION & PROTOCOL -->
+                                <div class="module-pane" id="pane-4">
+                                    <h2><i class="fas fa-cog"></i> Módulo 5: Operación y Protocolo de Desincorporación Segura (PDS)</h2>
+                                    <p>ABB establece controles robustos en el "Hacer". A continuación se documenta el procedimiento práctico implementado por el equipo de ciberseguridad para la desincorporación definitiva del <strong>Main Controller Server [I3]</strong>:</p>
+
+                                    <h3>1. Protocolo de Desincorporación Segura basado en NIST SP 800-88</h3>
+                                    <ol>
+                                        <li><strong>Fase de Preparación y Aislamiento lúdico:</strong>
+                                            <ul>
+                                                <li>Apertura formal de ticket en el ERP de ABB justificando la obsolescencia.</li>
+                                                <li>Generación de un <strong>Snapshot de Configuración</strong> encriptado (cifrado AES-256) enviado automáticamente al servidor en la nube (cumplimiento ISO 27017).</li>
+                                                <li>Aislamiento de red física desconectando el puerto del switch del servidor para evitar movimientos laterales del atacante.</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Fase de Sanitización Técnica (Purge):</strong>
+                                            <ul>
+                                                <li>Se prohíbe el borrado lógico simple (pues permite la recuperación forense de los planos de ingeniería de GE Legacy).</li>
+                                                <li>Se arranca el servidor mediante un medio externo booteable en un entorno limpio (evitando SO residente comprometido).</li>
+                                                <li>Ejecución del método de <strong>Sobreescritura bit a bit (NIST Purge)</strong> utilizando software certificado (Blancco Drive Eraser). Se escriben patrones de bits pseudoaleatorios y ceros lógicos en la totalidad de direcciones del disco.</li>
+                                                <li>Cálculo del hash criptográfico SHA-256 final para comprobar que el disco contiene únicamente datos nulos ("Zero-data").</li>
+                                            </ul>
+                                        </li>
+                                    </ol>
+
+                                    <h3>2. Mapa de Implementación Tangible (Checklist Operativo)</h3>
+                                    <div class="table-responsive">
+                                        <table class="dashboard-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Paso</th>
+                                                    <th>Actividad Operativa</th>
+                                                    <th>Responsable Asignado</th>
+                                                    <th>Evidencia Tangible Entregable</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>1</strong></td>
+                                                    <td>Inventario y Registro de Retiro</td>
+                                                    <td>Ing. Alan Gilberto Sánchez Zavala</td>
+                                                    <td>Etiqueta de "Activo en Proceso de Baja" pegada físicamente en el rack.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>2</strong></td>
+                                                    <td>Aislamiento lógico de Red</td>
+                                                    <td>Ing. Santiago de la Cruz Martínez Lara</td>
+                                                    <td>Log de deshabilitación de puerto en switch central de ABB.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>3</strong></td>
+                                                    <td>Sanitización e inyección NIST Purge</td>
+                                                    <td>Ing. Brian Salvador Espinoza Aguilar</td>
+                                                    <td>Reporte de ejecución de software de borrado (Pass Status).</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>4</strong></td>
+                                                    <td>Auditoría de integridad lúdica</td>
+                                                    <td>Ing. Mayeli Sánchez Ramírez</td>
+                                                    <td>Hash criptográfico de verificación final libre de datos legibles.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>5</strong></td>
+                                                    <td>Validación de conformidad y Cierre</td>
+                                                    <td>Ing. Omar Karim Alonso Castillo</td>
+                                                    <td><strong>Certificado de Eliminación de Información</strong> firmado y archivado.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <h3>3. Cuadro de Mitigación de Riesgos en la Operación</h3>
+                                    <div class="table-responsive">
+                                        <table class="dashboard-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Riesgo Inicial</th>
+                                                    <th>Score Inicial</th>
+                                                    <th>Control Operativo de Mitigación</th>
+                                                    <th>Riesgo Residencial</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>R3: Fuga de planos por borrado incompleto</strong></td>
+                                                    <td><span class="badge-risk high">15 (Muy Alto)</span></td>
+                                                    <td>Sobreescritura bit a bit NIST Purge y verificación de firma criptográfica SHA-256.</td>
+                                                    <td><span class="badge-risk" style="background:#e8f5e9; color:#2e7d32;">04 (Bajo)</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>R1: Robo de credenciales administrativas</strong></td>
+                                                    <td><span class="badge-risk high">15 (Muy Alto)</span></td>
+                                                    <td>Acceso y validación MFA mediante Microsoft Entra ID antes de autorizar el borrado.</td>
+                                                    <td><span class="badge-risk" style="background:#fff3e0; color:#ef6c00;">05 (Medio)</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>R19: Vulnerabilidades en Software de Terceros</strong></td>
+                                                    <td><span class="badge-risk high">20 (Extremo)</span></td>
+                                                    <td>Uso exclusivo de herramientas autorizadas arrancadas desde "Entorno Limpio" USB.</td>
+                                                    <td><span class="badge-risk" style="background:#fff3e0; color:#ef6c00;">08 (Medio)</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <h3>4. Soporte - Minuta de Avances (Semanas S1-S6)</h3>
+                                    <p>Como constancia del trabajo colaborativo realizado, se consolida la minuta técnica del proyecto de investigación:</p>
+                                    <ul>
+                                        <li><strong>Acuerdo Académico:</strong> Se confirma que la información recolectada proviene de fuentes oficiales de ABB y se utiliza exclusivamente para fines de aprendizaje curricular de tecnologías de la información.</li>
+                                        <li><strong>Defensa de Activos:</strong> Se justificó técnicamente que los activos externos influyen críticamente en la gobernanza del SGSI a pesar de que ABB no ejerza control absoluto sobre ellos (ej. Servicios Cloud o suministro de energía externa).</li>
+                                    </ul>
+                                    
+                                    <div class="signature-grid">
+                                        <div class="sig-block">
+                                            <span style="font-family: 'Courier New', monospace; font-style: italic; font-weight: bold; color: #444;">Cruz Juárez Francisco Javier</span><br>
+                                            <strong>Líder de Equipo (Coordinador)</strong><br>
+                                            IS Application Service Delivery Manager
+                                        </div>
+                                        <div class="sig-block">
+                                            <span style="font-family: 'Courier New', monospace; font-style: italic; font-weight: bold; color: #444;">Alonso Castillo Omar Karim</span><br>
+                                            <strong>Investigador de Seguridad</strong><br>
+                                            Auditor Técnico del SGSI
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- MODULE 6: AUDIT & IMPROVEMENT -->
+                                <div class="module-pane" id="pane-5">
+                                    <h2><i class="fas fa-check-double"></i> Módulo 6: Auditoría Interna y Mejora Continua</h2>
+                                    
+                                    <h3>1. Checklist de Cumplimiento de Auditoría Interna</h3>
+                                    <p>Para garantizar que el SGSI sea conforme a la norma ISO 27001, el auditor de ABB ejecuta el siguiente checklist:</p>
+                                    
+                                    <div class="checklist-item">
+                                        <span class="checklist-icon yes"><i class="fas fa-check-circle"></i></span>
+                                        <div class="checklist-desc">
+                                            <h5>¿Existe un registro formal del activo Main Controller Server previo a su retiro?</h5>
+                                            <p><strong>Sí.</strong> Registrado y clasificado debidamente en el Inventario de Activos (Sección 4, ID: I3).</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="checklist-item">
+                                        <span class="checklist-icon yes"><i class="fas fa-check-circle"></i></span>
+                                        <div class="checklist-desc">
+                                            <h5>¿Se verificó la integridad del respaldo en la nube antes de iniciar el borrado?</h5>
+                                            <p><strong>Sí.</strong> Log de transferencia verificado con hash de validación criptográfica en el repositorio de Azure.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="checklist-item">
+                                        <span class="checklist-icon yes"><i class="fas fa-check-circle"></i></span>
+                                        <div class="checklist-desc">
+                                            <h5>¿Se aplicó el método de sobreescritura de 3 pasadas (NIST Purge) al activo?</h5>
+                                            <p><strong>Sí.</strong> Reporte de sanitización firmado digitalmente por la herramienta Blancco con estatus exitoso.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="checklist-item">
+                                        <span class="checklist-icon yes"><i class="fas fa-check-circle"></i></span>
+                                        <div class="checklist-desc">
+                                            <h5>¿La gestión de identidades para el acceso administrativo es centralizada?</h5>
+                                            <p><strong>Sí.</strong> Manejada de extremo a extremo por **Microsoft Entra ID (IAM)** corporativo, exigiendo MFA y autorización jerárquica para la desincorporación de activos (offboarding).</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="checklist-item">
+                                        <span class="checklist-icon no"><i class="fas fa-exclamation-circle"></i></span>
+                                        <div class="checklist-desc">
+                                            <h5>¿Se indexó el registro de borrado de forma automática en el panel de supervisión central?</h5>
+                                            <p><strong>No (No Conformidad detectada).</strong> El script de automatización del software de borrado presentó incompatibilidad temporal con las políticas del logger local, requiriendo acción correctiva inmediata.</p>
+                                        </div>
+                                    </div>
+
+                                    <h3>2. Gestión de No Conformidades: Análisis de Causa Raíz (5 Porqués)</h3>
+                                    <p>Ante la no conformidad detectada en la indexación automática del certificado de borrado, se ejecutó un análisis de causa raíz:</p>
+                                    <ol>
+                                        <li><strong>¿Por qué no se indexó el registro en el panel de supervisión?</strong> Porque el log del software de borrado no fue transferido al sistema central de logs de Entra ID.</li>
+                                        <li><strong>¿Por qué no se transfirió el log del software?</strong> Porque el script de automatización falló al intentar establecer conexión de red con el gestor de identidades corporativo.</li>
+                                        <li><strong>¿Por qué falló la conexión del script?</strong> Porque las directivas lógicas de endurecimiento (hardening) locales del entorno seguro de arranque bloquearon los puertos del agente de log.</li>
+                                        <li><strong>¿Por qué se bloquearon los puertos del agente?</strong> Porque no se definió una regla de excepción de firewall para la herramienta de borrado en el manual de procedimientos de red.</li>
+                                        <li><strong>¿Por qué no se definió la regla en el manual?</strong> Porque la fase de desincorporación (offboarding) de activos lógicos no se había alineado formalmente con los flujos de configuración segura de red. <em>(Causa Raíz)</em>.</li>
+                                    </ol>
+                                    <p><strong>Acción Correctiva Aplicada:</strong> Configurar una alerta automatizada en el gestor de identidades Microsoft Entra ID para bloquear la transición de estatus del activo y prohibir la baja administrativa hasta que el hash de verificación de borrado completo sea validado y cargado en el portal de logs central.</p>
+
+                                    <h3>3. Pilares de Mejora Continua</h3>
+                                    <ul>
+                                        <li><strong>Automatización del Offboarding:</strong> Integrar nativamente las herramientas de sanitización física de discos con los flujos automáticos de Microsoft Entra ID, reduciendo la intervención y error humano.</li>
+                                        <li><strong>Actualización del Modelo de Amenazas:</strong> Revisión semestral de los criterios de la matriz de riesgos (Sección 6) para incorporar nuevas técnicas SCADA emergentes informadas por los feeds externos.</li>
+                                        <li><strong>Plan de Concientización Dinámico:</strong> Diseñar simulacros interactivos de ingeniería social enfocados en operarios de subestaciones y personal técnico crítico en tiempo real.</li>
+                                    </ul>
+
+                                    <h3>Conclusión General</h3>
+                                    <p>La correcta alineación en el SGSI de ABB entre las políticas operativas, la evaluación precisa de riesgos bajo la matriz 5x5, los protocolos prácticos de sanitización (NIST 800-88) y los marcos de identidad y auditoría (Microsoft Entra ID) demuestran la viabilidad de implementar un modelo de gobernanza de ciberseguridad industrial robusto, seguro y completamente adaptado a las exigencias normativas del sector energético y de automatización actual.</p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- PDF Download Section -->
+                        <div style="text-align: center; margin-top: 3.5em; border-top: 1px solid #eee; padding-top: 2em;">
+                            <p style="font-size: 0.95em; color: #666;">¿Deseas consultar el reporte de investigación del Sistema de Gestión (SGSI) completo en formato PDF?</p>
+                            <a href="Actividades/PR03.pdf" class="pdf-btn" download>
+                                <i class="icon solid fa-file-pdf" style="margin-right: 8px;"></i> Descargar PDF Original (PR03.pdf)
+                            </a>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -127,6 +1241,81 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+    
+    <script>
+        // TAB SWITCHING LOGIC FOR THE SGSI DASHBOARD
+        function switchModule(moduleIndex) {
+            // Update Tab button states
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            tabButtons.forEach((btn, index) => {
+                if (index === moduleIndex) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // Update Panel states
+            const panes = document.querySelectorAll('.module-pane');
+            panes.forEach((pane, index) => {
+                if (index === moduleIndex) {
+                    pane.classList.add('active');
+                } else {
+                    pane.classList.remove('active');
+                }
+            });
+        }
+
+        // TOGGLE COLLAPSIBLE POLICIES
+        function togglePolicy(headerElement) {
+            const body = headerElement.nextElementSibling;
+            const icon = headerElement.querySelector('i');
+            
+            if (body.style.display === 'none') {
+                body.style.display = 'block';
+                icon.className = 'fas fa-chevron-up';
+            } else {
+                body.style.display = 'none';
+                icon.className = 'fas fa-chevron-down';
+            }
+        }
+
+        // INTERACTIVE RISK MATRIX MONITOR CONTROLS
+        function showRiskDetails(prob, imp, level, assetIds, hazardText) {
+            // Remove previous selections in the grid cells
+            const cells = document.querySelectorAll('.matrix-cell');
+            cells.forEach(cell => {
+                cell.classList.remove('selected');
+            });
+
+            // Highlight current cell
+            event.currentTarget.classList.add('selected');
+
+            // Load information into the Security Monitor
+            const monitor = document.getElementById('monitor-content');
+            let assetsTagsHtml = '';
+            
+            if (assetIds !== 'Ninguno') {
+                const assetsArr = assetIds.split(', ');
+                assetsTagsHtml = '<div class="monitor-assets-tags">';
+                assetsArr.forEach(tag => {
+                    assetsTagsHtml += `<span class="m-asset-tag" onclick="alert('Consulta rápida: El activo ${tag} se encuentra debidamente documentado en la Sección 4.')">${tag}</span>`;
+                });
+                assetsTagsHtml += '</div>';
+            }
+
+            monitor.innerHTML = `
+                <p><strong>Nivel de Riesgo Evaluado:</strong><br><span style="font-weight:bold; color:#ff0000; font-size:1.1em;">${level}</span></p>
+                <p><strong>Criterios de Evaluación:</strong><br>Probabilidad: ${prob}/5 | Impacto: ${imp}/5</p>
+                <p><strong>Amenazas / Vulnerabilidad Crítica:</strong><br>${hazardText}</p>
+                <p><strong>Activos Críticos Expuestos:</strong><br>${assetIds === 'Ninguno' ? 'Ningún activo de información está catalogado en este cuadrante.' : assetIds}</p>
+                ${assetsTagsHtml}
+                <div style="background:#3d3d3d; border-radius:4px; padding:10px; margin-top:15px; font-size:0.9em; border-left:3px solid #ff0000;">
+                    <strong>Control del SGSI:</strong> Exigir cumplimiento estricto de las directivas operativas de la Sección 5 y 8 para mitigar esta amenaza específica.
+                </div>
+            `;
+        }
+    </script>
 
 </body>
 
