@@ -1,0 +1,1077 @@
+﻿<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>ACTIVIDAD 15 | Simulación de Campaña de Phishing</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css" />
+    <style>
+        /* ESTILO PERSONALIZADO PARA EL MENÚ TIPO BARRA NEGRA */
+        #nav {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+            padding: 0.5em 0;
+        }
+
+        #nav ul li a {
+            color: #ffffff !important;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        #nav ul li a:hover {
+            background-color: #333333;
+        }
+
+        /* Dropdown CSS Custom */
+        .dropdown-hover {
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #000000;
+            min-width: 170px;
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            border-radius: 4px;
+        }
+
+        .dropdown-content li {
+            display: block;
+        }
+
+        .dropdown-content li a {
+            color: #ffffff !important;
+            padding: 10px 15px !important;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9em;
+        }
+
+        .dropdown-content li a:hover {
+            background-color: #333333 !important;
+        }
+
+        .dropdown-hover:hover .dropdown-content {
+            display: block;
+        }
+
+        hr {
+            border-top: solid 1px #ccc !important;
+            opacity: 1;
+            margin: 2em 0;
+        }
+
+        .content-article {
+            background: #ffffff;
+            padding: 3em;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+            color: #333333;
+        }
+
+        .content-article h2 {
+            color: #e63946;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5em;
+            margin-bottom: 1em;
+        }
+
+        .content-article h3 {
+            color: #1d3557;
+            margin-top: 1.8em;
+            font-size: 1.4em;
+            border-left: 4px solid #e63946;
+            padding-left: 10px;
+        }
+
+        .content-article h4 {
+            color: #2c3e50;
+            font-size: 1.15em;
+            margin-top: 1.2em;
+            font-weight: bold;
+        }
+
+        .pdf-btn {
+            background-color: #d32f2f;
+            color: white !important;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 2em;
+            font-weight: bold;
+            transition: background-color 0.2s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .pdf-btn:hover {
+            background-color: #b71c1c;
+            transform: translateY(-2px);
+        }
+
+        /* Portada interna style */
+        .cover-info {
+            text-align: center;
+            margin-bottom: 3em;
+            padding: 2.5em;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .cover-info h1 {
+            font-size: 2em;
+            color: #1d3557;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+
+        .cover-info h2 {
+            font-size: 1.3em;
+            color: #457b9d;
+            border-bottom: none;
+            margin-bottom: 0.5em;
+        }
+
+        .cover-info p {
+            margin: 0.3em 0;
+            color: #4a4a4a;
+            font-size: 1.05em;
+        }
+
+        /* SIMULADOR DE CLIENTE DE CORREO (INBOX MOCKUP) */
+        .email-client {
+            background: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin: 2em 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .email-header-bar {
+            background: #f1f3f4;
+            padding: 12px 20px;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .email-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .email-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .email-dot.red { background: #ea4335; }
+        .email-dot.yellow { background: #fbbc05; }
+        .email-dot.green { background: #34a853; }
+
+        .email-title-tab {
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #5f6368;
+        }
+
+        .email-spam-banner {
+            background: rgba(234, 67, 53, 0.08);
+            border-bottom: 1px solid rgba(234, 67, 53, 0.2);
+            padding: 15px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .email-spam-icon {
+            font-size: 1.5em;
+            color: #ea4335;
+            margin-top: 2px;
+        }
+
+        .email-spam-desc h5 {
+            color: #ea4335;
+            margin: 0 0 5px 0;
+            font-weight: bold;
+            font-size: 1em;
+        }
+
+        .email-spam-desc p {
+            margin: 0;
+            font-size: 0.9em;
+            color: #3c4043;
+            line-height: 1.4em;
+        }
+
+        .email-meta-info {
+            padding: 20px;
+            border-bottom: 1px solid #f1f3f4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .email-sender {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .email-avatar {
+            width: 40px;
+            height: 40px;
+            background: #e63946;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .email-sender-details h4 {
+            margin: 0;
+            font-size: 1em;
+            color: #202124;
+            font-weight: bold;
+        }
+
+        .email-sender-details p {
+            margin: 0;
+            font-size: 0.85em;
+            color: #5f6368;
+        }
+
+        .email-date {
+            font-size: 0.85em;
+            color: #5f6368;
+        }
+
+        .email-tabs {
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+        }
+
+        .email-tab-btn {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            color: #5f6368;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .email-tab-btn.active {
+            color: #e63946;
+            border-bottom-color: #e63946;
+            background: #ffffff;
+        }
+
+        .email-body-content {
+            padding: 25px;
+            background: #ffffff;
+            min-height: 200px;
+        }
+
+        .email-headers-view {
+            font-family: "Courier New", Courier, monospace;
+            background: #f8f9fa;
+            padding: 20px;
+            font-size: 0.85em;
+            line-height: 1.5em;
+            color: #333333;
+            border-radius: 4px;
+            border: 1px dashed #cccccc;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            display: none;
+        }
+
+        .email-phishing-message {
+            color: #202124;
+            font-size: 1em;
+            line-height: 1.6em;
+        }
+
+        .email-phishing-message a.phish-link {
+            color: #1a73e8;
+            text-decoration: underline;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* TERMINAL MOCKUP (KALI LINUX) */
+        .terminal-container {
+            background: #1e1e1e;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            margin: 2em 0;
+            font-family: "Fira Code", "Courier New", Courier, monospace;
+        }
+
+        .terminal-header {
+            background: #2d2d2d;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .terminal-controls {
+            display: flex;
+            gap: 6px;
+        }
+
+        .terminal-control {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-control.close { background: #ff5f56; }
+        .terminal-control.minimize { background: #ffbd2e; }
+        .terminal-control.maximize { background: #27c93f; }
+
+        .terminal-title {
+            color: #bbbbbb;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .terminal-tabs {
+            display: flex;
+            background: #252526;
+            overflow-x: auto;
+        }
+
+        .terminal-tab {
+            background: none;
+            border: none;
+            color: #858585;
+            padding: 8px 16px;
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            border-right: 1px solid #1e1e1e;
+        }
+
+        .terminal-tab.active {
+            background: #1e1e1e;
+            color: #27c93f;
+            font-weight: bold;
+        }
+
+        .terminal-tab:hover:not(.active) {
+            background: #2a2a2b;
+            color: #ffffff;
+        }
+
+        .terminal-body {
+            padding: 20px;
+            color: #f1f1f1;
+            font-size: 0.9em;
+            min-height: 250px;
+            line-height: 1.5em;
+            overflow-x: auto;
+        }
+
+        .t-prompt {
+            color: #27c93f;
+            font-weight: bold;
+        }
+
+        .t-blue { color: #00aaff; }
+        .t-yellow { color: #ffbd2e; }
+        .t-red { color: #ff5f56; }
+        .t-gray { color: #858585; }
+
+        .terminal-step-description {
+            background: #2c3e50;
+            color: #ffffff;
+            padding: 12px 18px;
+            font-size: 0.9em;
+            border-radius: 4px;
+            margin-top: 15px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            border-left: 4px solid #3498db;
+        }
+
+        /* CIA TRIAD GRID */
+        .cia-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5em;
+            margin: 2em 0;
+        }
+
+        @media screen and (max-width: 980px) {
+            .cia-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .cia-card {
+            background: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1.8em;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .cia-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+        }
+
+        .cia-card.confidentiality { border-top: 5px solid #e63946; }
+        .cia-card.integrity { border-top: 5px solid #f4a261; }
+        .cia-card.availability { border-top: 5px solid #2a9d8f; }
+
+        .cia-icon {
+            font-size: 2.5em;
+            margin-bottom: 0.4em;
+        }
+
+        .cia-card.confidentiality .cia-icon { color: #e63946; }
+        .cia-card.integrity .cia-icon { color: #f4a261; }
+        .cia-card.availability .cia-icon { color: #2a9d8f; }
+
+        .cia-card h4 {
+            color: #1d3557;
+            font-size: 1.25em;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+
+        .cia-impact-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 1em;
+        }
+
+        .cia-card.confidentiality .cia-impact-badge {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .cia-card.integrity .cia-impact-badge {
+            background: #fff3e0;
+            color: #ef6c00;
+        }
+
+        .cia-card.availability .cia-impact-badge {
+            background: #e0f2f1;
+            color: #00695c;
+        }
+
+        /* INTERACTIVE FINDINGS TABLE */
+        .findings-table-container {
+            overflow-x: auto;
+            margin: 2em 0;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+        }
+
+        .findings-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95em;
+        }
+
+        .findings-table th {
+            background: #1d3557;
+            color: #ffffff;
+            font-weight: bold;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        .findings-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #dee2e6;
+            vertical-align: middle;
+        }
+
+        .findings-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .badge-risk {
+            font-size: 0.85em;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .badge-risk.high {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+
+        .badge-risk.medium {
+            background: #fff3e0;
+            color: #ef6c00;
+            border: 1px solid #ffe0b2;
+        }
+
+        /* MITIGATIONS GRID */
+        .mitigations-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2em;
+            margin: 1.5em 0;
+        }
+
+        @media screen and (max-width: 736px) {
+            .mitigations-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .mitigations-list li {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-left: 4px solid #1d3557;
+            padding: 1.2em;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.95em;
+            line-height: 1.4em;
+        }
+
+        .mitigations-list li strong {
+            color: #1d3557;
+            display: block;
+            margin-bottom: 0.3em;
+        }
+
+        @media print {
+            #nav, .pdf-btn, p style*="text-align: left", footer, .terminal-tabs, .email-tabs {
+                display: none !important;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+            .content-article {
+                box-shadow: none;
+                padding: 0;
+            }
+            .terminal-body {
+                background: #ffffff;
+                color: #000000;
+                border: 1px solid #000000;
+            }
+            .email-client {
+                box-shadow: none;
+                border: 1px solid #000000;
+            }
+        }
+    </style>
+</head>
+
+<body class="is-preload">
+
+    <nav id="nav">
+        <ul class="container">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="PF01.html">PF01</a></li>
+            <li><a href="PF02.html">PF02</a></li>
+            <li><a href="PF03.html">PF03</a></li>
+            <li><a href="Final.html">Final</a></li>
+            <li><a href="actividades.html">Actividades</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+            <li><a href="certificaciones.html">Certificaciones</a></li>
+            <li class="dropdown-hover">
+                <a href="halloffame.html">Hall of Fame</a>
+                <ul class="dropdown-content">
+                    <li><a href="sqlinjection.html">SQL Injection</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <article id="top" class="wrapper style1">
+        <div class="container">
+            <header>
+                <h2>ACTIVIDAD 15: SIMULACIÓN DE CAMPAÑA DE PHISHING CON SET Y BREVO</h2>
+                <p>Auditoría perimetral de correo, evasión de restricciones SMTP y análisis del factor humano.</p>
+            </header>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="content-article">
+
+                        <!-- Portada Académica -->
+                        <div class="cover-info">
+                            <h2>ACTIVIDAD 15</h2>
+                            <h1>REPORTE TÉCNICO: SIMULACIÓN DE CAMPAÑA DE PHISHING CON SET Y SMTP RELAY</h1>
+                            <p><strong>Alumno:</strong> Alonso Castillo Omar Karim (179033)</p>
+                            <br>
+                            <p><strong>Materia:</strong> CNO V – Seguridad Informática</p>
+                            <p><strong>Profesor:</strong> Mtro. Servando López Contreras</p>
+                            <br>
+                            <p>Universidad Politécnica de San Luis Potosí</p>
+                        </div>
+
+                        <hr />
+
+                        <!-- Resumen Ejecutivo -->
+                        <h3>I. Resumen Ejecutivo</h3>
+                        <p>El presente documento detalla la ejecución de una prueba de concepto (PoC) enfocada en la simulación de una campaña de phishing utilizando <strong>Social-Engineer Toolkit (SET)</strong>. El objetivo principal de esta práctica es demostrar cómo un atacante puede aprovechar servicios legítimos de retransmisión SMTP (en este caso, <strong>Brevo</strong>) para falsificar la identidad de un remitente corporativo ("Soporte Técnico") y enviar correos electrónicos engañososos.</p>
+                        
+                        <p>A través de este ejercicio, se evalúa la efectividad de los filtros de correo no deseado actuales y se exponen las vulnerabilidades asociadas con la ingeniería social, concluyendo con recomendaciones estratégicas y defensas técnicas sólidas para mitigar este crítico vector de ataque en entornos organizacionales.</p>
+
+                        <hr />
+
+                        <!-- Alcance -->
+                        <h3>II. Alcance (Scope)</h3>
+                        <p>Esta simulación está estrictamente limitada a un entorno de pruebas controlado con fines académicos y de concienciación en ciberseguridad.</p>
+                        <ul>
+                            <li><strong>Vectores evaluados:</strong> Envío de correo electrónico falsificado (E-mail Spoofing) mediante la técnica <em>Mass Mailer Attack</em> en SEToolkit.</li>
+                            <li><strong>Herramientas utilizadas:</strong> Kali Linux (sistema operativo atacante), Social-Engineer Toolkit (orquestador del ataque) y el servicio de SMTP Relay gratuito de Brevo.</li>
+                            <li><strong>Objetivos:</strong> Un buzón de correo de prueba predeterminado y controlado para auditar la recepción, cabeceras y clasificación final del mensaje malicioso. No se interactuó con infraestructura crítica ajena ni se recolectaron credenciales reales de terceros.</li>
+                        </ul>
+
+                        <hr />
+
+                        <!-- Metodología -->
+                        <h3>III. Metodología Aplicada</h3>
+                        <p>Para la realización de esta prueba de concepto, se siguió una metodología de auditoría de caja blanca (White-box) estructurada en las siguientes fases:</p>
+                        <ol>
+                            <li><strong>Preparación de la Infraestructura:</strong> Registro y verificación de una cuenta en Brevo utilizando la dirección de correo remitente (<code>soporte.interno2026@gmail.com</code>) para validar la identidad ante el proveedor de relay, permitiendo que el servicio autorice el uso de sus servidores.</li>
+                            <li><strong>Configuración del Payload:</strong> Uso de SEToolkit en Kali Linux para orquestar la simulación, seleccionando plantillas predefinidas que apelan al sentido de urgencia e interés del usuario para forzar la interacción.</li>
+                            <li><strong>Ejecución (Delivery):</strong> Configuración de los parámetros finales de falsificación (remitente falso, alias de confianza) e inyección de credenciales SMTP cifradas de Brevo en el toolkit para realizar el envío directo.</li>
+                            <li><strong>Análisis de Resultados:</strong> Verificación exhaustiva de la bandeja de entrada del objetivo para evaluar el comportamiento del proveedor de correo (filtrado, cabeceras SPF/DKIM/DMARC y advertencias del cliente de correo).</li>
+                        </ol>
+
+                        <hr />
+
+                        <!-- Desarrollo de la Práctica -->
+                        <h3>IV. Desarrollo de la Práctica (Paso a Paso)</h3>
+                        <p>Para llevar a cabo el ataque simulado, el primer paso fundamental es la preparación de la plataforma de envío. Un paso crítico en esta fase es registrarnos en Brevo utilizando exactamente la misma dirección de correo que planeamos usar para el ataque: <code>soporte.interno2026@gmail.com</code>.</p>
+                        
+                        <p>Al completar el registro y la verificación, Brevo identifica esta dirección como legítima y autorizada dentro de su plataforma. Esto nos permite utilizar su infraestructura de alta reputación para mandar el correo de phishing, ya que el servicio "ve" que el remitente está verificado y permite que el mensaje pase sus controles de salida iniciales, evadiendo bloqueos de IP directas (típicamente asociadas a IPs residenciales o de servidores privados virtuales en listas negras).</p>
+
+                        <h4>1. Configuración de SEToolkit en la terminal de Kali Linux</h4>
+                        <p>Utiliza la siguiente consola interactiva para explorar los comandos y pasos configurados en la máquina de ataque de Kali Linux:</p>
+
+                        <!-- KALI TERMINAL MOCKUP -->
+                        <div class="terminal-container">
+                            <div class="terminal-header">
+                                <div class="terminal-controls">
+                                    <span class="terminal-control close"></span>
+                                    <span class="terminal-control minimize"></span>
+                                    <span class="terminal-control maximize"></span>
+                                </div>
+                                <div class="terminal-title">root@kali: ~ (setoolkit)</div>
+                                <div></div>
+                            </div>
+                            <div class="terminal-tabs">
+                                <button class="terminal-tab active" onclick="switchTerminalStep(0)">1. Inicialización</button>
+                                <button class="terminal-tab" onclick="switchTerminalStep(1)">2. Seleccionar Vector</button>
+                                <button class="terminal-tab" onclick="switchTerminalStep(2)">3. Mass Mailer</button>
+                                <button class="terminal-tab" onclick="switchTerminalStep(3)">4. Plantilla</button>
+                                <button class="terminal-tab" onclick="switchTerminalStep(4)">5. Credenciales SMTP</button>
+                            </div>
+                            <div class="terminal-body">
+                                <div id="terminal-content">
+                                    <!-- STEP 1 CONTENT -->
+                                    <div class="terminal-step" id="t-step-0">
+                                        <span class="t-prompt">kali@kali:~$</span> sudo setoolkit<br>
+                                        [sudo] password for kali: <span class="t-gray">••••••••</span><br><br>
+                                        <span class="t-yellow">         Welcome to the Social-Engineer Toolkit (SET)</span><br>
+                                        <span class="t-yellow">         Written by: David Kennedy (Re उद्देश्य)</span><br>
+                                        <span class="t-yellow">         Version: 8.5.8</span><br><br>
+                                        Terms of Service: By using this tool you agree to the terms...<br>
+                                        Do you agree to the Terms of Service? (y/n): <span class="t-blue">y</span><br><br>
+                                        --- menú principal iniciado ---
+                                    </div>
+                                    
+                                    <!-- STEP 2 CONTENT -->
+                                    <div class="terminal-step" id="t-step-1" style="display:none;">
+                                        Select from the menu:<br><br>
+                                        1) <span class="t-blue">Social-Engineering Attacks</span><br>
+                                        2) Penetration Testing (Fast-Track)<br>
+                                        3) Third-Party Modules<br>
+                                        4) Update the Social-Engineer Toolkit<br>
+                                        5) Update SET Configuration<br>
+                                        6) Help, Credits, and About<br><br>
+                                        set> <span class="t-blue">1</span>
+                                    </div>
+
+                                    <!-- STEP 3 CONTENT -->
+                                    <div class="terminal-step" id="t-step-2" style="display:none;">
+                                        Select from the menu:<br><br>
+                                        1) Spear-Phishing Attack Vectors<br>
+                                        2) Website Attack Vectors<br>
+                                        3) Infectious Media Generator<br>
+                                        4) Create a Payload and Listener<br>
+                                        5) <span class="t-blue">Mass Mailer Attack</span><br>
+                                        6) Arduino-Based Attack Vector<br>
+                                        ...<br><br>
+                                        set> <span class="t-blue">5</span><br><br>
+                                        Choose how you want to send the email:<br>
+                                        1) <span class="t-blue">E-Mail Attack Single Email Address</span><br>
+                                        2) E-Mail Attack Mass Mailer<br><br>
+                                        set> <span class="t-blue">1</span>
+                                    </div>
+
+                                    <!-- STEP 4 CONTENT -->
+                                    <div class="terminal-step" id="t-step-3" style="display:none;">
+                                        Use an email template or a one-time custom email:<br>
+                                        1) <span class="t-blue">Pre-Defined Template</span><br>
+                                        2) One-Time Use Email Template<br><br>
+                                        set> <span class="t-blue">1</span><br><br>
+                                        Select template to use:<br>
+                                        1) Status Update<br>
+                                        2) IT Department Update<br>
+                                        3) Facebook Notification<br>
+                                        4) Gmail Account Verification<br>
+                                        5) <span class="t-blue">Have you seen this?</span><br><br>
+                                        set> <span class="t-blue">5</span>
+                                    </div>
+
+                                    <!-- STEP 5 CONTENT -->
+                                    <div class="terminal-step" id="t-step-4" style="display:none;">
+                                        <span class="t-yellow">--- Parámetros del Servidor SMTP y Autenticación ---</span><br><br>
+                                        Send email to: <span class="t-blue">objetivo_prueba@gmail.com</span><br>
+                                        1. Use a Gmail Account for interactive setup<br>
+                                        2. Use your own SMTP Server<br>
+                                        set> <span class="t-blue">2</span><br><br>
+                                        SMTP email server address: <span class="t-blue">smtp-relay.brevo.com</span><br>
+                                        Port: <span class="t-blue">587</span><br>
+                                        From address: <span class="t-blue">soporte.interno2026@gmail.com</span><br>
+                                        FROM NAME (alias): <span class="t-blue">Soporte Tecnico</span><br>
+                                        Username for open-relay: <span class="t-blue">soporte.interno2026@gmail.com</span><br>
+                                        Password for open-relay (SMTP Key): <span class="t-gray">••••••••••••••••••••</span><br>
+                                        Flag this message high priority? (y/n): <span class="t-blue">n</span><br>
+                                        Do you want to attach a file? (y/n): <span class="t-blue">n</span><br><br>
+                                        <span class="t-green">[*] SET has finished sending the email to: objetivo_prueba@gmail.com</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="terminal-step-description" id="terminal-desc">
+                                    Iniciamos The Social-Engineer Toolkit en Kali Linux como superusuario con <code>sudo setoolkit</code> y aceptamos los términos escribiendo 'y'.
+                                </div>
+                            </div>
+                        </div>
+
+                        <h4>2. Generación de credenciales SMTP en Brevo</h4>
+                        <p>Para que SEToolkit se comunique legítimamente y pueda retransmitir el correo, nos dirigimos a la consola web de Brevo:</p>
+                        <ol>
+                            <li>Entramos al panel de administración en la sección <strong>"SMTP y API"</strong>.</li>
+                            <li>Hacemos clic en el botón <strong>"Generar una nueva clave SMTP"</strong>.</li>
+                            <li>Asignamos un nombre descriptivo a la clave, en este caso <strong>"Ataque"</strong>, y hacemos clic en Generar.</li>
+                            <li>La plataforma genera una contraseña SMTP extensa y segura. **Es crítico respaldarla en este paso**, ya que solo se muestra una vez y servirá como la contraseña de autenticación abierta en la configuración de la terminal de Kali.</li>
+                        </ol>
+
+                        <hr />
+
+                        <!-- Análisis de Resultados -->
+                        <h3>V. Análisis de Resultados: Recepción en el Cliente Objetivo</h3>
+                        <p>Por último, revisamos la bandeja del buzón de correo objetivo. Comprobamos que el correo electrónico simulado fue entregado con éxito por la infraestructura de Brevo, superando los bloqueos por reputación de dirección IP.</p>
+                        
+                        <p>Sin embargo, las políticas internas de seguridad y análisis heurístico del proveedor de correo (como Gmail) identificaron inconsistencias técnicas. Al analizar las cabeceras del correo electrónico, el cliente web clasificó automáticamente el mensaje en la carpeta de <strong>"Correo no deseado" (Spam)</strong>, desplegando un banner rojo de advertencia de seguridad para alertar al usuario antes de interactuar.</p>
+
+                        <!-- CORREO MOCKUP -->
+                        <div class="email-client">
+                            <div class="email-header-bar">
+                                <div class="email-dots">
+                                    <span class="email-dot red"></span>
+                                    <span class="email-dot yellow"></span>
+                                    <span class="email-dot green"></span>
+                                </div>
+                                <div class="email-title-tab">Spam - Correo no deseado</div>
+                                <div style="width: 30px;"></div>
+                            </div>
+                            
+                            <!-- Alerta de Phishing -->
+                            <div class="email-spam-banner">
+                                <span class="email-spam-icon"><i class="fas fa-exclamation-triangle"></i></span>
+                                <div class="email-spam-desc">
+                                    <h5>⚠️ Este mensaje parece sospechoso o peligroso</h5>
+                                    <p>Muchos correos similares a este se han utilizado para robar información personal. El remitente afirma ser "Soporte Tecnico" pero no pudimos verificar que provenga del dominio declarado. Evita hacer clic en enlaces o responder con datos confidenciales.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Info Remitente -->
+                            <div class="email-meta-info">
+                                <div class="email-sender">
+                                    <div class="email-avatar">ST</div>
+                                    <div class="email-sender-details">
+                                        <h4>Soporte Tecnico <span style="font-size: 0.85em; color: #777; font-weight: normal;">&lt;soporte.interno2026@gmail.com&gt;</span></h4>
+                                        <p>Para: objetivo_prueba@gmail.com</p>
+                                    </div>
+                                </div>
+                                <div class="email-date">
+                                    Hoy, 10:14 AM
+                                </div>
+                            </div>
+                            
+                            <!-- Tabs de Contenido -->
+                            <div class="email-tabs">
+                                <button class="email-tab-btn active" id="btn-tab-body" onclick="switchEmailTab('body')">Vista del Cuerpo</button>
+                                <button class="email-tab-btn" id="btn-tab-headers" onclick="switchEmailTab('headers')">Cabeceras de Correo (Headers)</button>
+                            </div>
+                            
+                            <!-- Contenido del Correo -->
+                            <div class="email-body-content">
+                                <div class="email-phishing-message" id="email-body-text">
+                                    <p>Hola,</p>
+                                    <p>¿Has visto esto? Por favor, revisa el archivo adjunto o el siguiente enlace lo antes posible:</p>
+                                    <p><a class="phish-link" onclick="alert('Simulación: Esto redirigiría a un portal de login falso (Credential Harvester).')">http://enlace-simulado-phishing.com/ver-ahora</a></p>
+                                    <br>
+                                    <p>Saludos cordiales,<br>
+                                    <strong>Soporte Técnico</strong></p>
+                                </div>
+                                
+                                <div class="email-headers-view" id="email-headers-text">
+Delivered-To: objetivo_prueba@gmail.com
+Received: by mail.gmail.com with SMTP id s12csp198427acf;
+        Fri, 22 May 2026 10:14:02 -0700 (PDT)
+X-Google-Smtp-Source: AGHTeb3VbZt...
+Received: from smtp-relay.brevo.com (185.107.232.12)
+        by mx.google.com with ESMTPS id v10si7428437plw.117...
+        for &lt;objetivo_prueba@gmail.com&gt;;
+Message-ID: &lt;202605221714.k4MHE2n1098427@kali-linux&gt;
+Subject: Have you seen this?
+From: "Soporte Tecnico" &lt;soporte.interno2026@gmail.com&gt;
+To: objetivo_prueba@gmail.com
+X-Mailer: The Social-Engineer Toolkit (SET)
+Content-Type: text/plain; charset=us-ascii
+
+** Inconsistencia Detectada: SPF Pass (IP de Brevo autorizada para gmail.com) pero falta alineación DKIM/DMARC en dominio corporativo simulado **</div>
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <!-- Análisis de Impacto -->
+                        <h3>VI. Análisis de Impacto (Modelo CIA)</h3>
+                        <p>Si un ataque de esta naturaleza logra evadir los filtros de correo y convence a un empleado para interactuar con el enlace malicioso, el impacto evaluado bajo la tríada de seguridad es crítico:</p>
+                        
+                        <!-- CIA INTERACTIVE GRID -->
+                        <div class="cia-grid">
+                            <div class="cia-card confidentiality">
+                                <span class="cia-icon"><i class="fas fa-eye-slash"></i></span>
+                                <h4>Confidencialidad</h4>
+                                <span class="cia-impact-badge">Alto</span>
+                                <p>Es el pilar más comprometido. Si la víctima ingresa sus credenciales en el portal falso (Credential Harvester), el atacante obtiene acceso no autorizado inmediato a buzones corporativos, directorios internos y datos sensibles de clientes.</p>
+                            </div>
+                            <div class="cia-card integrity">
+                                <span class="cia-icon"><i class="fas fa-edit"></i></span>
+                                <h4>Integridad</h4>
+                                <span class="cia-impact-badge">Medio - Alto</span>
+                                <p>Con credenciales válidas, un atacante puede alterar configuraciones de seguridad, desviar transferencias, inyectar código malicioso en bases de datos o firmar correos falsificados en nombre del directivo general (comprometiendo la veracidad de la información).</p>
+                            </div>
+                            <div class="cia-card availability">
+                                <span class="cia-icon"><i class="fas fa-server"></i></span>
+                                <h4>Disponibilidad</h4>
+                                <span class="cia-impact-badge">Medio</span>
+                                <p>Si el correo se utiliza como vector de entrega inicial para descargar malware o Ransomware, el cifrado masivo de servidores o bases de datos críticas provocaría la caída temporal de servicios y líneas de producción del negocio.</p>
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <!-- Recomendaciones Técnicas -->
+                        <h3>VII. Recomendaciones Técnicas Defensivas</h3>
+                        <p>Para mitigar eficazmente el riesgo de suplantación de identidad y ataques de phishing por SMTP Relay, se recomienda implementar los siguientes controles técnicos corporativos:</p>
+                        
+                        <ul class="mitigations-list">
+                            <li>
+                                <strong>1. Autenticación de Correo (SPF, DKIM, DMARC)</strong>
+                                Configurar estrictamente registros SPF (qué IPs pueden enviar), firmas DKIM (firma criptográfica del cuerpo) y políticas DMARC (acción a tomar si falla SPF/DKIM, preferentemente en <code>reject</code> o <code>quarantine</code>) en los dominios corporativos.
+                            </li>
+                            <li>
+                                <strong>2. Secure Email Gateway (SEG)</strong>
+                                Implementar soluciones de filtrado perimetral avanzada que analicen anomalías en cabeceras de retransmisión (Relay) y bloqueen activamente servicios de correo masivo como Brevo, Mailchimp o SendGrid cuando intenten suplantar identidades internas.
+                            </li>
+                            <li>
+                                <strong>3. Concientización Continua (KnowBe4)</strong>
+                                Desplegar simulaciones periódicas internas de phishing utilizando plataformas especializadas (KnowBe4, Proofpoint) para entrenar al personal en la detección visual de vectores de urgencia y medir la resiliencia organizacional ante la ingeniería social.
+                            </li>
+                            <li>
+                                <strong>4. Autenticación Multifactor Obligatoria (MFA)</strong>
+                                Habilitar MFA (de preferencia basado en FIDO2 o autenticadores con tokens en lugar de SMS) para todas las cuentas de usuario. De esta manera, aun si la contraseña es comprometida en el phishing, el atacante no podrá acceder al sistema sin el segundo factor.
+                            </li>
+                        </ul>
+
+                        <hr />
+
+                        <!-- Tabla de Hallazgos -->
+                        <h3>VIII. Tabla de Hallazgos y Vulnerabilidades</h3>
+                        <p>A continuación se consolidan las vulnerabilidades identificadas durante el análisis técnico de la simulación de ataque:</p>
+                        
+                        <div class="findings-table-container">
+                            <table class="findings-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Hallazgo</th>
+                                        <th>Riesgo</th>
+                                        <th>Descripción Técnica</th>
+                                        <th>Mitigación Recomendada</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>H-01</strong></td>
+                                        <td>Uso de SMTP Relay Verificado</td>
+                                        <td><span class="badge-risk high">Alto</span></td>
+                                        <td>El atacante se apoyó en la reputación limpia de Brevo para evadir listas negras de IPs residenciales.</td>
+                                        <td>Bloquear dominios de relay de correos masivos gratuitos en el Firewall perimetral y proxies.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>H-02</strong></td>
+                                        <td>Suplantación de Nombre (Display Name)</td>
+                                        <td><span class="badge-risk medium">Medio</span></td>
+                                        <td>Se configuró el alias "Soporte Tecnico" para engañar visualmente al usuario y generar confianza.</td>
+                                        <td>Implementar etiquetas de advertencia de "Remitente Externo" en los clientes de correo corporativos.</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>H-03</strong></td>
+                                        <td>Plantillas de Alta Urgencia</td>
+                                        <td><span class="badge-risk medium">Medio</span></td>
+                                        <td>Uso de plantillas predefinidas emotivas ("Have you seen this?") para forzar clics por curiosidad o miedo.</td>
+                                        <td>Planes de concientización y entrenamiento preventivo en la detección de correos sospechosos.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <hr />
+
+                        <!-- Referencias Bibliográficas -->
+                        <h3>Referencias Bibliográficas</h3>
+                        <ul>
+                            <li>TrustedSec. (s.f.). <em>The Social-Engineer Toolkit (SET)</em>. Recuperado de <a href="https://github.com/trustedsec/social-engineer-toolkit" target="_blank">https://github.com/trustedsec/social-engineer-toolkit</a></li>
+                            <li>Chapple, M., Stewart, J. M., & Gibson, D. (2021). <em>CISSP (ISC)2 Certified Information Systems Security Professional Official Study Guide</em>. John Wiley & Sons. (Sección: Ingeniería Social y Modelo CIA).</li>
+                            <li>RFC 7489. (2015). <em>Domain-based Message Authentication, Reporting, and Conformance (DMARC)</em>. Internet Engineering Task Force (IETF).</li>
+                        </ul>
+
+                        <!-- PDF Download Section -->
+                        <div style="text-align: center; margin-top: 3.5em; border-top: 1px solid #eee; padding-top: 2em;">
+                            <p style="font-size: 0.95em; color: #666;">¿Deseas consultar el reporte técnico completo y original de esta simulación en formato PDF?</p>
+                            <a href="Actividades/act15.pdf" class="pdf-btn" download>
+                                <i class="icon solid fa-file-pdf" style="margin-right: 8px;"></i> Descargar PDF Original (act15.pdf)
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article class="wrapper style4">
+        <div class="container medium">
+            <footer>
+                <ul id="copyright">
+                    <li>&copy; Alonso Castillo Omar Karim. Todos los derechos reservados.</li>
+                    <li>Diseño base: <a href="http://html5up.net">HTML5 UP</a></li>
+                </ul>
+            </footer>
+        </div>
+    </article>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    
+    <script>
+        // LÓGICA DE INTERACCIÓN PARA EL SIMULADOR DE TERMINAL
+        const stepsDescriptions = [
+            "Iniciamos The Social-Engineer Toolkit en Kali Linux como superusuario con <code>sudo setoolkit</code> y aceptamos los términos escribiendo 'y'.",
+            "En el menú principal, seleccionamos la opción <code>1) Social-Engineering Attacks</code> para desplegar la lista de vectores ofensivos de ingeniería social.",
+            "Dentro de los vectores, elegimos la opción <code>5) Mass Mailer Attack</code> para configurar envíos automáticos de correo, y luego <code>1) E-Mail Attack Single Email Address</code> para dirigirlo a nuestra dirección de pruebas.",
+            "Para el cuerpo del mensaje, elegimos una plantilla predefinida (<code>1) Pre-Defined Template</code>) y seleccionamos la plantilla número <code>5) Have you seen this?</code> para apelar a la curiosidad de la víctima.",
+            "Configuramos el SMTP externo seleccionando la opción <code>2) Use your own SMTP Server</code>. Introducimos el servidor relay de Brevo (<code>smtp-relay.brevo.com</code>), puerto <code>587</code>, la dirección remitente verfiicada, alias <code>Soporte Tecnico</code>, y la clave API de Brevo como contraseña. El envío finaliza con éxito."
+        ];
+
+        function switchTerminalStep(stepIndex) {
+            // Activar/desactivar pestañas de terminal
+            const tabs = document.querySelectorAll('.terminal-tab');
+            tabs.forEach((tab, index) => {
+                if (index === stepIndex) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+
+            // Mostrar/ocultar código del paso
+            const steps = document.querySelectorAll('.terminal-step');
+            steps.forEach((step, index) => {
+                if (index === stepIndex) {
+                    step.style.display = 'block';
+                } else {
+                    step.style.display = 'none';
+                }
+            });
+
+            // Cambiar descripción
+            document.getElementById('terminal-desc').innerHTML = stepsDescriptions[stepIndex];
+        }
+
+        // LÓGICA DE INTERACCIÓN PARA EL SIMULADOR DE CORREO
+        function switchEmailTab(tabType) {
+            const bodyTabBtn = document.getElementById('btn-tab-body');
+            const headersTabBtn = document.getElementById('btn-tab-headers');
+            const bodyText = document.getElementById('email-body-text');
+            const headersText = document.getElementById('email-headers-text');
+
+            if (tabType === 'body') {
+                bodyTabBtn.classList.add('active');
+                headersTabBtn.classList.remove('active');
+                bodyText.style.display = 'block';
+                headersText.style.display = 'none';
+            } else {
+                bodyTabBtn.classList.remove('active');
+                headersTabBtn.classList.add('active');
+                bodyText.style.display = 'none';
+                headersText.style.display = 'block';
+            }
+        }
+    </script>
+
+</body>
+
+</html>
