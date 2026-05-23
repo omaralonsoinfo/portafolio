@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <html>
 
 <head>
@@ -1367,7 +1367,7 @@
                                                 <tr>
                                                     <th>Semana/Sección</th>
                                                     <th>Entregables y Hallazgos Clave de Investigación</th>
-                                                    <th>Estatus</th>
+                                                    <th>Cumple (S/N)</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -1481,9 +1481,9 @@
                                                     <td><span class="badge-risk" style="background:#fff3e0; color:#ef6c00;">05 (Medio)</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><strong>E9/R19: Vulnerabilidades en Software de Terceros</strong></td>
-                                                    <td><span class="badge-risk high">20 (Extremo)</span></td>
-                                                    <td>Uso exclusivo de herramientas arrancadas desde "Entorno Limpio" USB sin interactuar con SO residente de la planta.</td>
+                                                    <td><strong>R19: Vulnerabilidades en Software de Terceros</strong></td>
+                                                    <td><span class="badge-risk high">20</span></td>
+                                                    <td>Uso exclusivo de herramientas de borrado en "Entorno Limpio" (Bootable externo sin SO residente).</td>
                                                     <td><span class="badge-risk" style="background:#fff3e0; color:#ef6c00;">08 (Medio)</span></td>
                                                 </tr>
                                             </tbody>
@@ -1498,8 +1498,8 @@
                                                 <tr>
                                                     <th>Paso</th>
                                                     <th>Actividad Operativa</th>
-                                                    <th>Ingeniero Responsable</th>
-                                                    <th>Evidencia Entregable Tangible</th>
+                                                    <th>Responsable</th>
+                                                    <th>Evidencia Tangible</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -1534,65 +1534,65 @@
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>
-                                                    <th>Control Normativo Evaluado</th>
-                                                    <th>Estatus</th>
-                                                    <th>Evidencia / Hallazgo del Auditor</th>
+                                                    <th>Control / Requisito de Auditoría</th>
+                                                    <th>Cumple (S/N)</th>
+                                                    <th>Evidencia / Hallazgo</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
                                                     <td><strong>01</strong></td>
                                                     <td>¿Existe un registro formal de inventario de activos del Main Controller Server?</td>
-                                                    <td><span class="badge-risk" style="background:#e0f2f1; color:#00695c;">Cumple</span></td>
+                                                    <td><span class="badge-risk" style="background:#e0f2f1; color:#00695c;">S</span></td>
                                                     <td>Clasificación registrada en Sección 4 del inventario (ID: I3).</td>
                                                 </tr>
                                                 <tr>
                                                     <td><strong>02</strong></td>
                                                     <td>¿Se verificó la integridad del respaldo de red antes del borrado físico?</td>
-                                                    <td><span class="badge-risk" style="background:#e0f2f1; color:#00695c;">Cumple</span></td>
-                                                    <td>Log de Azure indicando archivo de backup completado.</td>
+                                                    <td><span class="badge-risk" style="background:#e0f2f1; color:#00695c;">S</span></td>
+                                                    <td>Log de transferencia Azure/AWS.</td>
                                                 </tr>
                                                 <tr>
                                                     <td><strong>03</strong></td>
                                                     <td>¿El procedimiento de onboarding/offboarding es controlado por estándares?</td>
-                                                    <td><span class="badge-risk" style="background:#e0f2f1; color:#00695c;">Cumple</span></td>
+                                                    <td><span class="badge-risk" style="background:#e0f2f1; color:#00695c;">S</span></td>
                                                     <td>Documentación del Protocolo Operativo PDS (Sección 8).</td>
                                                 </tr>
                                                 <tr>
                                                     <td><strong>04</strong></td>
                                                     <td>¿La gestión de accesos de cuentas es centralizada en Microsoft Entra ID?</td>
-                                                    <td><span class="badge-risk" style="background:#e0f2f1; color:#00695c;">Cumple</span></td>
+                                                    <td><span class="badge-risk" style="background:#e0f2f1; color:#00695c;">S</span></td>
                                                     <td>Configuración de acceso condicional y autenticación MFA de ABB.</td>
                                                 </tr>
                                                 <tr>
                                                     <td><strong>05</strong></td>
                                                     <td>¿Se inyectó el método de sobreescritura NIST SP 800-88 en el disco?</td>
-                                                    <td><span class="badge-risk" style="background:#e0f2f1; color:#00695c;">Cumple</span></td>
-                                                    <td>Certificado emitido con estatus exitoso por la herramienta autorizada.</td>
+                                                    <td><span class="badge-risk" style="background:#e0f2f1; color:#00695c;">S</span></td>
+                                                    <td>Reporte técnico Blancco/DBAN.</td>
                                                 </tr>
                                                 <tr>
                                                     <td><strong>06</strong></td>
                                                     <td>¿El personal que ejecutó la sanitización cuenta con MFA activo de sesión?</td>
-                                                    <td><span class="badge-risk" style="background:#e0f2f1; color:#00695c;">Cumple</span></td>
-                                                    <td>Log de accesos de Microsoft Entra IAM en la consola de TI.</td>
+                                                    <td><span class="badge-risk" style="background:#e0f2f1; color:#00695c;">S</span></td>
+                                                    <td>Logs de acceso de Microsoft Entra IAM.</td>
                                                 </tr>
                                                 <tr>
                                                     <td><strong>07</strong></td>
                                                     <td>¿Existe un Certificado de Destrucción de Datos firmado y fechado?</td>
-                                                    <td><span class="badge-risk" style="background:#e0f2f1; color:#00695c;">Cumple</span></td>
+                                                    <td><span class="badge-risk" style="background:#e0f2f1; color:#00695c;">S</span></td>
                                                     <td>Formato guardado con firmas del auditor y sanitizador (Sección 8).</td>
                                                 </tr>
                                                 <tr>
                                                     <td><strong>08</strong></td>
                                                     <td>¿Se notificó al área de TI sobre el cambio lúdico del estado del servidor?</td>
-                                                    <td><span class="badge-risk" style="background:#e0f2f1; color:#00695c;">Cumple</span></td>
-                                                    <td>Cierre de ticket de baja en la plataforma ERP de ABB.</td>
+                                                    <td><span class="badge-risk" style="background:#e0f2f1; color:#00695c;">S</span></td>
+                                                    <td>Ticket de servicio cerrado en ERP.</td>
                                                 </tr>
                                                 <tr>
                                                     <td><strong>09</strong></td>
                                                     <td>¿Se realizó el registro automatizado de log de borrado en el panel central de TI?</td>
-                                                    <td><span class="badge-risk" style="background:#ffebee; color:#c62828;">Falla</span></td>
-                                                    <td><strong>No Conformidad detectada.</strong> El script de log no pudo comunicarse con el receptor de Microsoft Entra.</td>
+                                                    <td><span class="badge-risk" style="background:#ffebee; color:#c62828;">N (Falla)</span></td>
+                                                    <td><strong>No Conformidad (Hallazgo):</strong> Se detectó la baja de un activo crítico (servidor desincorporado) sin que el registro de eliminación se indexara de forma correcta en el panel de supervisión. Reporte de auditoría de "Zero-data" no pudo indexarse automáticamente.</td>
                                                 </tr>
                                             </tbody>
                                         </table>
