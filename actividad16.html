@@ -1,0 +1,548 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>ACTIVIDAD 16 | Dilemas Éticos en Ciberseguridad</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <style>
+        /* ESTILO PERSONALIZADO PARA EL MENÚ TIPO BARRA NEGRA */
+        #nav {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+            padding: 0.5em 0;
+        }
+
+        #nav ul li a {
+            color: #ffffff !important;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        #nav ul li a:hover {
+            background-color: #333333;
+        }
+
+        /* Dropdown CSS Custom */
+        .dropdown-hover {
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #000000;
+            min-width: 170px;
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            border-radius: 4px;
+        }
+
+        .dropdown-content li {
+            display: block;
+        }
+
+        .dropdown-content li a {
+            color: #ffffff !important;
+            padding: 10px 15px !important;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9em;
+        }
+
+        .dropdown-content li a:hover {
+            background-color: #333333 !important;
+        }
+
+        .dropdown-hover:hover .dropdown-content {
+            display: block;
+        }
+
+        hr {
+            border-top: solid 1px #ccc !important;
+            opacity: 1;
+            margin: 2em 0;
+        }
+
+        .content-article {
+            background: #ffffff;
+            padding: 3em;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+            color: #333333;
+        }
+
+        .content-article h2 {
+            color: #e63946;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5em;
+            margin-bottom: 1em;
+        }
+
+        .content-article h3 {
+            color: #1d3557;
+            margin-top: 1.8em;
+            font-size: 1.4em;
+            border-left: 4px solid #e63946;
+            padding-left: 10px;
+        }
+
+        .content-article h4 {
+            color: #2c3e50;
+            font-size: 1.15em;
+            margin-top: 1.2em;
+            font-weight: bold;
+        }
+
+        .pdf-btn {
+            background-color: #d32f2f;
+            color: white !important;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 2em;
+            font-weight: bold;
+            transition: background-color 0.2s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .pdf-btn:hover {
+            background-color: #b71c1c;
+            transform: translateY(-2px);
+        }
+
+        /* Portada interna style */
+        .cover-info {
+            text-align: center;
+            margin-bottom: 3em;
+            padding: 2.5em;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .cover-info h1 {
+            font-size: 2em;
+            color: #1d3557;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+
+        .cover-info h2 {
+            font-size: 1.3em;
+            color: #457b9d;
+            border-bottom: none;
+            margin-bottom: 0.5em;
+        }
+
+        .cover-info p {
+            margin: 0.3em 0;
+            color: #4a4a4a;
+            font-size: 1.05em;
+        }
+
+        /* Estilo para los Escenarios Éticos */
+        .scenario-card {
+            background: #ffffff;
+            border: 1px solid #e1e8ed;
+            border-radius: 8px;
+            padding: 2em;
+            margin-bottom: 2.5em;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+            border-left: 5px solid #457b9d;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .scenario-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .scenario-card h4 {
+            color: #1d3557;
+            font-size: 1.3em;
+            margin-top: 0;
+            margin-bottom: 1em;
+            display: flex;
+            align-items: center;
+        }
+
+        .scenario-card h4 span.badge {
+            background: #457b9d;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7em;
+            margin-right: 10px;
+            text-transform: uppercase;
+        }
+
+        .scenario-statement {
+            background: #f1faee;
+            border-left: 4px solid #e63946;
+            padding: 1.2em;
+            border-radius: 4px;
+            font-style: italic;
+            margin-bottom: 1.5em;
+        }
+
+        .ethics-pill-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1em;
+            margin-top: 1.5em;
+        }
+
+        @media screen and (max-width: 980px) {
+            .ethics-pill-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .ethics-pill {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 1.2em;
+            font-size: 0.95em;
+        }
+
+        .ethics-pill strong {
+            color: #1d3557;
+            display: block;
+            margin-bottom: 0.5em;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 0.3em;
+        }
+
+        .ethics-badge-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 1.2em;
+        }
+
+        .badge-ethics {
+            font-size: 0.85em;
+            font-weight: bold;
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .badge-ethics.violation {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+
+        .badge-ethics.compliance {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+
+        .badge-ethics.law {
+            background: #e3f2fd;
+            color: #0d47a1;
+            border: 1px solid #bbdefb;
+        }
+
+        .key-pills {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1em;
+            margin-top: 1.5em;
+        }
+
+        @media screen and (max-width: 736px) {
+            .key-pills {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .key-pills li {
+            background: #1d3557;
+            color: #ffffff;
+            padding: 1.5em;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .key-pills li span {
+            display: block;
+            font-size: 0.85em;
+            font-weight: normal;
+            margin-top: 0.5em;
+            color: #a8dadc;
+        }
+
+        @media print {
+            #nav, .pdf-btn, p style*="text-align: left", footer {
+                display: none !important;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+            .content-article {
+                box-shadow: none;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="is-preload">
+
+    <nav id="nav">
+        <ul class="container">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="PF02.html">PF02</a></li>
+            <li><a href="PF03.html">PF03</a></li>
+            <li><a href="Final.html">Final</a></li>
+            <li><a href="actividades.html">Actividades</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+            <li><a href="certificaciones.html">Certificaciones</a></li>
+            <li class="dropdown-hover">
+                <a href="halloffame.html">Hall of Fame</a>
+                <ul class="dropdown-content">
+                    <li><a href="sqlinjection.html">SQL Injection</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <article id="top" class="wrapper style1">
+        <div class="container">
+            <header>
+                <p style="text-align: left;"><a href="PF03.html">← Volver a PF03</a></p>
+                <h2>ACTIVIDAD 16: DILEMAS ÉTICOS EN CIBERSEGURIDAD</h2>
+                <p>Análisis ético y tipificación legal de escenarios en tecnologías de la información.</p>
+            </header>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="content-article">
+
+                        <!-- Portada Académica -->
+                        <div class="cover-info">
+                            <h2>ACTIVIDAD 16</h2>
+                            <h1>REPORTE TÉCNICO: ANÁLISIS DE DILEMAS ÉTICOS EN CIBERSEGURIDAD</h1>
+                            <p><strong>Alumno:</strong> Alonso Castillo Omar Karim (179033)</p>
+                            <br>
+                            <p><strong>Materia:</strong> CNO V – Seguridad Informática</p>
+                            <p><strong>Profesor:</strong> Mtro. Servando López Contreras</p>
+                            <br>
+                            <p>Universidad Politécnica de San Luis Potosí</p>
+                        </div>
+
+                        <hr />
+
+                        <!-- Introducción -->
+                        <h3>I. Introducción y Marco Teórico</h3>
+                        <p>El ingeniero en tecnologías de la información no es solo un operador técnico, sino un custodio de la infraestructura crítica de la sociedad. La ética en ciberseguridad trasciende el simple cumplimiento de normas; implica la comprensión de que cada línea de código, cada auditoría y cada acceso a datos impacta directamente en la vida, la privacidad y la economía de las personas.</p>
+                        
+                        <p>Este reporte técnico se fundamenta rigurosamente en tres pilares esenciales de la seguridad y el ejercicio profesional:</p>
+                        <ul class="key-pills">
+                            <li>
+                                Privacidad
+                                <span>El derecho inalienable del individuo a controlar, resguardar y decidir sobre su información personal.</span>
+                            </li>
+                            <li>
+                                Integridad
+                                <span>La garantía absoluta de que los datos y los sistemas no han sido alterados de forma no autorizada o maliciosa.</span>
+                            </li>
+                            <li>
+                                Responsabilidad (Accountability)
+                                <span>La obligación y capacidad de responder plenamente por las acciones y decisiones tomadas en el entorno digital.</span>
+                            </li>
+                        </ul>
+
+                        <hr />
+
+                        <!-- Desarrollo de Escenarios -->
+                        <h3>II. Desarrollo de Escenarios</h3>
+                        <p>A continuación se analizan tres casos críticos que ponen a prueba los límites de la ética profesional y legal en el ámbito de la seguridad informática.</p>
+
+                        <!-- Escenario 01 -->
+                        <div class="scenario-card" style="border-left-color: #e63946;">
+                            <h4><span class="badge" style="background-color: #e63946;">Caso 01</span> Acceso no Autorizado Interno</h4>
+                            
+                            <div class="scenario-statement">
+                                <strong>Enunciado:</strong> Durante una revisión de logs detectas que un compañero accedió a correos privados del director general sin autorización, argumentando que lo hizo para "detectar posibles fugas de información".
+                            </div>
+
+                            <h4>1. ¿Cuál es el dilema ético?</h4>
+                            <p>El conflicto radica en el uso de una justificación aparentemente noble (proteger a la empresa) para cometer un acto de **Amenaza Interna (Insider Threat)**. Se cuestiona si el fin justifica los medios cuando se vulnera la privacidad y la confianza institucional sin tener la atribución formal.</p>
+
+                            <h4>2. ¿Qué harías tú como especialista?</h4>
+                            <p>Notificaría inmediatamente el hallazgo mediante un reporte formal de auditoría. Técnicamente, el colega realizó una **escalada de privilegios lógica**, actuando fuera del alcance de su trabajo (*Scope of Work* - SOW), por lo que debe aplicarse estrictamente el régimen disciplinario correspondiente de la organización.</p>
+
+                            <h4>3. Justificación Ética</h4>
+                            <div class="ethics-pill-container">
+                                <div class="ethics-pill">
+                                    <strong>Ética Utilitarista</strong>
+                                    Según John Stuart Mill, el bienestar general y la confianza del equipo se ven gravemente comprometidos; un analista operando sin control representa un riesgo mayor que la supuesta fuga de información que argumenta intentar prevenir.
+                                </div>
+                                <div class="ethics-pill">
+                                    <strong>Enfoque de Derechos</strong>
+                                    Basado en el Imperativo Categórico de Kant, si todos los analistas de seguridad actuaran por cuenta propia rompiendo las reglas, la privacidad corporativa dejaría de existir, destruyendo la operatividad misma de la organización.
+                                </div>
+                                <div class="ethics-pill">
+                                    <strong>Enfoque del Bien Común</strong>
+                                    La seguridad que se fundamenta en la ilegalidad se convierte en espionaje. El bien común exige que todo mecanismo de vigilancia o control interno sea transparente, regulado y bajo mandato formal explícito.
+                                </div>
+                            </div>
+
+                            <div class="ethics-badge-container">
+                                <span class="badge-ethics violation">
+                                    <i class="icon solid fa-ban" style="margin-right: 5px;"></i> Mandamiento Violado: Mandamiento 4 (No usarás una computadora para leer los archivos ajenos)
+                                </span>
+                                <span class="badge-ethics law">
+                                    <i class="icon solid fa-gavel" style="margin-right: 5px;"></i> Ley Federal: Código Penal Federal (Acceso ilícito a sistemas y equipos de informática) y LFPDPPP (Principio de lealtad)
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Escenario 02 -->
+                        <div class="scenario-card" style="border-left-color: #457b9d;">
+                            <h4><span class="badge" style="background-color: #457b9d;">Caso 02</span> Vulnerabilidad Crítica no Reportada</h4>
+                            
+                            <div class="scenario-statement">
+                                <strong>Enunciado:</strong> Durante un pentest encuentras una vulnerabilidad en un sistema financiero que permite extraer dinero. El cliente aún no ha firmado el contrato final y tú sabes que podrías explotarla sin ser detectado.
+                            </div>
+
+                            <h4>1. ¿Cuál es el dilema ético?</h4>
+                            <p>Se enfrenta la oportunidad inmediata de obtener un beneficio económico ilícito masivo mediante un fallo no publicado (*Zero-Day*) frente a la responsabilidad y el honor profesional. La tentación técnica pone a prueba la frontera definitiva entre ser un hacker ético o un cibercriminal.</p>
+
+                            <h4>2. ¿Qué harías tú como especialista?</h4>
+                            <p>Ejecutaría de inmediato el protocolo de **Divulgación Responsable (Responsible Disclosure)** bajo la directriz del estándar **ISO/IEC 29147**. Esto incluye documentar y verificar técnicamente el fallo y notificar de forma urgente al contacto de seguridad del cliente, incluso si el contrato final está pendiente, motivado por un deber de auxilio profesional.</p>
+
+                            <h4>3. Justificación Ética</h4>
+                            <div class="ethics-pill-container">
+                                <div class="ethics-pill">
+                                    <strong>Ética Utilitarista</strong>
+                                    El "mayor bien" se logra a través del reporte formal. Evitar la explotación del fallo previene una potencial quiebra de la institución financiera, la pérdida de empleos asociados y el colapso de la confianza de miles de usuarios en el sistema.
+                                </div>
+                                <div class="ethics-pill">
+                                    <strong>Enfoque de Derechos</strong>
+                                    Los ahorradores y usuarios del banco poseen el derecho inalienable a la seguridad patrimonial. Omitir el reporte vulnera de manera indirecta el derecho a la seguridad y protección de la información de terceros inocentes.
+                                </div>
+                                <div class="ethics-pill">
+                                    <strong>Enfoque del Bien Común</strong>
+                                    Reportar la vulnerabilidad fortalece la resiliencia del ecosistema financiero global y consolida la carrera del ingeniero de seguridad como un agente de confianza imprescindible en el entorno digital.
+                                </div>
+                            </div>
+
+                            <div class="ethics-badge-container">
+                                <span class="badge-ethics compliance">
+                                    <i class="icon solid fa-check" style="margin-right: 5px;"></i> Mandamiento Respetado: Mandamiento 2 (No interferirás con el trabajo de informática de otras personas)
+                                </span>
+                                <span class="badge-ethics law">
+                                    <i class="icon solid fa-gavel" style="margin-right: 5px;"></i> Clasificación: Delito asistido por computadora (Su explotación constituiría fraude financiero tecnológico)
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Escenario 03 -->
+                        <div class="scenario-card" style="border-left-color: #1d3557;">
+                            <h4><span class="badge" style="background-color: #1d3557;">Caso 03</span> Uso de Herramientas OSINT</h4>
+                            
+                            <div class="scenario-statement">
+                                <strong>Enunciado:</strong> Investigas a una persona sospechosa de fraude. Encuentras información personal (familia, hábitos) en fuentes abiertas. Tu superior te pide usar esa información para presionarlo psicológicamente.
+                            </div>
+
+                            <h4>1. ¿Cuál es el dilema ético?</h4>
+                            <p>El empleo de herramientas de inteligencia legales y públicas (OSINT) para realizar **Doxing Corporativo**. El dilema radica en si es éticamente aceptable traspasar la barrera del análisis forense para hostigar y explotar el entorno familiar y personal con el fin de obtener una confesión.</p>
+
+                            <h4>2. ¿Qué harías tú como especialista?</h4>
+                            <p>Negaría rotundamente la petición por tratarse de una táctica maliciosa de ingeniería social coactiva. Asimismo, advertiría de manera técnica y legal que este proceder contamina el caso y arruina la validez de toda la investigación ante un tribunal.</p>
+
+                            <h4>3. Justificación Ética</h4>
+                            <div class="ethics-pill-container">
+                                <div class="ethics-pill">
+                                    <strong>Ética Utilitarista</strong>
+                                    Aplicando analógicamente la doctrina legal del *Fruto del Árbol Envenenado*, cualquier evidencia o confesión obtenida bajo coacción psicológica o métodos poco éticos carece de validez legal, permitiendo eventualmente que un culpable real quede libre.
+                                </div>
+                                <div class="ethics-pill">
+                                    <strong>Enfoque de Derechos</strong>
+                                    Se vulnera de manera frontal el derecho a la dignidad humana, el respeto a la vida familiar y la privacidad de terceras personas (los familiares del investigado) que no guardan relación con el hecho analizado.
+                                </div>
+                                <div class="ethics-pill">
+                                    <strong>Enfoque del Bien Común</strong>
+                                    Las herramientas y el conocimiento técnico de ciberseguridad deben estar al estricto servicio de la justicia y la verdad, nunca al servicio de la extorsión emocional o el acoso psicológico corporativo.
+                                </div>
+                            </div>
+
+                            <div class="ethics-badge-container">
+                                <span class="badge-ethics violation">
+                                    <i class="icon solid fa-ban" style="margin-right: 5px;"></i> Mandamiento Violado: Mandamiento 10 (Utilizarás una computadora de manera que asegure la consideración y el respeto de tus semejantes)
+                                </span>
+                                <span class="badge-ethics law">
+                                    <i class="icon solid fa-gavel" style="margin-right: 5px;"></i> Clasificación: Delito incidental (La tecnología es el medio incidental para cometer extorsión u hostigamiento)
+                                </span>
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <!-- Conclusión y Propuestas -->
+                        <h3>III. Conclusión y Propuestas de Mejora</h3>
+                        <p>La integridad no es una característica opcional; es el <strong>firewall más potente y definitivo</strong> que un profesional de la ciberseguridad puede instalar en su carrera. Las habilidades técnicas sin un código ético sólido se convierten en una amenaza latente para la sociedad y las organizaciones.</p>
+                        
+                        <p>Para mitigar los riesgos identificados en los escenarios descritos, se proponen las siguientes mejoras organizacionales estratégicas:</p>
+                        <ul>
+                            <li><strong>Segregación estricta de funciones:</strong> Implementar controles de auditoría cruzada para evitar que cualquier analista trabaje de forma aislada y sin supervisión de logs (mitiga riesgos del Escenario 1).</li>
+                            <li><strong>Acuerdos Éticos de Preventa (NDA/Ethical Clauses):</strong> Establecer convenios de protección jurídica que cubran los hallazgos críticos de auditoría en la etapa de preventa, incluso antes del contrato definitivo (mitiga riesgos del Escenario 2).</li>
+                            <li><strong>Creación de Comités de Ética Independientes:</strong> Habilitar canales seguros, anónimos e independientes para que los ingenieros puedan denunciar o consultar instrucciones poco éticas de sus superiores sin temor a represalias (mitiga riesgos del Escenario 3).</li>
+                        </ul>
+
+                        <!-- PDF Download Section -->
+                        <div style="text-align: center; margin-top: 3.5em; border-top: 1px solid #eee; padding-top: 2em;">
+                            <p style="font-size: 0.95em; color: #666;">¿Deseas consultar el reporte técnico completo y original en formato PDF?</p>
+                            <a href="Actividades/act16.pdf" class="pdf-btn" download>
+                                <i class="icon solid fa-file-pdf" style="margin-right: 8px;"></i> Descargar PDF Original (act16.pdf)
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article class="wrapper style4">
+        <div class="container medium">
+            <footer>
+                <ul id="copyright">
+                    <li>&copy; Alonso Castillo Omar Karim. Todos los derechos reservados.</li>
+                    <li>Diseño base: <a href="http://html5up.net">HTML5 UP</a></li>
+                </ul>
+            </footer>
+        </div>
+    </article>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

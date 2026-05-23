@@ -1,0 +1,732 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>ACTIVIDAD 17 | Evaluación de Vulnerabilidades con CVSS v3.1</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <style>
+        /* ESTILO PERSONALIZADO PARA EL MENÚ TIPO BARRA NEGRA */
+        #nav {
+            background-color: #000000 !important;
+            color: #ffffff !important;
+            padding: 0.5em 0;
+        }
+
+        #nav ul li a {
+            color: #ffffff !important;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        #nav ul li a:hover {
+            background-color: #333333;
+        }
+
+        /* Dropdown CSS Custom */
+        .dropdown-hover {
+            display: inline-block;
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #000000;
+            min-width: 170px;
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            border-radius: 4px;
+        }
+
+        .dropdown-content li {
+            display: block;
+        }
+
+        .dropdown-content li a {
+            color: #ffffff !important;
+            padding: 10px 15px !important;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9em;
+        }
+
+        .dropdown-content li a:hover {
+            background-color: #333333 !important;
+        }
+
+        .dropdown-hover:hover .dropdown-content {
+            display: block;
+        }
+
+        hr {
+            border-top: solid 1px #ccc !important;
+            opacity: 1;
+            margin: 2em 0;
+        }
+
+        .content-article {
+            background: #ffffff;
+            padding: 3em;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+            color: #333333;
+        }
+
+        .content-article h2 {
+            color: #e63946;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5em;
+            margin-bottom: 1em;
+        }
+
+        .content-article h3 {
+            color: #1d3557;
+            margin-top: 1.8em;
+            font-size: 1.4em;
+            border-left: 4px solid #457b9d;
+            padding-left: 10px;
+        }
+
+        .content-article h4 {
+            color: #2c3e50;
+            font-size: 1.15em;
+            margin-top: 1.2em;
+            font-weight: bold;
+        }
+
+        .pdf-btn {
+            background-color: #d32f2f;
+            color: white !important;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 2em;
+            font-weight: bold;
+            transition: background-color 0.2s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .pdf-btn:hover {
+            background-color: #b71c1c;
+            transform: translateY(-2px);
+        }
+
+        /* Portada interna style */
+        .cover-info {
+            text-align: center;
+            margin-bottom: 3em;
+            padding: 2.5em;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .cover-info h1 {
+            font-size: 2em;
+            color: #1d3557;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+
+        .cover-info h2 {
+            font-size: 1.3em;
+            color: #457b9d;
+            border-bottom: none;
+            margin-bottom: 0.5em;
+        }
+
+        .cover-info p {
+            margin: 0.3em 0;
+            color: #4a4a4a;
+            font-size: 1.05em;
+        }
+
+        /* Vector Badge */
+        .vector-container {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 1.2em;
+            margin: 1.5em 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 1.05em;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-left: 5px solid #3b82f6;
+        }
+
+        .vector-title {
+            font-weight: bold;
+            color: #1e3a8a;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-right: 15px;
+        }
+
+        .vector-string {
+            background: #ffffff;
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: 1px solid #e2e8f0;
+            word-break: break-all;
+            flex-grow: 1;
+        }
+
+        /* CVSS Calculator Simulator */
+        .cvss-simulator {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 2em;
+            margin: 2.5em 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .cvss-simulator-header {
+            border-bottom: 2px solid #cbd5e1;
+            padding-bottom: 0.8em;
+            margin-bottom: 1.5em;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .cvss-simulator-title {
+            font-weight: bold;
+            color: #1e293b;
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .cvss-simulator-logo {
+            font-weight: bold;
+            color: #3b82f6;
+            font-size: 0.9em;
+            background: #dbeafe;
+            padding: 3px 10px;
+            border-radius: 4px;
+        }
+
+        .cvss-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2em;
+        }
+
+        @media screen and (max-width: 980px) {
+            .cvss-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .cvss-metrics-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2em;
+        }
+
+        .cvss-metric-row {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 1em;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5em;
+        }
+
+        .cvss-metric-name {
+            font-weight: bold;
+            font-size: 0.95em;
+            color: #475569;
+        }
+
+        .cvss-metric-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .cvss-option-btn {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            color: #64748b;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: bold;
+            cursor: default;
+            user-select: none;
+            transition: all 0.2s;
+        }
+
+        .cvss-option-btn.selected {
+            background: #3b82f6;
+            color: #ffffff;
+            border-color: #3b82f6;
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+        }
+
+        .cvss-option-btn.selected.impact-low {
+            background: #f59e0b;
+            border-color: #f59e0b;
+            box-shadow: 0 2px 4px rgba(245, 158, 11, 0.2);
+        }
+
+        .cvss-option-btn.selected.impact-high {
+            background: #ef4444;
+            border-color: #ef4444;
+            box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
+        }
+
+        .cvss-score-column {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 2em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            border-top: 5px solid #f59e0b;
+        }
+
+        .cvss-score-gauge {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: conic-gradient(#f59e0b 43%, #e2e8f0 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5em;
+            position: relative;
+        }
+
+        .cvss-score-gauge::before {
+            content: '';
+            position: absolute;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: #ffffff;
+        }
+
+        .cvss-score-inner {
+            position: relative;
+            z-index: 10;
+        }
+
+        .cvss-score-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #1e293b;
+            line-height: 1;
+        }
+
+        .cvss-score-label {
+            font-size: 0.85em;
+            color: #64748b;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .cvss-severity-badge {
+            background: #fef3c7;
+            color: #d97706;
+            font-size: 1.1em;
+            font-weight: bold;
+            padding: 8px 24px;
+            border-radius: 20px;
+            margin-bottom: 1em;
+            border: 1px solid #fde68a;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .cvss-score-desc {
+            font-size: 0.9em;
+            color: #475569;
+            line-height: 1.4;
+        }
+
+        .scenario-box {
+            background: #f0fdf4;
+            border-left: 4px solid #22c55e;
+            padding: 1.5em;
+            border-radius: 6px;
+            margin-bottom: 2em;
+            color: #166534;
+        }
+
+        .scenario-box ul {
+            margin: 0.5em 0 0 1.5em;
+            padding: 0;
+        }
+
+        table.metrics-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5em 0;
+            font-size: 0.95em;
+        }
+
+        table.metrics-table th {
+            background: #1d3557;
+            color: #ffffff;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        table.metrics-table td {
+            padding: 12px;
+            border-bottom: 1px solid #cbd5e1;
+        }
+
+        table.metrics-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        table.metrics-table td strong.sigla {
+            font-family: monospace;
+            background: #e2e8f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #0f172a;
+        }
+
+        @media print {
+            #nav, .pdf-btn, p style*="text-align: left", footer {
+                display: none !important;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+            .content-article {
+                box-shadow: none;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="is-preload">
+
+    <nav id="nav">
+        <ul class="container">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="PF02.html">PF02</a></li>
+            <li><a href="PF03.html">PF03</a></li>
+            <li><a href="Final.html">Final</a></li>
+            <li><a href="actividades.html">Actividades</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+            <li><a href="certificaciones.html">Certificaciones</a></li>
+            <li class="dropdown-hover">
+                <a href="halloffame.html">Hall of Fame</a>
+                <ul class="dropdown-content">
+                    <li><a href="sqlinjection.html">SQL Injection</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <article id="top" class="wrapper style1">
+        <div class="container">
+            <header>
+                <p style="text-align: left;"><a href="PF03.html">← Volver a PF03</a></p>
+                <h2>ACTIVIDAD 17: EVALUACIÓN DE VULNERABILIDADES CON CVSS v3.1</h2>
+                <p>Aplicación técnica del Common Vulnerability Scoring System en un caso de estudio real.</p>
+            </header>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="content-article">
+
+                        <!-- Portada Académica -->
+                        <div class="cover-info">
+                            <h2>ACTIVIDAD 17</h2>
+                            <h1>REPORTE DE EVALUACIÓN: EVALUACIÓN DE VULNERABILIDADES CON CVSS v3.1</h1>
+                            <p><strong>Alumno:</strong> Alonso Castillo Omar Karim (179033)</p>
+                            <br>
+                            <p><strong>Materia:</strong> CNO V – Seguridad Informática</p>
+                            <p><strong>Profesor:</strong> Mtro. Servando López Contreras</p>
+                            <br>
+                            <p>Universidad Politécnica de San Luis Potosí</p>
+                        </div>
+
+                        <hr />
+
+                        <!-- Introducción -->
+                        <h3>1. Introducción</h3>
+                        <p>El objetivo de esta actividad es aplicar el estándar internacional **CVSS v3.1 (Common Vulnerability Scoring System)** para cuantificar de manera rigurosa y objetiva la severidad de una vulnerabilidad de seguridad detectada en un entorno web interno. Este proceso sistemático permite a las organizaciones priorizar la mitigación de riesgos basándose en datos técnicos estructurados, medibles e independientes del fabricante.</p>
+
+                        <hr />
+
+                        <!-- Escenario de Evaluación -->
+                        <h3>2. Escenario de Evaluación</h3>
+                        <p>Se presenta el siguiente caso de estudio para su correspondiente análisis, deconstrucción y ponderación técnica:</p>
+                        
+                        <div class="scenario-box">
+                            <strong>Descripción del Escenario:</strong>
+                            <p>Una organización detecta una vulnerabilidad en un sistema web corporativo interno que presenta de forma precisa las siguientes características operativas:</p>
+                            <ul>
+                                <li><strong>1.</strong> Puede explotarse a través de la red de datos externa o interna.</li>
+                                <li><strong>2.</strong> La ejecución técnica del exploit requiere una baja complejidad de ataque.</li>
+                                <li><strong>3.</strong> Se necesitan obligatoriamente privilegios elevados (administrador del sistema) para detonar la vulnerabilidad.</li>
+                                <li><strong>4.</strong> No se requiere interacción alguna de un usuario legítimo (víctima).</li>
+                                <li><strong>5.</strong> El alcance del ataque no cambia; es decir, no permite comprometer recursos fuera de la sandbox o del dominio de la aplicación afectada.</li>
+                                <li><strong>6.</strong> El impacto directo sobre las dimensiones de Confidencialidad, Integridad y Disponibilidad es calificado técnicamente como **Bajo**.</li>
+                            </ul>
+                        </div>
+
+                        <hr />
+
+                        <!-- Desarrollo Técnico -->
+                        <h3>3. Desarrollo Técnico</h3>
+
+                        <h4>3.1 Construcción del Vector CVSS</h4>
+                        <p>Basado en la deconstrucción y mapeo de las variables descritas en el escenario de evaluación, se ha generado el siguiente vector string formal. Esta cadena representa la síntesis técnica universal que describe la vulnerabilidad:</p>
+
+                        <div class="vector-container">
+                            <span class="vector-title"><i class="icon solid fa-code" style="margin-right: 5px;"></i> Vector CVSS v3.1</span>
+                            <span class="vector-string">CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:L/I:L/A:L</span>
+                        </div>
+
+                        <h4>3.2 Justificación de las Métricas</h4>
+                        <p>Cada una de las métricas que componen el vector base cuenta con la siguiente justificación técnica y análisis de escenario:</p>
+
+                        <table class="metrics-table">
+                            <thead>
+                                <tr>
+                                    <th>Métrica Base</th>
+                                    <th>Valor Definido</th>
+                                    <th>Sigla Vector</th>
+                                    <th>Justificación Técnica de Campo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Vector de Ataque (AV)</strong></td>
+                                    <td>De Red (Network)</td>
+                                    <td><strong class="sigla">AV:N</strong></td>
+                                    <td>El fallo se ubica a nivel lógico y es explotable de forma remota a través de internet o intranets sin requerir acceso físico o local.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Complejidad de Ataque (AC)</strong></td>
+                                    <td>Baja (Low)</td>
+                                    <td><strong class="sigla">AC:L</strong></td>
+                                    <td>No existen barreras adicionales de protección de red (como firewalls dinámicos o condiciones temporales complejas) que el atacante deba sortear.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Privilegios Requeridos (PR)</strong></td>
+                                    <td>Altos (High)</td>
+                                    <td><strong class="sigla">PR:H</strong></td>
+                                    <td>El atacante debe haber comprometido previamente o poseer de manera legítima una cuenta con perfil de Administrador en el sistema afectado.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Interacción del Usuario (UI)</strong></td>
+                                    <td>Ninguna (None)</td>
+                                    <td><strong class="sigla">UI:N</strong></td>
+                                    <td>El atacante puede detonar y ejecutar la vulnerabilidad por sí mismo, sin necesidad de engañar a otro usuario para que realice alguna acción.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Alcance (Scope - S)</strong></td>
+                                    <td>Sin Cambios (Unchanged)</td>
+                                    <td><strong class="sigla">S:U</strong></td>
+                                    <td>El impacto del ataque queda estrictamente confinado a la aplicación afectada; no hay salto de privilegios al sistema operativo o a redes vecinas.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Impacto en Confidencialidad (C)</strong></td>
+                                    <td>Bajo (Low)</td>
+                                    <td><strong class="sigla">C:L</strong></td>
+                                    <td>El atacante solo puede acceder de manera parcial a información no crítica o restringida; no hay exposición masiva de bases de datos.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Impacto en Integridad (I)</strong></td>
+                                    <td>Bajo (Low)</td>
+                                    <td><strong class="sigla">I:L</strong></td>
+                                    <td>Las modificaciones a la información están restringidas y no alteran de manera destructiva el funcionamiento del negocio.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Impacto en Disponibilidad (A)</strong></td>
+                                    <td>Bajo (Low)</td>
+                                    <td><strong class="sigla">A:L</strong></td>
+                                    <td>El sistema puede sufrir degradación menor en su velocidad de respuesta, pero no se interrumpe totalmente el servicio web.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <hr />
+
+                        <!-- Interpretación Técnica -->
+                        <h3>4. Interpretación Técnica</h3>
+                        <p>A pesar de que el requisito de privilegios elevados (<strong class="sigla">PR:H</strong>) actúa como un control de seguridad inicial muy robusto, la vulnerabilidad no debe descartarse ni perder relevancia en una auditoría de seguridad corporativa.</p>
+                        
+                        <p>En un entorno de producción real, un atacante sofisticado que logre comprometer una cuenta administrativa a través de otros vectores previos (como fuerza bruta, inyección SQL o campañas avanzadas de phishing) utilizará inmediatamente este fallo de severidad media para realizar <strong>movimientos laterales</strong> o alterar información interna del sistema sin dejar rastro de interacción con el usuario. El perfil típico de amenaza para esta vulnerabilidad suele ser un <strong>insider</strong> (un empleado deshonesto) o un actor externo persistente (APT) en etapa avanzada. Dado que el impacto es Bajo en las tres dimensiones CIA (Confidencialidad, Integridad y Disponibilidad), la explotación no representa el colapso total de la infraestructura, pero sí genera una preocupante degradación en la confianza de los datos procesados por la aplicación.</p>
+
+                        <hr />
+
+                        <!-- Calculadora CVSS Simulada -->
+                        <h3>5. Cálculo de Puntuación (FIRST Official Simulator)</h3>
+                        <p>A continuación se presenta el cálculo de puntuación simulado, equivalente técnico exacto de los resultados procesados con la calculadora de seguridad oficial del <strong>FIRST (Forum of Incident Response and Security Teams)</strong>:</p>
+
+                        <!-- Simulador Interactivo de Calculadora CVSS -->
+                        <div class="cvss-simulator">
+                            <div class="cvss-simulator-header">
+                                <span class="cvss-simulator-title"><i class="icon solid fa-tachometer-alt" style="margin-right: 5px;"></i> Panel Base de Métricas CVSS v3.1</span>
+                                <span class="cvss-simulator-logo">FIRST Official V3.1 Mapping</span>
+                            </div>
+
+                            <div class="cvss-grid">
+                                <!-- Columna Izquierda: Métricas -->
+                                <div class="cvss-metrics-column">
+                                    
+                                    <div class="cvss-metric-row">
+                                        <span class="cvss-metric-name">Vector de Ataque (AV)</span>
+                                        <div class="cvss-metric-options">
+                                            <span class="cvss-option-btn selected">Red (N)</span>
+                                            <span class="cvss-option-btn">Adyacente (A)</span>
+                                            <span class="cvss-option-btn">Local (L)</span>
+                                            <span class="cvss-option-btn">Físico (P)</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="cvss-metric-row">
+                                        <span class="cvss-metric-name">Complejidad del Ataque (AC)</span>
+                                        <div class="cvss-metric-options">
+                                            <span class="cvss-option-btn selected">Baja (L)</span>
+                                            <span class="cvss-option-btn">Alta (H)</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="cvss-metric-row">
+                                        <span class="cvss-metric-name">Privilegios Requeridos (PR)</span>
+                                        <div class="cvss-metric-options">
+                                            <span class="cvss-option-btn">Ninguno (N)</span>
+                                            <span class="cvss-option-btn">Bajos (L)</span>
+                                            <span class="cvss-option-btn selected">Altos (H)</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="cvss-metric-row">
+                                        <span class="cvss-metric-name">Interación del Usuario (UI)</span>
+                                        <div class="cvss-metric-options">
+                                            <span class="cvss-option-btn selected">Ninguna (N)</span>
+                                            <span class="cvss-option-btn">Requerida (R)</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="cvss-metric-row">
+                                        <span class="cvss-metric-name">Alcance (Scope - S)</span>
+                                        <div class="cvss-metric-options">
+                                            <span class="cvss-option-btn selected">Sin Cambios (U)</span>
+                                            <span class="cvss-option-btn">Cambia (C)</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="cvss-metric-row">
+                                        <span class="cvss-metric-name">Confidencialidad (C)</span>
+                                        <div class="cvss-metric-options">
+                                            <span class="cvss-option-btn">Ninguno (N)</span>
+                                            <span class="cvss-option-btn selected impact-low">Bajo (L)</span>
+                                            <span class="cvss-option-btn">Alto (H)</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="cvss-metric-row">
+                                        <span class="cvss-metric-name">Integridad (I)</span>
+                                        <div class="cvss-metric-options">
+                                            <span class="cvss-option-btn">Ninguno (N)</span>
+                                            <span class="cvss-option-btn selected impact-low">Bajo (L)</span>
+                                            <span class="cvss-option-btn">Alto (H)</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="cvss-metric-row">
+                                        <span class="cvss-metric-name">Disponibilidad (A)</span>
+                                        <div class="cvss-metric-options">
+                                            <span class="cvss-option-btn">Ninguno (N)</span>
+                                            <span class="cvss-option-btn selected impact-low">Bajo (L)</span>
+                                            <span class="cvss-option-btn">Alto (H)</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Columna Derecha: Resultado -->
+                                <div class="cvss-score-column">
+                                    <div class="cvss-score-gauge">
+                                        <div class="cvss-score-inner">
+                                            <span class="cvss-score-value">4.3</span>
+                                            <br>
+                                            <span class="cvss-score-label">CVSS Base</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <span class="cvss-severity-badge">Severidad Media</span>
+                                    
+                                    <p class="cvss-score-desc">
+                                        <strong>Fórmula Base:</strong> La puntuación se calcula evaluando los coeficientes de las métricas de explotación e impacto. El requisito de altos privilegios (PR:H) actúa como un reductor de severidad, disminuyendo el puntaje base final a 4.3 sobre 10.0.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <!-- Conclusión -->
+                        <h3>6. Conclusión</h3>
+                        <p>La evaluación sistemática mediante el modelo estándar CVSS v3.1 arroja un resultado numérico final de <strong>4.3</strong>, situando de forma unánime esta vulnerabilidad en una categoría formal de <strong>Severidad Media</strong> (dentro del rango estándar de 4.0 a 6.9).</p>
+                        
+                        <p>Desde una perspectiva práctica de gestión y priorización de riesgos corporativos, este hallazgo debe ser debidamente documentado en el inventario activo de seguridad de la organización. Se recomienda programar e implementar su remediación técnica (patching o parche de código) una vez que las vulnerabilidades catalogadas previamente como "Críticas" (9.0 - 10.0) e "Altas" (7.0 - 8.9) hayan sido mitigadas y cerradas con éxito. La principal medida preventiva y de control compensatorio para este caso específico radica en el robustecimiento de los mecanismos de autenticación y control de acceso (como implementar doble factor de autenticación MFA) y en el monitoreo estricto y en tiempo real de logs en las cuentas con privilegios administrativos para bloquear ataques de escalamiento lateral.</p>
+
+                        <!-- PDF Download Section -->
+                        <div style="text-align: center; margin-top: 3.5em; border-top: 1px solid #eee; padding-top: 2em;">
+                            <p style="font-size: 0.95em; color: #666;">¿Deseas consultar el reporte de evaluación de CVSS original en formato PDF?</p>
+                            <a href="Actividades/act17.pdf" class="pdf-btn" download>
+                                <i class="icon solid fa-file-pdf" style="margin-right: 8px;"></i> Descargar PDF Original (act17.pdf)
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article class="wrapper style4">
+        <div class="container medium">
+            <footer>
+                <ul id="copyright">
+                    <li>&copy; Alonso Castillo Omar Karim. Todos los derechos reservados.</li>
+                    <li>Diseño base: <a href="http://html5up.net">HTML5 UP</a></li>
+                </ul>
+            </footer>
+        </div>
+    </article>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
